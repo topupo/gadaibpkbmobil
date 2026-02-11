@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gadai BPKB Mobil - Dana Cepat, Aman & Mudah | GadaiBPKBMobil.com</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0D47A1;
+            --primary-dark: #1565C0;
+            --accent: #FF6B35;
+            --accent-hover: #E55A2B;
+            --success: #00C853;
+            --text: #212121;
+            --text-secondary: #616161;
+            --bg: #FFFFFF;
+            --bg-light: #F5F7FA;
+            --border: #E0E0E0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        /* Header - Exact Seva.id Layout */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        nav {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .logo-box {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .header-cta {
+            background: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .header-cta:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section - 2 Column Layout (Text Left, Form Right) */
+        .hero {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        /* Trust Badges - Below Text in Hero */
+        .trust-indicators {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .trust-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Calculator Form - Right Side */
+        .hero-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+
+        .hero-form h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .estimate-result {
+            background: var(--bg-light);
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .estimate-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .estimate-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .form-cta {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-cta:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Member Badge - Below Hero */
+        .member-badge {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .badge-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--bg-light);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+        }
+
+        .badge-container img {
+            height: 32px;
+        }
+
+        .badge-text {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Section Container */
+        .section {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Features - 3 Column Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* How It Works - 4 Steps */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step-card {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0 auto 1.25rem;
+        }
+
+        .step-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .step-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Benefits - 2 Column Layout */
+        .benefits-section {
+            background: var(--bg-light);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefits-list li {
+            padding: 1rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+            font-size: 1rem;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .benefits-list li:last-child {
+            border-bottom: none;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            width: 28px;
+            height: 28px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+
+        .benefits-visual {
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .big-stat {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Testimonials - 3 Column Grid */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .stars {
+            color: #FFC107;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .author-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .author-role {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* CTA Section - Full Width */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary,
+        .cta-secondary {
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .cta-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255,255,255,0.3);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Footer - Multi Column */
+        footer {
+            background: var(--text);
+            color: white;
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-text h1 {
+                font-size: 2.25rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .features-grid,
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - Logo Left, Nav Center, CTA Right -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-box">🚗</div>
+                <span>GadaiBPKB</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#keunggulan">Keunggulan</a></li>
+                <li><a href="#cara-kerja">Cara Kerja</a></li>
+                <li><a href="#testimoni">Testimoni</a></li>
+            </ul>
+            <a href="#kontak" class="header-cta">Ajukan Sekarang</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section - Text Left, Form Right -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Dana Cepat Tanpa Ribet dengan BPKB Mobil</h1>
+            <p class="subtitle">Dapatkan pinjaman hingga 90% dari nilai kendaraan dengan proses persetujuan instant dalam 24 jam. Mobil tetap bisa dipakai!</p>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <div class="trust-icon">✓</div>
+                    <span>Terdaftar OJK</span>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">✓</div>
+                    <span>Bunga 0.9%/bulan</span>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">✓</div>
+                    <span>Proses 24 Jam</span>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">✓</div>
+                    <span>Mobil Tetap Dipakai</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-form">
+            <h3>Hitung Estimasi Pinjaman</h3>
+            <form id="loanForm">
+                <div class="form-group">
+                    <label for="carValue">Nilai Kendaraan</label>
+                    <input type="text" id="carValue" placeholder="Contoh: 150000000" value="150000000">
+                </div>
+                <div class="form-group">
+                    <label for="loanPercent">Persentase Pinjaman</label>
+                    <select id="loanPercent">
+                        <option value="70">70% dari nilai kendaraan</option>
+                        <option value="80">80% dari nilai kendaraan</option>
+                        <option value="90" selected>90% dari nilai kendaraan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tenor">Jangka Waktu</label>
+                    <select id="tenor">
+                        <option value="12">12 Bulan</option>
+                        <option value="24" selected>24 Bulan</option>
+                        <option value="36">36 Bulan</option>
+                    </select>
+                </div>
+
+                <div class="estimate-result">
+                    <div class="estimate-label">Estimasi Dana Cair</div>
+                    <div class="estimate-value" id="loanAmount">Rp 135.000.000</div>
+                </div>
+
+                <div class="estimate-result">
+                    <div class="estimate-label">Cicilan per Bulan</div>
+                    <div class="estimate-value" id="monthlyPayment">Rp 6.187.500</div>
+                </div>
+
+                <button type="button" class="form-cta" onclick="window.location.href='#kontak'">
+                    Ajukan Pinjaman Sekarang
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Member Badge -->
+    <section class="member-badge">
+        <div class="badge-container">
+            <span class="badge-text">🏆 Terdaftar dan Diawasi oleh Otoritas Jasa Keuangan (OJK)</span>
+        </div>
+    </section>
+
+    <!-- Features - 3 Column Grid -->
+    <section class="section" id="keunggulan">
+        <div class="section-header">
+            <h2>Keunggulan Kami</h2>
+            <p>Solusi pinjaman terpercaya dengan proses mudah dan transparan</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Proses Cepat</h3>
+                <p>Persetujuan dalam hitungan menit dengan pencairan dana maksimal 24 jam setelah dokumen lengkap</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Plafon Tinggi</h3>
+                <p>Pinjaman hingga 90% dari nilai kendaraan dengan bunga kompetitif mulai 0.9% per bulan</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚗</div>
+                <h3>Mobil Tetap Dipakai</h3>
+                <p>Kendaraan tetap bisa digunakan untuk aktivitas sehari-hari, yang kami simpan hanya BPKB</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Aman & Terpercaya</h3>
+                <p>Terdaftar resmi dan diawasi OJK dengan sistem keamanan dokumen berlapis</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📄</div>
+                <h3>Syarat Mudah</h3>
+                <p>Persyaratan dokumen sederhana tanpa perlu survey rumah atau jaminan tambahan</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Tenor Fleksibel</h3>
+                <p>Pilihan tenor 1-3 tahun dengan kemudahan perpanjang atau pelunasan kapan saja</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works - 4 Steps -->
+    <section class="section" id="cara-kerja">
+        <div class="section-header">
+            <h2>Cara Kerjanya Mudah</h2>
+            <p>4 langkah sederhana untuk mendapatkan dana yang Anda butuhkan</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Konsultasi</h3>
+                <p>Hubungi kami via WhatsApp atau isi form untuk konsultasi gratis</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Survei Kendaraan</h3>
+                <p>Tim kami cek kondisi kendaraan dan estimasi nilai</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Pengajuan</h3>
+                <p>Lengkapi dokumen dan dapatkan persetujuan instant</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3>Dana Cair</h3>
+                <p>Dana langsung transfer ke rekening maksimal 24 jam</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits - 2 Column Layout -->
+    <section class="section benefits-section">
+        <div class="section-header">
+            <h2>Mengapa Memilih Kami?</h2>
+            <p>Lebih dari 10.000 pelanggan telah mempercayai kami</p>
+        </div>
+        <div class="benefits-grid">
+            <div>
+                <ul class="benefits-list">
+                    <li>Bunga rendah mulai dari 0.9% per bulan</li>
+                    <li>Tenor fleksibel hingga 3 tahun</li>
+                    <li>Proses approval hanya 1 hari kerja</li>
+                    <li>Tanpa biaya administrasi tersembunyi</li>
+                    <li>Pelayanan ramah dan profesional 24/7</li>
+                    <li>Bisa perpanjang atau pelunasan kapan saja</li>
+                    <li>Lokasi strategis dan mudah dijangkau</li>
+                    <li>Konsultasi gratis tanpa biaya</li>
+                </ul>
+            </div>
+            <div class="benefits-visual">
+                <div class="big-stat">10.000+</div>
+                <div class="stat-label">Pelanggan Puas yang Telah Mempercayai Kami</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials - 3 Column Grid -->
+    <section class="section" id="testimoni">
+        <div class="section-header">
+            <h2>Apa Kata Mereka?</h2>
+            <p>Testimoni dari pelanggan yang telah merasakan layanan kami</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Prosesnya sangat cepat! Pagi ajukan, sore dana sudah cair. Mobilnya masih bisa saya pakai juga. Sangat recommended!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">BA</div>
+                    <div>
+                        <div class="author-name">Budi Andika</div>
+                        <div class="author-role">Pengusaha, Jakarta</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Syaratnya mudah, tidak ribet. Customer service sangat membantu dan responsif. Bunganya juga kompetitif. Puas!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SN</div>
+                    <div>
+                        <div class="author-name">Siti Nurhaliza</div>
+                        <div class="author-role">Wiraswasta, Bandung</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Pertama kali gadai BPKB dan ternyata aman. Tim profesional dan terpercaya. Terima kasih banyak!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RP</div>
+                    <div>
+                        <div class="author-name">Rudi Prasetyo</div>
+                        <div class="author-role">Karyawan Swasta, Surabaya</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section - Full Width -->
+    <section class="cta-section" id="kontak">
+        <h2>Siap Mendapatkan Dana?</h2>
+        <p>Konsultasi gratis dan proses cepat menanti Anda</p>
+        <div class="cta-buttons">
+            <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20konsultasi%20tentang%20gadai%20BPKB%20mobil" class="cta-primary">Chat WhatsApp Sekarang</a>
+            <a href="tel:+622112345678" class="cta-secondary">Telepon Kami</a>
+        </div>
+        <div style="margin-top: 2rem; opacity: 0.95;">
+            <p>📱 WhatsApp: 0812-3456-7890 | 📞 Telepon: (021) 1234-5678</p>
+        </div>
+    </section>
+
+    <!-- Footer - Multi Column -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>GadaiBPKBMobil.com</h3>
+                <p>Solusi pinjaman dana cepat dengan jaminan BPKB mobil. Terpercaya, aman, dan diawasi OJK.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Produk</h4>
+                <ul>
+                    <li><a href="#">Gadai BPKB Mobil</a></li>
+                    <li><a href="#">Gadai BPKB Motor</a></li>
+                    <li><a href="#">Simulasi Kredit</a></li>
+                    <li><a href="#">Cek Kelayakan</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Perusahaan</h4>
+                <ul>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Blog & Artikel</a></li>
+                    <li><a href="#">Karir</a></li>
+                    <li><a href="#">Hubungi Kami</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Pengaduan</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 GadaiBPKBMobil.com - Terdaftar dan Diawasi OJK</p>
+        </div>
+    </footer>
+
+    <script>
+        // Calculator functionality
+        function formatRupiah(number) {
+            return 'Rp ' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function calculateLoan() {
+            const carValue = parseFloat(document.getElementById('carValue').value.replace(/\D/g, ''));
+            const loanPercent = parseFloat(document.getElementById('loanPercent').value);
+            const tenor = parseInt(document.getElementById('tenor').value);
+            const interestRate = 0.009; // 0.9% per month
+
+            const loanAmount = carValue * (loanPercent / 100);
+            const monthlyInterest = loanAmount * interestRate;
+            const monthlyPrincipal = loanAmount / tenor;
+            const monthlyPayment = monthlyPrincipal + monthlyInterest;
+
+            document.getElementById('loanAmount').textContent = formatRupiah(Math.round(loanAmount));
+            document.getElementById('monthlyPayment').textContent = formatRupiah(Math.round(monthlyPayment));
+        }
+
+        // Format input
+        document.getElementById('carValue').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            e.target.value = value;
+            calculateLoan();
+        });
+
+        document.getElementById('loanPercent').addEventListener('change', calculateLoan);
+        document.getElementById('tenor').addEventListener('change', calculateLoan);
+
+        // Initial calculation
+        calculateLoan();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
