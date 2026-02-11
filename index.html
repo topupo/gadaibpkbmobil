@@ -3,378 +3,583 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fasilitas Dana - Simulasi (Seva Clone)</title>
+    <title>Skeleton Fasilitas Dana - Seva Clone</title>
     <style>
         /* --- RESET & VARIABLES --- */
         :root {
-            --primary-blue: #003781; /* Warna Khas Seva */
-            --accent-blue: #2F80ED;
-            --text-dark: #333333;
-            --text-grey: #666666;
-            --bg-light: #F4F6F8;
-            --white: #FFFFFF;
-            --button-cta: #F96D01; /* Warna Oranye Tombol */
-            --max-width: 1140px;
+            --primary-blue: #004990; /* Biru Utama Header */
+            --dark-blue: #002D5F;    /* Biru Tombol CTA */
+            --light-blue-bg: #EAF6FF;
+            --green-acc: #00A651;    /* Hijau Simulasi */
+            --text-dark: #333;
+            --text-grey: #666;
+            --border-radius: 8px;
+            --white: #fff;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: var(--white);
-            color: var(--text-dark);
-            line-height: 1.5;
+            background-color: #f0f0f0; /* Background luar */
+            display: flex;
+            justify-content: center;
         }
 
-        /* --- UTILITIES --- */
-        .container {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            transition: 0.3s;
-        }
-
-        .btn-primary {
-            background-color: var(--button-cta);
-            color: var(--white);
+        /* Container Mobile (Max-width 480px untuk meniru tampilan HP) */
+        .mobile-container {
             width: 100%;
-            text-align: center;
+            max-width: 480px;
+            background-color: var(--white);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
         }
 
-        .btn-primary:hover {
-            opacity: 0.9;
-        }
-
-        /* --- NAVBAR --- */
+        /* --- HEADER --- */
         header {
-            background: var(--white);
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .nav-flex {
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-
-        .logo-placeholder {
-            font-weight: 900;
-            font-size: 24px;
-            color: var(--primary-blue);
-            letter-spacing: -1px;
-        }
+        .logo { font-weight: 900; color: var(--primary-blue); font-size: 24px; letter-spacing: -1px; }
+        .nav-icons span { margin-left: 15px; font-size: 20px; color: var(--text-dark); cursor: pointer;}
 
         /* --- HERO SECTION --- */
         .hero {
-            background-color: var(--primary-blue);
+            background: linear-gradient(180deg, #1fa2ff 0%, #12d8fa 100%); /* Biru gradasi langit */
             color: var(--white);
-            padding: 60px 0;
-            position: relative;
+            text-align: center;
+            padding: 30px 20px 0;
             overflow: hidden;
         }
-
-        .hero-content {
+        .hero h1 { font-size: 22px; line-height: 1.3; font-weight: 700; margin-bottom: 15px; }
+        .hero-stats {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
-        }
-
-        .hero-text {
-            flex: 1;
-        }
-
-        .hero-text h1 {
-            font-size: 42px;
-            font-weight: 800;
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
-
-        .hero-text p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        /* --- FORM CARD (Sticky style) --- */
-        .hero-form-wrapper {
-            flex: 0 0 400px;
-            background: var(--white);
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            color: var(--text-dark);
-        }
-
-        .form-title {
-            font-size: 20px;
-            font-weight: 700;
+            justify-content: space-around;
             margin-bottom: 20px;
-            text-align: center;
+            font-size: 11px;
         }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-grey);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-        }
-
-        /* --- USPs (Keunggulan) --- */
-        .usp-section {
-            padding: 60px 0;
-            background: var(--bg-light);
-            text-align: center;
-        }
-
-        .section-title {
-            font-size: 28px;
+        .stat-item i { display: block; font-size: 20px; margin-bottom: 5px; }
+        .btn-cta-hero {
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 25px;
             font-weight: 700;
-            margin-bottom: 40px;
-            color: var(--primary-blue);
+            border: none;
+            width: 100%;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            cursor: pointer;
         }
-
-        .usp-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+        .hero-image-placeholder {
+            width: 100%;
+            height: 180px;
+            background: rgba(255,255,255,0.2);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
         }
+        .hero-image-placeholder img { width: 80%; }
 
-        .usp-card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        .icon-placeholder {
-            width: 60px;
-            height: 60px;
-            background: #E6F0FA;
-            border-radius: 50%;
-            margin: 0 auto 20px;
+        /* --- SECTION: CARA PENGAJUAN --- */
+        .section { padding: 30px 20px; }
+        .section-title { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 25px; color: var(--text-dark); }
+        
+        .phone-mockup {
+            width: 140px;
+            height: 250px;
+            background: #eee;
+            margin: 0 auto 30px;
+            border-radius: 20px;
+            border: 4px solid #333;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
         }
 
-        .usp-card h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
+        .steps-list { display: flex; flex-direction: column; gap: 15px; }
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            background: #fff;
+            padding: 10px;
+        }
+        .step-num {
+            background: #eef5fc;
+            color: var(--primary-blue);
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .step-text h4 { font-size: 14px; margin-bottom: 4px; }
+        .step-text p { font-size: 12px; color: var(--text-grey); }
+
+        /* --- SECTION: PENDIDIKAN/PROMO --- */
+        .promo-card {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .promo-img {
+            width: 100%; height: 150px; background: #ddd; border-radius: 10px; margin-bottom: 15px;
+        }
+        .partner-logos { display: flex; justify-content: center; gap: 20px; margin-top: 15px; }
+        .partner-box { width: 60px; height: 30px; background: #eee; }
+
+        /* --- SECTION: SIMULASI (CARD STYLE) --- */
+        .simulation-card {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        .car-preview { padding: 20px; text-align: center; }
+        .car-img { width: 180px; height: 100px; background: #ddd; margin: 0 auto; border-radius: 8px;}
+        
+        .sim-header {
+            background: var(--green-acc);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .sim-body { padding: 20px; }
+        .price-row { margin-bottom: 15px; }
+        .price-label { font-size: 12px; color: var(--text-grey); }
+        .price-value { font-size: 20px; font-weight: 800; color: var(--text-dark); }
+        .green-text { color: var(--green-acc); font-size: 12px; font-weight: bold; }
+        
+        .check-list { list-style: none; margin-bottom: 20px; }
+        .check-list li {
+            font-size: 12px; margin-bottom: 8px; display: flex; align-items: center;
+        }
+        .check-list li::before {
+            content: "✔"; color: var(--green-acc); margin-right: 8px; font-weight: bold;
         }
 
-        .usp-card p {
+        /* --- SECTION: KEUNTUNGAN (GRID) --- */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .benefit-item {
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+        }
+        .benefit-icon { font-size: 24px; margin-bottom: 10px; color: #f26522; }
+        .benefit-title { font-size: 14px; font-weight: 700; margin-bottom: 5px; color: var(--primary-blue); }
+        .benefit-desc { font-size: 11px; color: var(--text-grey); }
+
+        /* --- SECTION: SYARAT DOKUMEN --- */
+        .doc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .doc-item { display: flex; align-items: center; font-size: 14px; font-weight: 600; color: var(--primary-blue); }
+        .doc-icon { margin-right: 10px; color: var(--green-acc); }
+
+        /* --- SECTION: TESTIMONI --- */
+        .testi-card {
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+            margin: 20px 0;
+        }
+        .quote-mark { font-size: 40px; color: #ddd; line-height: 0; position: absolute; top: 20px; left: 20px; }
+        .testi-text { font-size: 14px; margin: 20px 0; font-style: italic; }
+        .user-info { font-size: 12px; font-weight: bold; }
+
+        /* --- FORM SECTION (BLUE BG) --- */
+        .form-section {
+            background: #0064D2; /* Biru terang Form */
+            color: white;
+            padding: 30px 20px;
+        }
+        .form-section h2 { font-size: 18px; margin-bottom: 5px; }
+        .form-section p { font-size: 12px; margin-bottom: 20px; opacity: 0.9; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; font-size: 12px; margin-bottom: 5px; font-weight: 600; }
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: none;
             font-size: 14px;
-            color: var(--text-grey);
+        }
+        .radio-group { display: flex; gap: 15px; margin-bottom: 15px; }
+        .radio-item { display: flex; align-items: center; font-size: 13px; }
+        .radio-item input { margin-right: 5px; }
+        
+        .checkbox-wrapper { display: flex; align-items: flex-start; font-size: 11px; gap: 8px; margin-bottom: 20px; opacity: 0.9; }
+        
+        .btn-submit {
+            background: #ccc; /* Disabled state color initially */
+            color: #666;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: not-allowed;
         }
 
-        /* --- FAQ SECTION --- */
-        .faq-section {
-            padding: 60px 0;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
+        /* --- FAQ (ACCORDION) --- */
+        .faq-container { margin-top: 20px; }
+        details {
             border-bottom: 1px solid #ddd;
-            margin-bottom: 10px;
+            padding: 15px 0;
         }
-
-        .faq-item summary {
-            padding: 20px 0;
-            cursor: pointer;
+        summary {
             font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
             list-style: none;
             display: flex;
             justify-content: space-between;
-            align-items: center;
         }
-
-        .faq-item summary::after {
-            content: '+';
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .faq-item[open] summary::after {
-            content: '-';
-        }
-
-        .faq-content {
-            padding-bottom: 20px;
-            color: var(--text-grey);
-            font-size: 15px;
-        }
+        summary::after { content: "+"; font-size: 18px; color: var(--text-grey); }
+        details[open] summary::after { content: "-"; }
+        .faq-ans { padding-top: 10px; font-size: 13px; color: var(--text-grey); line-height: 1.5; }
 
         /* --- FOOTER --- */
         footer {
-            background: var(--primary-blue);
-            color: var(--white);
-            padding: 40px 0;
-            text-align: center;
-            font-size: 14px;
+            background: var(--dark-blue);
+            color: white;
+            padding: 30px 20px 80px; /* Extra padding bottom for whatsapp */
+            font-size: 12px;
         }
+        .footer-logos { margin-bottom: 20px; }
+        .footer-logo-box { width: 50px; height: 50px; background: white; border-radius: 5px; display: inline-block; margin-right: 10px; }
+        .footer-links a { color: white; display: block; margin-bottom: 8px; text-decoration: none; }
+        .social-icons { margin-top: 20px; display: flex; gap: 15px; }
+        .social-box { width: 30px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 50%; }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 768px) {
-            .hero-content {
-                flex-direction: column;
-            }
-            .hero-text h1 {
-                font-size: 32px;
-                text-align: center;
-            }
-            .hero-text p {
-                text-align: center;
-            }
-            .hero-form-wrapper {
-                width: 100%;
-            }
+        /* --- WHATSAPP FLOATING --- */
+        .wa-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            color: white;
+            font-size: 24px;
+            z-index: 999;
         }
     </style>
 </head>
 <body>
 
+<div class="mobile-container">
+
     <header>
-        <div class="container nav-flex">
-            <div class="logo-placeholder">SEVA</div>
-            </div>
+        <div class="logo">seva</div>
+        <div class="nav-icons">
+            <span>🔍</span>
+            <span>👤</span>
+        </div>
     </header>
 
     <section class="hero">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1>Butuh Dana Cepat? <br>Jaminan BPKB Mobil</h1>
-                <p>Cairkan dana tunai untuk segala kebutuhan Anda dengan proses yang mudah, aman, dan terpercaya.</p>
-                <div style="width: 100%; height: 250px; background: rgba(255,255,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.3);">
-                    <span>[Tempatkan Image Mobil Transparan di Sini]</span>
+        <p style="font-size: 10px; opacity: 0.8; letter-spacing: 1px; margin-bottom: 5px;">FASILITAS DANA</p>
+        <h1>Pinjaman Cepat<br>Jaminan BPKB Mobil<br><span style="color: #ffd700;">Terpercaya dari Astra</span></h1>
+        
+        <div class="hero-stats">
+            <div class="stat-item">
+                <i>%</i>
+                <span>Bunga Mulai<br><strong>0.79%</strong>/bln</span>
+            </div>
+            <div class="stat-item">
+                <i>⚡</i>
+                <span>Pencairan<br><strong>Rp20 Juta</strong></span>
+            </div>
+            <div class="stat-item">
+                <i>📅</i>
+                <span>Tenor Hingga<br><strong>48 Bulan</strong></span>
+            </div>
+        </div>
+
+        <button class="btn-cta-hero">Ajukan Sekarang</button>
+
+        <div class="hero-image-placeholder">
+            <div style="text-align: center; color: white;">[IMG: Hero Mobil & Orang]</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Cara Mudah Pengajuan Pinjaman</h2>
+        
+        <div class="phone-mockup">
+            <span style="font-size:10px; color:#999;">[IMG: Phone App]</span>
+        </div>
+
+        <div class="steps-list">
+            <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-text">
+                    <h4>Kirim pengajuan di sini</h4>
+                    <p>Isi formulir singkat hanya 2 menit.</p>
                 </div>
             </div>
-
-            <div class="hero-form-wrapper">
-                <div class="form-title">Hitung Simulasi Dana</div>
-                <form>
-                    <div class="form-group">
-                        <label>Nama Lengkap</label>
-                        <input type="text" class="form-control" placeholder="Contoh: Budi Santoso">
-                    </div>
-                    <div class="form-group">
-                        <label>Nomor HP (WhatsApp)</label>
-                        <input type="tel" class="form-control" placeholder="0812xxxx">
-                    </div>
-                    <div class="form-group">
-                        <label>Merek Mobil</label>
-                        <select class="form-control">
-                            <option>Pilih Merek</option>
-                            <option>Toyota</option>
-                            <option>Daihatsu</option>
-                            <option>Honda</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Tahun Kendaraan</label>
-                        <select class="form-control">
-                            <option>Pilih Tahun</option>
-                            <option>2020</option>
-                            <option>2021</option>
-                            <option>2022</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Cek Dana Pencairan</button>
-                </form>
+            <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-text">
+                    <h4>Konfirmasi dengan tim kami</h4>
+                    <p>Tim SEVA akan menghubungi Anda untuk konfirmasi.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                    <h4>Pengajuan diproses</h4>
+                    <p>Proses survei kendaraan dan validasi dokumen.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-text">
+                    <h4>Dana cair</h4>
+                    <p>Dana ditransfer ke rekening Anda.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="usp-section">
-        <div class="container">
-            <h2 class="section-title">Kenapa Memilih Fasilitas Dana?</h2>
-            <div class="usp-grid">
-                <div class="usp-card">
-                    <div class="icon-placeholder">⚡</div>
-                    <h3>Proses Cepat</h3>
-                    <p>Dana cair dalam waktu singkat setelah dokumen lengkap disetujui.</p>
+    <section class="section" style="background-color: #f9f9f9; text-align: center;">
+        <div class="promo-img">[IMG: Wanita Wisuda]</div>
+        <h3 style="font-size: 16px; margin-bottom: 10px;">Fasilitas Dana untuk<br><strong>Biaya Pendidikan</strong></h3>
+        <p style="font-size: 12px; color: #666; margin-bottom: 20px;">
+            Wujudkan cita-cita anak Anda dengan dana pendidikan cepat cair. Bunga ringan dan aman.
+        </p>
+        <p style="font-size: 10px; color: #999;">Didukung oleh mitra kami:</p>
+        <div class="partner-logos">
+            <div class="partner-box">[Logo 1]</div>
+            <div class="partner-box">[Logo 2]</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title" style="text-align: left; font-size: 16px;">Contoh Simulasi Toyota Avanza</h2>
+        
+        <div class="car-preview">
+            <div class="car-img">[IMG: Avanza Hitam]</div>
+        </div>
+
+        <div class="simulation-card">
+            <div class="sim-header">Tahun 2018</div>
+            <div class="sim-body">
+                <div class="price-row">
+                    <div class="price-label">Total Pencairan</div>
+                    <div class="price-value">Rp 100.000.000</div>
                 </div>
-                <div class="usp-card">
-                    <div class="icon-placeholder">🛡️</div>
-                    <h3>Aman & Terpercaya</h3>
-                    <p>Bekerja sama dengan mitra pembiayaan yang terdaftar di OJK.</p>
+                <div class="price-row">
+                    <div class="price-label">Cicilan 48x</div>
+                    <div class="price-value">Rp 3.080.000</div>
+                    <span class="green-text">0.79% / bulan</span>
                 </div>
-                <div class="usp-card">
-                    <div class="icon-placeholder">💰</div>
-                    <h3>Bunga Kompetitif</h3>
-                    <p>Dapatkan penawaran bunga terbaik sesuai kondisi kendaraan Anda.</p>
-                </div>
+
+                <ul class="check-list">
+                    <li>Angsuran lebih terjangkau tenor lebih panjang</li>
+                    <li>Harga wajar berdasarkan pasar</li>
+                    <li>Tim profesional</li>
+                    <li>Proses aman dan transparan</li>
+                </ul>
+
+                <button class="btn-cta-hero" style="margin-bottom: 0;">Ajukan Sekarang</button>
             </div>
         </div>
     </section>
 
-    <section class="faq-section">
-        <div class="container">
-            <h2 class="section-title" style="text-align: center;">Pertanyaan Umum</h2>
+    <section class="section">
+        <h2 class="section-title">Keuntungan Fasilitas Dana BPKB</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon">🌸</div>
+                <div class="benefit-title">Bunga Mulai<br>0.79%/bln</div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">💰</div>
+                <div class="benefit-title">Pencairan s.d.<br>Rp 500 Jt</div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">📅</div>
+                <div class="benefit-title">Tenor s.d.<br>48 Bulan</div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🛡️</div>
+                <div class="benefit-title">Terpercaya<br>Bagian dari Astra</div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">⚡</div>
+                <div class="benefit-title">Proses Cepat</div>
+                <div class="benefit-desc">Dokumen lengkap, cair cepat</div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🏠</div>
+                <div class="benefit-title">Penggunaan Mudah</div>
+                <div class="benefit-desc">Untuk segala kebutuhan</div>
+            </div>
+        </div>
+        <button class="btn-cta-hero">Ajukan Sekarang</button>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title" style="text-align: left;">Cukup Siapkan 4 Dokumen untuk Proses Awal</h2>
+        <div class="doc-list">
+            <div class="doc-item"><span class="doc-icon">☑</span> KTP Pemohon & Pasangan (jika menikah)</div>
+            <div class="doc-item"><span class="doc-icon">☑</span> Kartu Keluarga</div>
+            <div class="doc-item"><span class="doc-icon">☑</span> STNK Mobil</div>
+            <div class="doc-item"><span class="doc-icon">☑</span> BPKB Mobil</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title" style="text-align: left;">Cerita Pengguna</h2>
+        <div class="testi-card">
+            <div class="quote-mark">“</div>
+            <div class="user-info" style="color: #f26522; font-size: 10px; letter-spacing: 1px;">SEVA.ID</div>
+            <h3 style="margin-top: 5px; font-size: 16px;">"Solusi Mobil yang Terbukti Aman"</h3>
+            <p class="testi-text">Butuh modal? Langsung aja ke SEVA. Prosesnya mudah, cepat, dan pastinya aman karena dari Astra.</p>
+            <div class="user-info">Joko Susilo<br><span style="font-weight: normal; color: #999;">Wiraswasta, Jakarta</span></div>
+        </div>
+    </section>
+
+    <section class="form-section">
+        <h2>Yuk, diskusi dengan SEVA!</h2>
+        <p>Isi form di bawah ini. Tim kami akan segera menghubungi Anda.</p>
+
+        <form>
+            <div class="form-group">
+                <label class="form-label">Nama Lengkap</label>
+                <input type="text" class="form-input" placeholder="Masukkan nama lengkap">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Nomor Handphone</label>
+                <input type="tel" class="form-input" placeholder="08x - xxxx - xxxx">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Jenis Kendaraan</label>
+                <select class="form-select">
+                    <option>Pilih Merk Kendaraan</option>
+                    <option>Toyota</option>
+                    <option>Daihatsu</option>
+                    <option>Isuzu</option>
+                    <option>BMW</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Tahun & Model</label>
+                <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="model" checked> Baru</label>
+                    <label class="radio-item"><input type="radio" name="model"> Bekas</label>
+                </div>
+            </div>
+
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="policy">
+                <label for="policy">Saya setuju data direkam dan diproses sesuai Kebijakan Privasi yang berlaku.</label>
+            </div>
             
-            <details class="faq-item">
-                <summary>Apa saja syarat pengajuan?</summary>
-                <div class="faq-content">
-                    Syarat utamanya adalah KTP, NPWP, STNK, dan BPKB mobil atas nama sendiri atau keluarga dalam satu KK.
-                </div>
-            </details>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="promo">
+                <label for="promo">Saya bersedia menerima informasi layanan/produk terbaru dari SEVA.</label>
+            </div>
 
-            <details class="faq-item">
+            <button type="button" class="btn-submit">KIRIM</button>
+        </form>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title" style="text-align: left; border-bottom: none;">Pertanyaan yang Sering Diajukan</h2>
+        
+        <div class="faq-container">
+            <details>
+                <summary>Apa itu Fasilitas Dana?</summary>
+                <div class="faq-ans">Fasilitas dana adalah layanan pinjaman tunai dengan agunan BPKB mobil.</div>
+            </details>
+            <details>
+                <summary>Apakah BPKB saya aman digadaikan?</summary>
+                <div class="faq-ans">Ya, aman. Kami bekerjasama dengan leasing terpercaya di bawah naungan Astra dan OJK.</div>
+            </details>
+            <details>
                 <summary>Berapa lama proses pencairan dana?</summary>
-                <div class="faq-content">
-                    Proses pencairan biasanya memakan waktu 1-3 hari kerja setelah survei kendaraan dilakukan.
-                </div>
+                <div class="faq-ans">Proses pencairan biasanya memakan waktu 1-3 hari kerja setelah survei dan dokumen lengkap.</div>
             </details>
-
-            <details class="faq-item">
-                <summary>Apakah BPKB aman?</summary>
-                <div class="faq-content">
-                    Ya, BPKB Anda disimpan dengan aman oleh mitra leasing resmi yang diawasi oleh OJK.
-                </div>
+            <details>
+                <summary>Berapa minimal tahun kendaraan?</summary>
+                <div class="faq-ans">Minimal tahun kendaraan adalah 2012 untuk mobil Jepang.</div>
+            </details>
+            <details>
+                <summary>Bagaimana cara mengajukan pinjaman?</summary>
+                <div class="faq-ans">Cukup isi form di atas dan tim kami akan menghubungi Anda.</div>
             </details>
         </div>
     </section>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2024 Modifikasi Seva Clone. All rights reserved.</p>
+        <div class="footer-logos">
+            <div class="footer-logo-box" style="width: 40px; height: 40px;"></div>
+            <div class="footer-logo-box" style="width: 80px; height: 40px;"></div>
         </div>
+        <p style="margin-bottom: 15px;">PT Astra Auto Digital. Menara Astra Lt. 55, Jl. Jend. Sudirman Kav 5-6, Jakarta 10220.</p>
+        
+        <div class="footer-links">
+            <a href="#">Tentang Kami</a>
+            <a href="#">Syarat & Ketentuan</a>
+            <a href="#">Kebijakan Privasi</a>
+            <a href="#">Hubungi Kami</a>
+        </div>
+
+        <div class="social-icons">
+            <div class="social-box"></div> <div class="social-box"></div> <div class="social-box"></div> <div class="social-box"></div> </div>
+
+        <div style="margin-top: 30px; display: flex; align-items: center; gap: 10px;">
+            <div style="width: 30px; height: 30px; background: #fff; border-radius: 50%;"></div>
+            <p style="font-size: 10px;">Terdaftar dan diawasi oleh Otoritas Jasa Keuangan (OJK)</p>
+        </div>
+
+        <p style="margin-top: 30px; text-align: center; font-size: 10px; opacity: 0.7;">&copy; 2024 Copyright SEVA</p>
     </footer>
+
+    <a href="#" class="wa-float">
+        <span>📞</span> 
+    </a>
+
+</div>
 
 </body>
 </html>
