@@ -675,7 +675,7 @@
         <button class="btn-cta-hero">Ajukan Sekarang</button>
 
         <div class="hero-image">
-            <img src="assets/gbmn.webp" alt="Happy Family with Car">
+            <img src="assets/gbml.webp" alt="Happy Family with Car">
         </div>
     </section>
 
@@ -1197,7 +1197,7 @@
                 <label for="promo">Saya bersedia menerima informasi layanan/produk terbaru dari GadaiBPKBmobil.com.</label>
             </div>
 
-            <button type="submit" class="btn-submit">KIRIM</button>
+            <button type="submit" class="btn-submit">Kirim via WhatsApp</button>
         </form>
     </section>
 
@@ -1275,7 +1275,7 @@
         }
     }
 
-    // Form Validation
+    // Form Validation & WhatsApp Integration
     document.getElementById('pengajuanForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -1292,7 +1292,25 @@
         });
         
         if (isValid) {
-            alert('Form berhasil dikirim! Tim kami akan segera menghubungi Anda.');
+            // Get form data
+            const nama = this.querySelector('input[name="nama"]').value;
+            const hp = this.querySelector('input[name="hp"]').value;
+            const kecamatan = this.querySelector('input[name="kecamatan"]').value;
+            const bpkb = this.querySelector('input[name="bpkb"]:checked').value;
+            
+            // Format WhatsApp message
+            const message = `*PENGAJUAN FASILITAS DANA BPKB*%0A%0A` +
+                          `📝 *Nama:* ${nama}%0A` +
+                          `📞 *No. HP:* ${hp}%0A` +
+                          `📍 *Kecamatan:* ${kecamatan}%0A` +
+                          `🚗 *Jenis BPKB:* ${bpkb.charAt(0).toUpperCase() + bpkb.slice(1)}%0A%0A` +
+                          `_Mohon konfirmasi untuk proses selanjutnya. Terima kasih!_`;
+            
+            // WhatsApp number (your number)
+            const waNumber = '6282299999036';
+            
+            // Redirect to WhatsApp
+            window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
         } else {
             alert('Mohon lengkapi semua field yang wajib diisi.');
         }
