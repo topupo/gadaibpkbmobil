@@ -1,15 +1,213 @@
-// FAQ Toggle
-document.querySelectorAll('.faq-question').forEach(question => {
-    question.addEventListener('click', () => {
-        const faqItem = question.parentElement;
-        faqItem.classList.toggle('active');
+// Data Merk Kendaraan
+const merkKendaraan = {
+    mobil: [
+        // Jepang
+        'Daihatsu', 'Honda', 'Isuzu', 'Mazda', 'Mitsubishi', 'Nissan', 'Suzuki', 'Toyota',
+        // Korea
+        'Hyundai', 'Kia',
+        // Eropa
+        'Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Volvo',
+        // China
+        'Chery', 'DFSK', 'MG', 'Wuling'
+    ],
+    motor: [
+        // Jepang only
+        'Honda', 'Kawasaki', 'Suzuki', 'Yamaha'
+    ],
+    truk: [
+        // Jepang
+        'Daihatsu', 'Hino', 'Isuzu', 'Mitsubishi Fuso', 'Nissan', 'Toyota',
+        // Korea
+        'Hyundai',
+        // Eropa
+        'Mercedes-Benz', 'Scania', 'Volvo',
+        // China
+        'DFSK', 'Dongfeng', 'FAW', 'Foton', 'Howo', 'JAC', 'JMC', 'Shacman'
+    ]
+};
+
+// Populate Tahun Dropdown (2005-2025)
+function populateTahun() {
+    const tahunSelect = document.getElementById('tahunKendaraan');
+    const currentYear = 2025;
+    const startYear = 2005;
+    
+    for (let year = currentYear; year >= startYear; year--) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        tahunSelect.appendChild(option);
+    }
+}
+
+// Update Merk Dropdown based on BPKB type
+function updateMerkDropdown(type) {
+    const merkSelect = document.getElementById('merkKendaraan');
+    merkSelect.innerHTML = '<option value="">Pilih Merk</option>';
+    
+    const merks = merkKendaraan[type] || [];
+    merks.forEach(merk => {
+        const option = document.createElement('option');
+        option.value = merk;
+        option.textContent = merk;
+        merkSelect.appendChild(option);
+    });
+}
+
+// API Wilayah Indonesia Integration
+const API_BASE = 'https://emsifa.github.io/api-wilayah-indonesia/api';
+
+async function loadProvinsi() {
+    try {
+        const response = await fetch(`${API_BASE}/provinces.json`);
+        const provinces = await response.json();
+        
+        const provinsiSelect = document.getElementById('provinsiSelect');
+        provinces.forEach(prov => {
+            const option = document.createElement('option');
+            option.value = prov.id;
+            option.textContent = prov.name;
+            provinsiSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error loading provinces:', error);
+        alert('Gagal memuat data provinsi. Silakan refresh halaman.');
+    }
+}
+
+async function loadKota(provinsiId) {
+    try {
+        const response = await fetch(`${API_BASE}/regencies/${provinsiId}.json`);
+        const regencies = await response.json();
+        
+        const kotaSelect = document.getElementById('kotaSelect');
+        kotaSelect.innerHTML = '<option value="">Pilih Kota/Kabupaten</option>';
+        kotaSelect.disabled = false;
+        
+        regencies.forEach(reg => {
+            const option = document.createElement('option');
+            option.value = reg.id;
+            option.textContent = reg.name;
+            kotaSelect.appendChild(option);
+        });
+        
+        // Reset kecamatan
+        document.getElementById('kecamatanSelect').innerHTML = '<option value="">Pilih Kecamatan</option>';
+        document.getElementById('kecamatanSelect').disabled = true;
+    } catch (error) {
+        console.error('Error loading regencies:', error);
+        alert('Gagal memuat data kota. Silakan coba lagi.');
+    }
+}
+
+async function loadKecamatan(kotaId) {
+    try {
+        const response = await fetch(`${API_BASE}/districts/${kotaId}.json`);
+        const districts = await response.json();
+        
+        const kecamatanSelect = document.getElementById('kecamatanSelect');
+        kecamatanSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+        kecamatanSelect.disabled = false;
+        
+        districts.forEach(dist => {
+            const option = document.createElement('option');
+            option.value = dist.name;
+            option.textContent = dist.name;
+            kecamatanSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error loading districts:', error);
+        alert('Gagal memuat data kecamatan. Silakan coba lagi.');
+    }
+}
+
+// Event Listeners for Wilayah
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('provinsiSelect').addEventListener('change', function() {
+        if (this.value) {
+            loadKota(this.value);
+        } else {
+            document.getElementById('kotaSelect').innerHTML = '<option value="">Pilih Kota/Kabupaten</option>';
+            document.getElementById('kotaSelect').disabled = true;
+            document.getElementById('kecamatanSelect').innerHTML = '<option value="">Pilih Kecamatan</option>';
+            document.getElementById('kecamatanSelect').disabled = true;
+        }
+    });
+
+    document.getElementById('kotaSelect').addEventListener('change', function() {
+        if (this.value) {
+            loadKecamatan(this.value);
+        } else {
+            document.getElementById('kecamatanSelect').innerHTML = '<option value="">Pilih Kecamatan</option>';
+            document.getElementById('kecamatanSelect').disabled = true;
+        }
+    });
+
+    // Event Listeners for BPKB Type
+    document.querySelectorAll('input[name="bpkb"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            updateMerkDropdown(this.value);
+        });
     });
 });
 
-// Slider Class
+// Form Validation & WhatsApp Integration
+document.getElementById('pengajuanForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const requiredFields = this.querySelectorAll('[required]');
+    let isValid = true;
+    
+    requiredFields.forEach(field => {
+        if (!field.value || (field.type === 'checkbox' && !field.checked)) {
+            isValid = false;
+            field.style.borderLeft = '3px solid #ff6b6b';
+        } else {
+            field.style.borderLeft = 'none';
+        }
+    });
+    
+    if (isValid) {
+        // Get form data
+        const nama = this.querySelector('input[name="nama"]').value;
+        const hp = this.querySelector('input[name="hp"]').value;
+        const bpkb = this.querySelector('input[name="bpkb"]:checked').value;
+        const merk = this.querySelector('select[name="merk"]').value;
+        const tipe = this.querySelector('input[name="tipe"]').value;
+        const tahun = this.querySelector('select[name="tahun"]').value;
+        const provinsi = this.querySelector('select[name="provinsi"] option:checked').textContent;
+        const kota = this.querySelector('select[name="kota"] option:checked').textContent;
+        const kecamatan = this.querySelector('select[name="kecamatan"]').value;
+        
+        // Format WhatsApp message
+        const message = `*PENGAJUAN FASILITAS DANA BPKB*%0A%0A` +
+                      `📝 *Nama:* ${nama}%0A` +
+                      `📞 *No. HP:* ${hp}%0A%0A` +
+                      `🚗 *INFORMASI KENDARAAN*%0A` +
+                      `Jenis: ${bpkb.charAt(0).toUpperCase() + bpkb.slice(1)}%0A` +
+                      `Merk: ${merk}%0A` +
+                      `Tipe: ${tipe}%0A` +
+                      `Tahun: ${tahun}%0A%0A` +
+                      `📍 *LOKASI*%0A` +
+                      `Kecamatan: ${kecamatan}%0A` +
+                      `Kota: ${kota}%0A` +
+                      `Provinsi: ${provinsi}%0A%0A` +
+                      `_Mohon konfirmasi untuk proses selanjutnya. Saya siap mengirim foto BPKB, STNK, dan kendaraan melalui WhatsApp. Terima kasih!_`;
+        
+        // WhatsApp number
+        const waNumber = '6282299999036';
+        
+        // Redirect to WhatsApp
+        window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+    } else {
+        alert('Mohon lengkapi semua field yang wajib diisi.');
+    }
+});
+
+// Slider Class (without dots for testi slider)
 class Slider {
-    constructor(sliderId, dotsId = null) {
-        this.container = document.getElementById(sliderId);
+    constructor(containerId, dotsId = null) {
+        this.container = document.getElementById(containerId);
         this.wrapper = this.container.querySelector('.slider-wrapper');
         this.slides = this.wrapper.querySelectorAll('.slider-slide');
         this.dotsContainer = dotsId ? document.getElementById(dotsId) : null;
@@ -24,29 +222,34 @@ class Slider {
     }
     
     init() {
+        // Create dots only if dotsContainer exists
         if (this.dotsContainer) {
-            this.createDots();
+            for (let i = 0; i < this.totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+                dot.addEventListener('click', () => this.goToSlide(i));
+                this.dotsContainer.appendChild(dot);
+            }
+            this.dots = this.dotsContainer.querySelectorAll('.slider-dot');
         }
-        this.addEventListeners();
+        
+        // Touch events
+        this.wrapper.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
+        this.wrapper.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: true });
+        this.wrapper.addEventListener('touchend', () => this.handleTouchEnd());
+        
+        // Mouse events
+        this.wrapper.addEventListener('mousedown', (e) => this.handleMouseDown(e));
+        this.wrapper.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+        this.wrapper.addEventListener('mouseup', () => this.handleMouseUp());
+        this.wrapper.addEventListener('mouseleave', () => this.handleMouseUp());
+        
+        // Auto play
         this.startAutoPlay();
-    }
-    
-    createDots() {
-        for (let i = 0; i < this.totalSlides; i++) {
-            const dot = document.createElement('div');
-            dot.classList.add('slider-dot');
-            if (i === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => this.goToSlide(i));
-            this.dotsContainer.appendChild(dot);
-        }
-    }
-    
-    updateDots() {
-        if (!this.dotsContainer) return;
-        const dots = this.dotsContainer.querySelectorAll('.slider-dot');
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === this.currentSlide);
-        });
+        
+        // Pause on hover
+        this.container.addEventListener('mouseenter', () => this.stopAutoPlay());
+        this.container.addEventListener('mouseleave', () => this.startAutoPlay());
     }
     
     goToSlide(index) {
@@ -71,17 +274,12 @@ class Slider {
         this.wrapper.style.transform = `translateX(-${this.currentSlide * 100}%)`;
     }
     
-    addEventListeners() {
-        // Touch events
-        this.wrapper.addEventListener('touchstart', (e) => this.handleTouchStart(e));
-        this.wrapper.addEventListener('touchmove', (e) => this.handleTouchMove(e));
-        this.wrapper.addEventListener('touchend', () => this.handleTouchEnd());
-        
-        // Mouse events
-        this.wrapper.addEventListener('mousedown', (e) => this.handleMouseDown(e));
-        this.wrapper.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-        this.wrapper.addEventListener('mouseup', () => this.handleMouseUp());
-        this.wrapper.addEventListener('mouseleave', () => this.handleMouseUp());
+    updateDots() {
+        if (this.dots) {
+            this.dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === this.currentSlide);
+            });
+        }
     }
     
     handleTouchStart(e) {
@@ -95,7 +293,6 @@ class Slider {
     
     handleTouchEnd() {
         const diff = this.startX - this.currentX;
-        
         if (Math.abs(diff) > 50) {
             if (diff > 0) {
                 this.nextSlide();
@@ -121,7 +318,6 @@ class Slider {
         if (!this.isDragging) return;
         this.isDragging = false;
         const diff = this.startX - this.currentX;
-        
         if (Math.abs(diff) > 50) {
             if (diff > 0) {
                 this.nextSlide();
@@ -145,10 +341,12 @@ class Slider {
     }
 }
 
-// Vehicle Type Text Slider
+// Vehicle Type Text Slider (Hero Section)
 class VehicleTextSlider {
     constructor(elementId) {
         this.element = document.getElementById(elementId);
+        if (!this.element) return;
+        
         this.vehicles = ['Mobil', 'Motor', 'Truk'];
         this.currentIndex = 0;
         this.autoPlayInterval = null;
@@ -182,6 +380,8 @@ class VehicleTextSlider {
 class SocialProofSlider {
     constructor(containerId) {
         this.container = document.getElementById(containerId);
+        if (!this.container) return;
+        
         this.wrapper = this.container.querySelector('.social-proof-wrapper');
         this.slides = this.wrapper.querySelectorAll('.social-proof-slide');
         this.currentSlide = 0;
@@ -241,87 +441,17 @@ class SocialProofSlider {
     }
 }
 
-// Kecamatan Search
-const kecamatanList = [
-    "Cengkareng", "Grogol Petamburan", "Taman Sari", "Tambora", "Kebon Jeruk",
-    "Kalideres", "Palmerah", "Kembangan", "Tanah Abang", "Menteng",
-    "Senen", "Johar Baru", "Cempaka Putih", "Kemayoran", "Sawah Besar",
-    "Gambir", "Pasar Rebo", "Ciracas", "Cipayung", "Makasar",
-    "Kramat Jati", "Jatinegara", "Duren Sawit", "Cakung", "Pulo Gadung",
-    "Matraman", "Koja", "Tanjung Priok", "Penjaringan", "Pademangan",
-    "Kelapa Gading", "Cilincing", "Sukapura", "Rorotan", "Marunda",
-    "Warakas", "Cipinang", "Jatinegara Kaum", "Pondok Bambu", "Duren Sawit",
-    "Bambu Apus", "Ceger", "Ciracas", "Susukan", "Balekambang",
-    "Pekayon", "Rawamangun", "Pisangan Baru", "Utan Kayu", "Kayu Putih",
-    "Pulo Gebang", "Ujung Menteng", "Cakung Barat", "Cakung Timur", "Jatinegara",
-    "Kebayoran Baru", "Kebayoran Lama", "Pesanggrahan", "Bintaro", "Pondok Aren",
-    "Ciputat", "Ciputat Timur", "Pamulang", "Pondok Cabe Ilir", "Serpong",
-    "Serpong Utara", "Setu", "Cisauk", "Cisoka", "Curug",
-    "Kelapa Dua", "Legok", "Pagedangan", "Pakuhaji", "Panongan",
-    "Sukadiri", "Sukamulya", "Teluknaga", "Kresek", "Kronjo",
-    "Mauk", "Mekar Baru", "Sindang Jaya", "Solear", "Sukatani",
-    "Tigaraksa", "Jambe", "Ciomas", "Cisoka", "Gunung Kaler",
-    "Jalancagak", "Kemiri", "Kosambi", "Kronjo", "Legok",
-    "Pasar Kemis", "Pondok Aren", "Rajeg", "Sepatan", "Sepatan Timur",
-    "Sindang Jaya", "Solear", "Sukadiri", "Sukamulya", "Teluknaga",
-    "Tigaraksa", "Balaraja", "Cikupa", "Cisauk", "Cisoka",
-    "Curug", "Gunung Kaler", "Jambe", "Jayanti", "Kelapa Dua",
-    "Kemiri", "Kosambi", "Kresek", "Kronjo", "Labuan",
-    "Mauk", "Mekar Baru", "Pagedangan", "Pakuhaji", "Panongan",
-    "Pasar Kemis", "Rajeg", "Sepatan", "Sepatan Timur", "Sindang Jaya",
-    "Sukatani", "Tigaraksa", "Balaraja", "Cikupa", "Cisauk",
-    "Curug", "Gunung Kaler", "Jambe", "Jayanti", "Kelapa Dua",
-    "Kemiri", "Kosambi", "Kresek", "Kronjo", "Labuan",
-    "Mauk", "Mekar Baru", "Pagedangan", "Pakuhaji", "Panongan"
-];
-
-function initKecamatanSearch() {
-    const searchInput = document.getElementById('kecamatanSearch');
-    const searchResults = document.getElementById('searchResults');
-    
-    searchInput.addEventListener('input', function() {
-        const query = this.value.toLowerCase().trim();
-        
-        if (query.length === 0) {
-            searchResults.classList.remove('active');
-            return;
-        }
-        
-        const filtered = kecamatanList.filter(k => k.toLowerCase().includes(query));
-        
-        if (filtered.length > 0) {
-            searchResults.innerHTML = filtered.slice(0, 5).map(k => 
-                `<div class="search-result-item" data-value="${k}">${k}</div>`
-            ).join('');
-            searchResults.classList.add('active');
-            
-            // Add click handlers
-            searchResults.querySelectorAll('.search-result-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    searchInput.value = this.dataset.value;
-                    searchResults.classList.remove('active');
-                });
-            });
-        } else {
-            searchResults.innerHTML = '<div class="search-result-item">Tidak ditemukan</div>';
-            searchResults.classList.add('active');
-        }
-    });
-    
-    // Close on outside click
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.search-container')) {
-            searchResults.classList.remove('active');
-        }
-    });
-}
-
-// Initialize sliders
+// Initialize all on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize sliders
     new Slider('promoSlider', 'promoDots');
     new Slider('simSlider', 'simDots');
     new Slider('testiSlider'); // No dots for testi slider
-    new VehicleTextSlider('vehicleSlider'); // Vehicle type text slider
+    new VehicleTextSlider('vehicleSlider');
     new SocialProofSlider('socialProofSlider');
-    initKecamatanSearch();
+    
+    // Initialize form
+    populateTahun();
+    updateMerkDropdown('mobil'); // Default to mobil
+    loadProvinsi();
 });
