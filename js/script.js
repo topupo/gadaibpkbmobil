@@ -1,28 +1,21 @@
-/* =========================================
-   LOGIC SESUAI BENCHMARK INDEXX.HTML
-   ========================================= */
-
-// 1. CLASS SLIDER (Support Dots & AutoPlay)
+/* --- SLIDER LOGIC --- */
 class Slider {
-    constructor(elementId, dotsId = null, autoPlay = true) {
-        this.container = document.getElementById(elementId);
-        if(!this.container) return; // Safety check
-        
-        this.track = this.container.querySelector('.slider-track');
-        this.slides = this.track.children;
+    constructor(wrapperId, dotsId, autoPlay = true) {
+        this.wrapper = document.querySelector(`#${wrapperId} .slider-wrapper`);
+        this.dotsContainer = document.getElementById(dotsId);
+        this.slides = this.wrapper.children;
         this.total = this.slides.length;
         this.index = 0;
-        this.dotsContainer = dotsId ? document.getElementById(dotsId) : null;
         
         if(this.dotsContainer) this.initDots();
-        if(autoPlay) this.startAutoPlay();
-        
-        // Add Swipe Support for Mobile
-        this.touchStartX = 0;
-        this.container.addEventListener('touchstart', e => this.touchStartX = e.changedTouches[0].screenX);
-        this.container.addEventListener('touchend', e => {
-            if (e.changedTouches[0].screenX < this.touchStartX - 50) this.next();
-            if (e.changedTouches[0].screenX > this.touchStartX + 50) this.prev();
+        if(autoPlay) setInterval(() => this.next(), 4000);
+
+        // Basic Swipe
+        let startX = 0;
+        this.wrapper.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+        this.wrapper.addEventListener('touchend', e => {
+            if(startX - e.changedTouches[0].clientX > 50) this.next();
+            if(e.changedTouches[0].clientX - startX > 50) this.prev();
         });
     }
 
@@ -30,150 +23,136 @@ class Slider {
         this.dotsContainer.innerHTML = '';
         for(let i=0; i<this.total; i++) {
             const dot = document.createElement('div');
-            dot.className = 'dot' + (i === 0 ? ' active' : '');
-            dot.addEventListener('click', () => this.goTo(i));
+            dot.className = 'dot' + (i===0 ? ' active' : '');
+            dot.onclick = () => this.goTo(i);
             this.dotsContainer.appendChild(dot);
         }
     }
 
-    updateDots() {
-        if(!this.dotsContainer) return;
-        const dots = this.dotsContainer.children;
-        for(let d of dots) d.classList.remove('active');
-        if(dots[this.index]) dots[this.index].classList.add('active');
+    update() {
+        this.wrapper.style.transform = `translateX(-${this.index * 100}%)`;
+        if(this.dotsContainer) {
+            Array.from(this.dotsContainer.children).forEach((d, i) => {
+                d.classList.toggle('active', i === this.index);
+            });
+        }
     }
 
-    goTo(index) {
-        this.index = (index + this.total) % this.total;
-        this.track.style.transform = `translateX(-${this.index * 100}%)`;
-        this.updateDots();
+    goTo(i) {
+        this.index = (i + this.total) % this.total;
+        this.update();
     }
 
     next() { this.goTo(this.index + 1); }
     prev() { this.goTo(this.index - 1); }
-    startAutoPlay() { setInterval(() => this.next(), 4000); }
 }
 
-// 2. CLASS VEHICLE TEXT (Vertical Slide)
-class VehicleTextSlider {
-    constructor(elementId) {
-        this.el = document.getElementById(elementId);
-        if(!this.el) return;
-        
-        this.texts = ["Sedan", "SUV", "MPV", "Pick Up", "Truck", "Motor"];
-        this.index = 0;
-        // Text awal sudah ada di HTML, kita override/start loop
-        this.start();
-    }
+/* --- SOCIAL PROOF & VEHICLE TEXT --- */
+const socialTexts = [
+    "Bapak Andi (Jaksel) baru cair Rp 150 Juta",
+    "Pencairan Rp 50 Juta sukses ke rek BCA a/n Budi",
+    "Ibu Rina (Bogor) disetujui unit Avanza 2018",
+    "Dana Pendidikan cair 100% tanpa potongan"
+];
+
+const vehicleTexts = ["Sedan", "SUV", "MPV", "Pick Up", "Truck", "Motor"];
+
+function initTextSliders() {
+    // Social Proof
+    const proofContainer = document.getElementById('socialProof');
+    let proofIdx = 0;
     
-    start() {
-        setInterval(() => {
-            this.el.style.transform = 'translateY(120%)'; // Slide Out Down
-            setTimeout(() => {
-                this.index = (this.index + 1) % this.texts.length;
-                this.el.innerText = this.texts[this.index];
-                this.el.style.transform = 'translateY(-120%)'; // Prep Top
-                setTimeout(() => {
-                    this.el.style.transform = 'translateY(0)'; // Slide In
-                }, 50);
-            }, 500);
-        }, 2500);
-    }
-}
-
-// 3. CLASS SOCIAL PROOF (Fade)
-class SocialProofSlider {
-    constructor(elementId) {
-        this.container = document.getElementById(elementId);
-        if(!this.container) return;
-
-        this.data = [
-            "Bapak Andi (Jaksel) baru saja cair Rp 150 Juta",
-            "Ibu Rina (Bogor) disetujui unit Avanza 2018",
-            "Pencairan Rp 50 Juta sukses ke rek BCA a/n Budi",
-            "Unit Innova Reborn 2019 berhasil di-takedown"
-        ];
-        this.index = 0;
-        this.render();
-        this.start();
-    }
-
-    render() {
-        this.container.innerHTML = '';
-        this.data.forEach((text, i) => {
-            const div = document.createElement('div');
-            div.className = 'proof-item' + (i === 0 ? ' active' : '');
-            div.innerText = text;
-            this.container.appendChild(div);
-        });
-        this.items = this.container.querySelectorAll('.proof-item');
-    }
-
-    start() {
-        setInterval(() => {
-            this.items[this.index].classList.remove('active');
-            this.index = (this.index + 1) % this.data.length;
-            this.items[this.index].classList.add('active');
-        }, 3500);
-    }
-}
-
-// 4. FUNCTION KECAMATAN SEARCH
-function initKecamatanSearch() {
-    const searchInput = document.getElementById('kecamatanInput');
-    const searchResults = document.getElementById('kecamatanResults');
-    if(!searchInput || !searchResults) return;
-
-    const kecamatans = [
-        "Tebet, Jakarta Selatan", "Kebayoran Baru, Jakarta Selatan", "Pasar Minggu, Jakarta Selatan",
-        "Gambir, Jakarta Pusat", "Tanah Abang, Jakarta Pusat", "Menteng, Jakarta Pusat",
-        "Kelapa Gading, Jakarta Utara", "Penjaringan, Jakarta Utara",
-        "Kebon Jeruk, Jakarta Barat", "Cengkareng, Jakarta Barat",
-        "Bekasi Barat", "Bekasi Timur", "Serpong, Tangerang", "Ciputat, Tangerang Selatan"
-    ];
+    // Render first
+    proofContainer.innerHTML = `<div class="social-proof-slide"><span>${socialTexts[0]}</span></div>`;
     
-    searchInput.addEventListener('input', function() {
+    setInterval(() => {
+        proofIdx = (proofIdx + 1) % socialTexts.length;
+        proofContainer.innerHTML = `<div class="social-proof-slide"><span>${socialTexts[proofIdx]}</span></div>`;
+    }, 3000);
+
+    // Vehicle Type
+    const vehicleContainer = document.getElementById('vehicleType');
+    let vehicleIdx = 0;
+    vehicleContainer.innerText = vehicleTexts[0];
+    
+    setInterval(() => {
+        vehicleIdx = (vehicleIdx + 1) % vehicleTexts.length;
+        vehicleContainer.innerText = vehicleTexts[vehicleIdx];
+    }, 2000);
+}
+
+/* --- KECAMATAN SEARCH --- */
+const kecamatans = [
+    "Tebet, Jakarta Selatan", "Kebayoran Baru, Jakarta Selatan", "Pasar Minggu, Jakarta Selatan",
+    "Gambir, Jakarta Pusat", "Tanah Abang, Jakarta Pusat", "Menteng, Jakarta Pusat",
+    "Kelapa Gading, Jakarta Utara", "Penjaringan, Jakarta Utara",
+    "Kebon Jeruk, Jakarta Barat", "Cengkareng, Jakarta Barat",
+    "Bekasi Barat", "Bekasi Timur", "Serpong, Tangerang", "Ciputat, Tangerang Selatan"
+];
+
+function initSearch() {
+    const input = document.getElementById('kecamatanInput');
+    const results = document.getElementById('kecamatanResults');
+    
+    input.addEventListener('input', function() {
         const val = this.value.toLowerCase();
-        searchResults.innerHTML = '';
+        results.innerHTML = '';
+        if(val.length < 3) { results.classList.remove('active'); return; }
         
-        if (val.length < 3) {
-            searchResults.classList.remove('active');
-            return;
-        }
-
-        const filtered = kecamatans.filter(k => k.toLowerCase().includes(val));
-        
-        if (filtered.length > 0) {
-            searchResults.innerHTML = filtered.slice(0, 5).map(k => 
-                `<div class="search-result-item" data-value="${k}">${k}</div>`
-            ).join('');
-            searchResults.classList.add('active');
+        const matches = kecamatans.filter(k => k.toLowerCase().includes(val));
+        if(matches.length) {
+            results.innerHTML = matches.slice(0,5).map(m => `<div class="search-result-item">${m}</div>`).join('');
+            results.classList.add('active');
             
-            searchResults.querySelectorAll('.search-result-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    searchInput.value = this.dataset.value;
-                    searchResults.classList.remove('active');
-                });
+            results.querySelectorAll('.search-result-item').forEach(item => {
+                item.onclick = () => {
+                    input.value = item.innerText;
+                    results.classList.remove('active');
+                }
             });
         } else {
-            searchResults.innerHTML = '<div class="search-result-item">Tidak ditemukan</div>';
-            searchResults.classList.add('active');
+            results.classList.remove('active');
         }
     });
     
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.search-container')) {
-            searchResults.classList.remove('active');
-        }
+    document.addEventListener('click', e => {
+        if(!e.target.closest('.search-container')) results.classList.remove('active');
     });
 }
 
-// INIT ALL
+/* --- FORM HANDLING --- */
+function previewImage(input, imgId) {
+    const preview = document.getElementById(imgId);
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function handleFormSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btnSubmit');
+    const originalText = btn.innerText;
+    
+    btn.innerText = "MENGIRIM...";
+    btn.disabled = true;
+    
+    setTimeout(() => {
+        alert("Terima kasih! Data Anda berhasil dikirim.");
+        btn.innerText = originalText;
+        btn.disabled = false;
+        e.target.reset();
+    }, 1500);
+}
+
+// Initialize All
 document.addEventListener('DOMContentLoaded', () => {
+    // Sliders
     new Slider('promoSlider', 'promoDots');
-    new Slider('simSlider', 'simDots'); // PENTING: Sesuai ID benchmark
-    new Slider('testiSlider'); 
-    new VehicleTextSlider('vehicleSlider'); // PENTING: Sesuai ID benchmark
-    new SocialProofSlider('socialProofSlider');
-    initKecamatanSearch();
+    initTextSliders();
+    initSearch();
 });
