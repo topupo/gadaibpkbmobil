@@ -12,154 +12,288 @@
 <div class="mobile-container">
 
     <header>
-        <div class="logo">GadaiBPKBmobil.com</div>
-        <div class="nav-burger">☰</div>
+        <div class="logo">
+            <img src="https://via.placeholder.com/120x40/004990/ffffff?text=GadaiBPKB" alt="Logo">
+        </div>
+        
+        <div class="social-proof-slider">
+            <div class="social-proof-wrapper" id="socialProof">
+                </div>
+        </div>
     </header>
 
     <section class="hero">
         <div class="hero-tag">RESMI & DIAWASI OJK</div>
         <h1>Dana Tunai Cepat<br>Jaminan BPKB Mobil</h1>
         
-        <div class="dynamic-text-wrapper">
-            <div class="dynamic-text" id="vehicleSlider">
-                Sedan | SUV | MPV | Pick Up | Truck
+        <div class="vehicle-slider" id="vehicleType">
             </div>
-        </div>
 
         <div class="hero-stats">
-            <div class="stat-box">
-                <span class="stat-val">0.7%</span>
-                <span class="stat-lbl">Bunga Mulai</span>
+            <div class="stat-item">
+                <i>%</i>
+                <span>Bunga Mulai<br><strong>0.7%</strong></span>
             </div>
-            <div class="stat-box">
-                <span class="stat-val">1 Jam</span>
-                <span class="stat-lbl">Proses Cair</span>
+            <div class="stat-item">
+                <i>⚡</i>
+                <span>Proses<br><strong>1 Jam</strong></span>
             </div>
-            <div class="stat-box">
-                <span class="stat-val">100%</span>
-                <span class="stat-lbl">Pencairan</span>
+            <div class="stat-item">
+                <i>💰</i>
+                <span>Pencairan<br><strong>100%</strong></span>
             </div>
         </div>
 
+        <button class="btn-cta-hero" onclick="scrollToForm()">Ajukan Sekarang</button>
+
+        <div class="hero-image">
+             <img src="https://via.placeholder.com/400x200/eee/999?text=Hero+Image+Mobil" alt="Hero Mobil" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        
         <div class="search-container">
             <div class="search-box">
-                <input type="text" class="search-input" id="kecamatanInput" placeholder="Ketik Kecamatan Anda (Contoh: Tebet)">
+                <input type="text" class="search-input" id="kecamatanInput" placeholder="Ketik Kecamatan Anda...">
                 <button class="search-btn">🔍</button>
             </div>
             <div class="search-results" id="kecamatanResults"></div>
         </div>
     </section>
 
-    <div class="social-proof-bar">
-        <div class="proof-icon">🔔</div>
-        <div class="proof-text-slider" id="socialProofSlider">
-            </div>
-    </div>
-
     <section class="section">
-        <div class="section-header">
-            <h2 class="section-title">Promo Spesial</h2>
-            <a href="#" class="section-link">Lihat Semua</a>
-        </div>
+        <h2 class="section-title">Cara Mudah Pengajuan</h2>
         
+        <div class="phone-mockup">
+            <div class="screen-content">
+                <div class="step-animation">Step 1...</div>
+            </div>
+        </div>
+
+        <div class="steps-timeline">
+            <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-text">
+                    <h4>Isi Formulir Online</h4>
+                    <p>Hanya 2 menit, data aman terenkripsi.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-text">
+                    <h4>Konfirmasi dengan tim kami</h4>
+                    <p>Tim GadaiBPKBmobil.com akan menghubungi Anda untuk konfirmasi.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                    <h4>Pengajuan diproses</h4>
+                    <p>Proses survei kilat dan validasi dokumen resmi.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-text">
+                    <h4>Dana Cair</h4>
+                    <p>Dana langsung ditransfer ke rekening pribadi Anda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background:#f9f9f9;">
+        <h2 class="section-title">Promo Spesial Bulan Ini</h2>
         <div class="slider-container" id="promoSlider">
-            <div class="slider-track">
-                <div class="promo-card" style="background: #004990;">
-                    <div class="promo-content">
-                        <h3>Cashback Admin 50%</h3>
-                        <p style="font-size: 11px;">Khusus pengajuan via website hari ini</p>
-                    </div>
+            <div class="slider-wrapper">
+                <div class="promo-slide" style="background: linear-gradient(135deg, #004990, #002D5F);">
+                    <div class="ribbon-badge">HOT</div>
+                    <h3>Cashback Admin 50%</h3>
+                    <p>Khusus pengajuan via website</p>
                 </div>
-                <div class="promo-card" style="background: #00A651;">
-                    <div class="promo-content">
-                        <h3>Bonus Asuransi Jiwa</h3>
-                        <p style="font-size: 11px;">Perlindungan ekstra untuk keluarga</p>
-                    </div>
-                </div>
-                <div class="promo-card" style="background: #f26522;">
-                    <div class="promo-content">
-                        <h3>Pencairan Full 100%</h3>
-                        <p style="font-size: 11px;">Tanpa potongan biaya provisi</p>
-                    </div>
+                <div class="promo-slide" style="background: linear-gradient(135deg, #00A651, #008f43);">
+                    <h3>Bunga Spesial 0.7%</h3>
+                    <p>Untuk unit tahun 2018 ke atas</p>
                 </div>
             </div>
             <div class="slider-dots" id="promoDots"></div>
         </div>
-    </section>
 
-    <section class="section" style="background: #f9f9f9;">
-        <div class="section-header">
-            <h2 class="section-title">Simulasi Populer</h2>
-        </div>
-        
-        <div class="slider-container" id="simSlider">
-            <div class="slider-track">
-                <div class="sim-card">
-                    <div class="sim-inner">
-                        <div class="sim-car-img">[Avanza 2018]</div>
-                        <div class="sim-row">
-                            <span>Pencairan Bersih</span>
-                            <strong>Rp 120 Juta</strong>
-                        </div>
-                        <div class="sim-row">
-                            <span>Cicilan 36x</span>
-                            <span class="sim-price">Rp 4.1 Jt</span>
-                        </div>
-                        <button class="btn-outline">Ajukan Unit Ini</button>
-                    </div>
-                </div>
-                <div class="sim-card">
-                    <div class="sim-inner">
-                        <div class="sim-car-img">[Innova 2019]</div>
-                        <div class="sim-row">
-                            <span>Pencairan Bersih</span>
-                            <strong>Rp 250 Juta</strong>
-                        </div>
-                        <div class="sim-row">
-                            <span>Cicilan 48x</span>
-                            <span class="sim-price">Rp 7.2 Jt</span>
-                        </div>
-                        <button class="btn-outline">Ajukan Unit Ini</button>
-                    </div>
-                </div>
-                <div class="sim-card">
-                    <div class="sim-inner">
-                        <div class="sim-car-img">[Brio 2020]</div>
-                        <div class="sim-row">
-                            <span>Pencairan Bersih</span>
-                            <strong>Rp 100 Juta</strong>
-                        </div>
-                        <div class="sim-row">
-                            <span>Cicilan 36x</span>
-                            <span class="sim-price">Rp 3.5 Jt</span>
-                        </div>
-                        <button class="btn-outline">Ajukan Unit Ini</button>
-                    </div>
-                </div>
+        <div class="partner-marquee">
+            <div class="partner-track">
+                <div class="partner-item">🏢 Adira Finance</div>
+                <div class="partner-item">🏢 BCA Finance</div>
+                <div class="partner-item">🏢 BFI Finance</div>
+                <div class="partner-item">🏢 Mega Auto Finance</div>
+                <div class="partner-item">🏢 WOM Finance</div>
+                <div class="partner-item">🏢 Adira Finance</div>
+                <div class="partner-item">🏢 BCA Finance</div>
             </div>
-            <div class="slider-dots" id="simDots"></div>
         </div>
     </section>
 
     <section class="section">
-        <h2 class="section-title" style="text-align: center; margin-bottom: 20px;">Kata Mereka</h2>
-        <div class="slider-container" id="testiSlider">
-            <div class="slider-track">
-                <div class="testi-card">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testi-text">"Awalnya ragu online, tapi ternyata timnya datang jemput bola ke rumah. Dana cair sorenya. Mantap!"</p>
-                    <div class="testi-user">Budi Santoso - Jakarta Selatan</div>
+        <h2 class="section-title">Simulasi Populer</h2>
+        <div style="overflow-x: auto; display: flex; padding-bottom: 20px; gap: 15px;">
+            
+            <div class="simulation-card">
+                <div class="sim-header">Toyota Avanza 2018</div>
+                <div class="sim-body">
+                    <div class="price-row">
+                        <span>Pencairan</span>
+                        <span class="price-value">Rp 125.000.000</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Angsuran 3th</span>
+                        <span style="color:#004990; font-weight:bold;">Rp 4.2jt/bln</span>
+                    </div>
+                    <ul class="check-list">
+                        <li>Bunga Ringan</li>
+                        <li>Proses 1 Hari</li>
+                    </ul>
+                    <button class="btn-outline">Pilih Unit Ini</button>
                 </div>
-                <div class="testi-card">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testi-text">"Bunga paling rendah dibanding tempat gadai pinggir jalan. Resmi leasing Astra lagi."</p>
-                    <div class="testi-user">Siti Aminah - Bekasi</div>
+            </div>
+
+            <div class="simulation-card">
+                <div class="sim-header">Mitsubishi Xpander 2019</div>
+                <div class="sim-body">
+                    <div class="price-row">
+                        <span>Pencairan</span>
+                        <span class="price-value">Rp 160.000.000</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Angsuran 4th</span>
+                        <span style="color:#004990; font-weight:bold;">Rp 4.8jt/bln</span>
+                    </div>
+                     <ul class="check-list">
+                        <li>Pencairan Maksimal</li>
+                        <li>Data Dibantu</li>
+                    </ul>
+                    <button class="btn-outline">Pilih Unit Ini</button>
                 </div>
+            </div>
+
+            <div class="simulation-card">
+                <div class="sim-header">Daihatsu Sigra 2020</div>
+                <div class="sim-body">
+                    <div class="price-row">
+                        <span>Pencairan</span>
+                        <span class="price-value">Rp 90.000.000</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Angsuran 3th</span>
+                        <span style="color:#004990; font-weight:bold;">Rp 3.1jt/bln</span>
+                    </div>
+                     <ul class="check-list">
+                        <li>Tanpa Potongan</li>
+                        <li>Asuransi All Risk</li>
+                    </ul>
+                    <button class="btn-outline">Pilih Unit Ini</button>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="insurance-icons">
+            <div class="insurance-item">
+                <span class="icon-emoji">❤️</span>
+                <span>Asuransi Jiwa</span>
+            </div>
+            <div class="insurance-item">
+                <span class="icon-emoji">🚗</span>
+                <span>Asuransi Kendaraan</span>
+            </div>
+            <div class="insurance-item">
+                <span class="icon-emoji">🔧</span>
+                <span>Layanan Darurat</span>
             </div>
         </div>
     </section>
 
-    <a href="https://wa.me/" class="wa-float">💬</a>
+    <section class="section">
+        <h2 class="section-title">Dokumen Persyaratan Awal</h2>
+        <div class="doc-list">
+            <div class="doc-item"><span class="doc-icon">☑</span> KTP Pemohon & Pasangan (jika menikah)</div>
+            <div class="doc-item"><span class="doc-icon">☑</span> Kartu Keluarga</div>
+            <div class="doc-item"><span class="doc-icon">☑</span> STNK & BPKB Asli</div>
+            <div class="doc-item"><span class="doc-icon">☑</span> Bukti Penghasilan (Slip Gaji/Rek Koran)</div>
+        </div>
+    </section>
+    
+    <section class="form-section" id="leadForm">
+        <h2>Ajukan Sekarang</h2>
+        <p>Data Anda aman 100% dan langsung diproses tim analis.</p>
+        
+        <form id="submissionForm" onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+                <label>Nama Lengkap (Sesuai KTP)</label>
+                <input type="text" class="form-input" required placeholder="Contoh: Budi Santoso">
+            </div>
+            
+            <div class="form-group">
+                <label>Nomor WhatsApp Aktif</label>
+                <input type="tel" class="form-input" required placeholder="08xxxxxxxxxx">
+            </div>
+            
+            <div class="form-group">
+                <label>Lokasi Tempat Tinggal</label>
+                <select class="form-input">
+                    <option>Jakarta</option>
+                    <option>Bogor</option>
+                    <option>Depok</option>
+                    <option>Tangerang</option>
+                    <option>Bekasi</option>
+                    <option>Luar Jabodetabek</option>
+                </select>
+            </div>
+            
+             <div class="form-group">
+                <label>Foto STNK (Opsional - Mempercepat Proses)</label>
+                <div class="file-upload-box">
+                    <img class="upload-preview" id="uploadPreview" alt="Preview">
+                    <input type="file" id="uploadFile" name="uploadFile" accept="image/*" onchange="previewImage(this, 'uploadPreview')">
+                </div>
+            </div>
+
+            <div class="form-group" style="display:flex; align-items:flex-start; gap:10px;">
+                <input type="checkbox" id="agree" required style="margin-top:5px;">
+                <label for="agree" style="font-size:12px; font-weight:normal;">Saya setuju dengan Syarat & Ketentuan serta Kebijakan Privasi yang berlaku.</label>
+            </div>
+
+            <button type="submit" class="btn-submit" id="btnSubmit">KIRIM PENGAJUAN</button>
+        </form>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Tanya Jawab (FAQ)</h2>
+        <div class="faq-container">
+            <details>
+                <summary>Berapa lama proses pencairan?</summary>
+                <div class="faq-ans">Jika dokumen lengkap, dana bisa cair dalam waktu 1 hari kerja (Same Day Service).</div>
+            </details>
+            <details>
+                <summary>Apakah BPKB aman?</summary>
+                <div class="faq-ans">Sangat aman. BPKB disimpan di fire-proof storage milik leasing resmi yang diawasi OJK.</div>
+            </details>
+             <details>
+                <summary>Minimal tahun kendaraan?</summary>
+                <div class="faq-ans">Mobil minimal tahun 2012 untuk Passenger Car Jepang.</div>
+            </details>
+            <details>
+                <summary>Cara pengambilan BPKB setelah lunas?</summary>
+                <div class="faq-ans">Bisa diambil langsung di cabang leasing terdekat dengan membawa bukti pelunasan.</div>
+            </details>
+        </div>
+    </section>
+
+    <footer>
+        <p style="margin-bottom: 10px; font-weight:bold;">GadaiBPKBmobil.com</p>
+        <p>Layanan pinjaman dana tunai jaminan BPKB mobil terpercaya dan resmi.</p>
+        <p style="margin-top: 20px; font-size: 10px; opacity: 0.6;">&copy; 2024 All Rights Reserved.</p>
+    </footer>
+
+    <a href="https://wa.me/" class="wa-float">
+        <span>📞</span>
+    </a>
 
 </div>
 
