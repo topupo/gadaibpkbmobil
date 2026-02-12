@@ -6,62 +6,62 @@
     <title>Skeleton Fasilitas Dana - GadaiBPKBmobil.com Clone</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+</head>
 <body>
+
 <div class="mobile-container">
-    
-    <!-- HEADER -->
+
     <header>
         <div class="logo">
-            <img src="https://via.placeholder.com/120x45/004990/FFFFFF?text=Logo" alt="Logo Gadai">
+            <img src="images/logo-GadaiBPKBmobil.com.png" alt="GadaiBPKBmobil.com Logo">
         </div>
         <div class="social-proof-slider" id="socialProofSlider">
             <div class="social-proof-wrapper">
                 <div class="social-proof-slide">
-                    <span>✅ <strong id="simCount">456</strong> simulasi hari ini</span>
+                    <span>📊 <strong id="simCount">456</strong> simulasi terkirim hari ini</span>
                 </div>
                 <div class="social-proof-slide">
-                    <span>⏳ <strong id="processCount">189</strong> sedang diproses</span>
+                    <span>⏳ <strong id="processCount">189</strong> pengajuan diproses hari ini</span>
                 </div>
                 <div class="social-proof-slide">
-                    <span>🎉 <strong id="approveCount">99</strong> dana cair hari ini</span>
+                    <span>✅ <strong id="approveCount">99</strong> pengajuan approved hari ini</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
     <section class="hero">
-        <h1>Dapatkan Dana Cepat<br>dengan BPKB <span class="vehicle-slider" id="vehicleSlider">Mobil</span> Anda</h1>
+        <p style="font-size: 10px; opacity: 0.8; letter-spacing: 1px; margin-bottom: 5px;">SOLUSI SEMUA KEBUTUHAN</p>
+        <h1>Pinjaman Dana Cepat<br>Gadai BPKB <span class="vehicle-slider" id="vehicleSlider">Mobil</span><br><span style="color: #ffd700;">Cover Seluruh Indonesia</span></h1>
         
         <div class="hero-stats">
             <div class="stat-item">
+                <i>%</i>
+                <span>Bunga Mulai<br><strong>0.79%</strong>/bln</span>
+            </div>
+            <div class="stat-item">
                 <i>⚡</i>
-                <div>Proses<br><strong>30 Menit</strong></div>
+                <span>Pencairan<br><strong>Rp20 Juta</strong></span>
             </div>
             <div class="stat-item">
-                <i>💰</i>
-                <div>Dana Hingga<br><strong>300 Juta</strong></div>
-            </div>
-            <div class="stat-item">
-                <i>📄</i>
-                <div>Syarat<br><strong>Mudah</strong></div>
+                <i>📅</i>
+                <span>Tenor Hingga<br><strong>48 Bulan</strong></span>
             </div>
         </div>
-        
-        <button class="btn-cta-hero">💬 Konsultasi Gratis Sekarang</button>
-        
+
+        <button class="btn-cta-hero">Ajukan Sekarang</button>
+
         <div class="hero-image">
-            <img src="https://via.placeholder.com/480x200/1fa2ff/FFFFFF?text=Hero+Image" alt="Hero">
+            <img src="assets/gbml.webp" alt="Happy Family with Car">
         </div>
     </section>
 
-    <!-- CARA PENGAJUAN -->
     <section class="section">
-        <h2 class="section-title">📱 Cara Pengajuan Mudah & Cepat</h2>
+        <h2 class="section-title">Cara Mudah Pengajuan Pinjaman</h2>
         
         <!-- Phone Mockup - Normal Image -->
         <div class="phone-mockup">
-            <img src="https://via.placeholder.com/160x280/004990/FFFFFF?text=Phone+UI" alt="Phone Mockup">
+            <img src="images/phone-mockup.jpg" alt="Phone App">
         </div>
 
         <!-- Timeline Steps -->
@@ -69,64 +69,157 @@
             <div class="step-item">
                 <div class="step-num">1</div>
                 <div class="step-text">
-                    <h4>Chat WhatsApp Kami</h4>
-                    <p>Hubungi tim kami untuk konsultasi awal</p>
+                    <h4>Kirim pengajuan di sini</h4>
+                    <p>Isi formulir singkat hanya 2 menit.</p>
                 </div>
             </div>
             <div class="step-item">
                 <div class="step-num">2</div>
                 <div class="step-text">
-                    <h4>Kirim Foto BPKB & KTP</h4>
-                    <p>Upload dokumen untuk verifikasi cepat</p>
+                    <h4>Konfirmasi dengan tim kami</h4>
+                    <p>Tim GadaiBPKBmobil.com akan menghubungi Anda untuk konfirmasi.</p>
                 </div>
             </div>
             <div class="step-item">
                 <div class="step-num">3</div>
                 <div class="step-text">
-                    <h4>Survei & Persetujuan</h4>
-                    <p>Tim kami akan datang untuk proses survei</p>
+                    <h4>Pengajuan diproses</h4>
+                    <p>Proses survei kendaraan dan validasi dokumen.</p>
                 </div>
             </div>
             <div class="step-item">
                 <div class="step-num">4</div>
                 <div class="step-text">
-                    <h4>Dana Cair Langsung</h4>
-                    <p>Transfer langsung ke rekening Anda</p>
+                    <h4>Dana cair</h4>
+                    <p>Dana ditransfer ke rekening Anda.</p>
                 </div>
             </div>
         </div>
-
-        <button class="btn-primary">Mulai Sekarang 🚀</button>
     </section>
 
-    <!-- PROMO SECTION -->
-    <section class="section section-promo">
-        <h2 class="section-title">🎁 Promo Spesial Bulan Ini</h2>
-        
+    <!-- SLIDER: PENDIDIKAN/PROMO -->
+    <section class="section" style="background-color: #f9f9f9;">
+        <h2 class="section-title">Kebutuhan Dana Anda</h2>
         <div class="slider-container" id="promoSlider">
             <div class="slider-wrapper">
+                <!-- Slide 1: Pendidikan -->
                 <div class="slider-slide">
-                    <div class="promo-card">
-                        <div class="promo-badge">PROMO 1</div>
-                        <h3>Bunga 0% Bulan Pertama</h3>
-                        <p>Khusus pengajuan di bulan ini, dapatkan bunga 0% untuk cicilan pertama!</p>
-                        <button class="btn-secondary">Ambil Promo</button>
+                    <div class="promo-slide">
+                        <div class="promo-img">
+                            <img src="images/promo-pendidikan.jpg" alt="Pendidikan">
+                        </div>
+                        <h3 style="font-size: 16px; margin-bottom: 10px;">Fasilitas Dana untuk<br><strong>Biaya Pendidikan</strong></h3>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 20px;">
+                            Wujudkan cita-cita anak Anda dengan dana pendidikan cepat cair. Bunga ringan dan aman.
+                        </p>
+                        <p style="font-size: 10px; color: #999;">Didukung oleh mitra kami:</p>
+                        <div class="partner-marquee-container">
+                            <div class="partner-marquee">
+                                <div class="partner-item">🏢 Adira Finance</div>
+                                <div class="partner-item">🏢 BCA Finance</div>
+                                <div class="partner-item">🏢 Mandiri Tunas Finance</div>
+                                <div class="partner-item">🏢 BFI Finance</div>
+                                <div class="partner-item">🏢 Mega Auto Finance</div>
+                                <div class="partner-item">🏢 WOM Finance</div>
+                                <!-- Duplicate for seamless loop -->
+                                <div class="partner-item">🏢 Adira Finance</div>
+                                <div class="partner-item">🏢 BCA Finance</div>
+                                <div class="partner-item">🏢 Mandiri Tunas Finance</div>
+                                <div class="partner-item">🏢 BFI Finance</div>
+                                <div class="partner-item">🏢 Mega Auto Finance</div>
+                                <div class="partner-item">🏢 WOM Finance</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- Slide 2: Usaha -->
                 <div class="slider-slide">
-                    <div class="promo-card">
-                        <div class="promo-badge">PROMO 2</div>
-                        <h3>Cashback 500rb</h3>
-                        <p>Dapatkan cashback langsung untuk pencairan diatas 50 juta!</p>
-                        <button class="btn-secondary">Ambil Promo</button>
+                    <div class="promo-slide">
+                        <div class="promo-img">
+                            <img src="images/promo-usaha.jpg" alt="Usaha">
+                        </div>
+                        <h3 style="font-size: 16px; margin-bottom: 10px;">Fasilitas Dana untuk<br><strong>Modal Usaha</strong></h3>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 20px;">
+                            Kembangkan bisnis Anda dengan modal tambahan. Proses cepat, tanpa ribet.
+                        </p>
+                        <p style="font-size: 10px; color: #999;">Didukung oleh mitra kami:</p>
+                        <div class="partner-marquee-container">
+                            <div class="partner-marquee">
+                                <div class="partner-item">🏢 Adira Finance</div>
+                                <div class="partner-item">🏢 BCA Finance</div>
+                                <div class="partner-item">🏢 Mandiri Tunas Finance</div>
+                                <div class="partner-item">🏢 BFI Finance</div>
+                                <div class="partner-item">🏢 Mega Auto Finance</div>
+                                <div class="partner-item">🏢 WOM Finance</div>
+                                <!-- Duplicate for seamless loop -->
+                                <div class="partner-item">🏢 Adira Finance</div>
+                                <div class="partner-item">🏢 BCA Finance</div>
+                                <div class="partner-item">🏢 Mandiri Tunas Finance</div>
+                                <div class="partner-item">🏢 BFI Finance</div>
+                                <div class="partner-item">🏢 Mega Auto Finance</div>
+                                <div class="partner-item">🏢 WOM Finance</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- Slide 3: Rumah -->
                 <div class="slider-slide">
-                    <div class="promo-card">
-                        <div class="promo-badge">PROMO 3</div>
-                        <h3>Gratis Biaya Admin</h3>
-                        <p>Bebas biaya admin dan survey untuk 100 customer pertama!</p>
-                        <button class="btn-secondary">Ambil Promo</button>
+                    <div class="promo-slide">
+                        <div class="promo-img">
+                            <img src="images/promo-rumah.jpg" alt="Rumah">
+                        </div>
+                        <h3 style="font-size: 16px; margin-bottom: 10px;">Fasilitas Dana untuk<br><strong>Renovasi Rumah</strong></h3>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 20px;">
+                            Wujudkan rumah impian dengan dana renovasi. Tenor panjang, cicilan ringan.
+                        </p>
+                        <p style="font-size: 10px; color: #999;">Didukung oleh mitra kami:</p>
+                        <div class="partner-marquee-container">
+                            <div class="partner-marquee">
+                                <div class="partner-item">🏢 Adira Finance</div>
+                                <div class="partner-item">🏢 BCA Finance</div>
+                                <div class="partner-item">🏢 Mandiri Tunas Finance</div>
+                                <div class="partner-item">🏢 BFI Finance</div>
+                                <div class="partner-item">🏢 Mega Auto Finance</div>
+                                <div class="partner-item">🏢 WOM Finance</div>
+                                <!-- Duplicate for seamless loop -->
+                                <div class="partner-item">🏢 Adira Finance</div>
+                                <div class="partner-item">🏢 BCA Finance</div>
+                                <div class="partner-item">🏢 Mandiri Tunas Finance</div>
+                                <div class="partner-item">🏢 BFI Finance</div>
+                                <div class="partner-item">🏢 Mega Auto Finance</div>
+                                <div class="partner-item">🏢 WOM Finance</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 4: Kesehatan -->
+                <div class="slider-slide">
+                    <div class="promo-slide">
+                        <div class="promo-img">
+                            <img src="images/promo-kesehatan.jpg" alt="Kesehatan">
+                        </div>
+                        <h3 style="font-size: 16px; margin-bottom: 10px;">Fasilitas Dana untuk<br><strong>Biaya Kesehatan</strong></h3>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 20px;">
+                            Siapkan dana darurat kesehatan. Pencairan cepat untuk kebutuhan mendesak.
+                        </p>
+                        <p style="font-size: 10px; color: #999;">Didukung oleh mitra kami:</p>
+                        <div class="partner-marquee-container">
+                            <div class="partner-marquee">
+                                <div class="partner-item">🏢 Adira Finance</div>
+                                <div class="partner-item">🏢 BCA Finance</div>
+                                <div class="partner-item">🏢 Mandiri Tunas Finance</div>
+                                <div class="partner-item">🏢 BFI Finance</div>
+                                <div class="partner-item">🏢 Mega Auto Finance</div>
+                                <div class="partner-item">🏢 WOM Finance</div>
+                                <!-- Duplicate for seamless loop -->
+                                <div class="partner-item">🏢 Adira Finance</div>
+                                <div class="partner-item">🏢 BCA Finance</div>
+                                <div class="partner-item">🏢 Mandiri Tunas Finance</div>
+                                <div class="partner-item">🏢 BFI Finance</div>
+                                <div class="partner-item">🏢 Mega Auto Finance</div>
+                                <div class="partner-item">🏢 WOM Finance</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -134,352 +227,417 @@
         </div>
     </section>
 
-    <!-- SIMULASI PINJAMAN -->
-    <section class="section section-simulasi">
-        <h2 class="section-title">🧮 Simulasi Pinjaman</h2>
+    <!-- SLIDER: SIMULASI -->
+    <section class="section">
+        <h2 class="section-title" style="text-align: left; font-size: 16px;">Contoh Simulasi Pinjaman</h2>
         
         <div class="slider-container" id="simSlider">
             <div class="slider-wrapper">
-                <!-- Slide 1: Motor -->
+                <!-- Slide 1: Avanza -->
                 <div class="slider-slide">
-                    <div class="sim-card">
-                        <div class="sim-icon">🏍️</div>
-                        <h3>Motor</h3>
-                        <div class="sim-detail">
-                            <div class="sim-row">
-                                <span>Plafon Pinjaman:</span>
-                                <strong>5 - 20 Juta</strong>
-                            </div>
-                            <div class="sim-row">
-                                <span>Tenor:</span>
-                                <strong>6 - 24 Bulan</strong>
-                            </div>
-                            <div class="sim-row">
-                                <span>Bunga per bulan:</span>
-                                <strong>1.2% - 1.5%</strong>
+                    <div class="simulation-card">
+                        <div class="ribbon-badge">Best Offer</div>
+                        <div class="car-preview">
+                            <div class="car-img">
+                                <img src="images/car-avanza.jpg" alt="Toyota Avanza">
                             </div>
                         </div>
-                        <div class="sim-example">
-                            <p><strong>Contoh:</strong></p>
-                            <p>Pinjaman: Rp 10.000.000</p>
-                            <p>Tenor: 12 bulan</p>
-                            <p>Cicilan: <strong>Rp 950.000/bulan</strong></p>
+                        <div class="sim-header">Toyota Avanza 2018</div>
+                        <div class="sim-body">
+                            <div class="price-row">
+                                <div class="price-label">Total Pencairan</div>
+                                <div class="price-value">Rp 100.000.000</div>
+                            </div>
+                            <div class="price-row">
+                                <div class="price-label">Cicilan 48x</div>
+                                <div class="price-original">Rp 3.500.000</div>
+                                <div class="price-value">Rp 3.080.000</div>
+                                <span class="green-text">0.79% / bulan</span>
+                            </div>
+                            <ul class="check-list">
+                                <li>Angsuran lebih terjangkau tenor lebih panjang</li>
+                                <li>Harga wajar berdasarkan pasar</li>
+                                <li>Tim profesional</li>
+                                <li>Proses aman dan transparan</li>
+                            </ul>
+                            <!-- Insurance Icons - Emojis -->
+                            <div class="insurance-icons">
+                                <div class="insurance-item">
+                                    <span class="icon-emoji">❤️</span>
+                                    <span>Asuransi Jiwa</span>
+                                </div>
+                                <div class="insurance-item">
+                                    <span class="icon-emoji">🚗</span>
+                                    <span>Asuransi Mobil</span>
+                                </div>
+                                <div class="insurance-item">
+                                    <span class="icon-emoji">🚛</span>
+                                    <span>Derek 24/7</span>
+                                </div>
+                            </div>
+                            <button class="btn-cta-hero" style="margin-bottom: 0;">Ajukan Sekarang</button>
                         </div>
-                        <button class="btn-primary">Ajukan Sekarang</button>
                     </div>
                 </div>
-
-                <!-- Slide 2: Mobil -->
+                <!-- Slide 2: Innova -->
                 <div class="slider-slide">
-                    <div class="sim-card">
-                        <div class="sim-icon">🚗</div>
-                        <h3>Mobil</h3>
-                        <div class="sim-detail">
-                            <div class="sim-row">
-                                <span>Plafon Pinjaman:</span>
-                                <strong>20 - 300 Juta</strong>
-                            </div>
-                            <div class="sim-row">
-                                <span>Tenor:</span>
-                                <strong>12 - 48 Bulan</strong>
-                            </div>
-                            <div class="sim-row">
-                                <span>Bunga per bulan:</span>
-                                <strong>1.0% - 1.3%</strong>
+                    <div class="simulation-card">
+                        <div class="ribbon-badge">Best Offer</div>
+                        <div class="car-preview">
+                            <div class="car-img">
+                                <img src="images/car-innova.jpg" alt="Toyota Innova">
                             </div>
                         </div>
-                        <div class="sim-example">
-                            <p><strong>Contoh:</strong></p>
-                            <p>Pinjaman: Rp 50.000.000</p>
-                            <p>Tenor: 24 bulan</p>
-                            <p>Cicilan: <strong>Rp 2.500.000/bulan</strong></p>
+                        <div class="sim-header">Toyota Innova 2019</div>
+                        <div class="sim-body">
+                            <div class="price-row">
+                                <div class="price-label">Total Pencairan</div>
+                                <div class="price-value">Rp 150.000.000</div>
+                            </div>
+                            <div class="price-row">
+                                <div class="price-label">Cicilan 48x</div>
+                                <div class="price-original">Rp 4.800.000</div>
+                                <div class="price-value">Rp 4.250.000</div>
+                                <span class="green-text">0.79% / bulan</span>
+                            </div>
+                            <ul class="check-list">
+                                <li>Angsuran lebih terjangkau tenor lebih panjang</li>
+                                <li>Harga wajar berdasarkan pasar</li>
+                                <li>Tim profesional</li>
+                                <li>Proses aman dan transparan</li>
+                            </ul>
+                            <!-- Insurance Icons - Emojis -->
+                            <div class="insurance-icons">
+                                <div class="insurance-item">
+                                    <span class="icon-emoji">❤️</span>
+                                    <span>Asuransi Jiwa</span>
+                                </div>
+                                <div class="insurance-item">
+                                    <span class="icon-emoji">🚗</span>
+                                    <span>Asuransi Mobil</span>
+                                </div>
+                                <div class="insurance-item">
+                                    <span class="icon-emoji">🚛</span>
+                                    <span>Derek 24/7</span>
+                                </div>
+                            </div>
+                            <button class="btn-cta-hero" style="margin-bottom: 0;">Ajukan Sekarang</button>
                         </div>
-                        <button class="btn-primary">Ajukan Sekarang</button>
                     </div>
                 </div>
-
-                <!-- Slide 3: Truk/Alat Berat -->
+                <!-- Slide 3: Xpander -->
                 <div class="slider-slide">
-                    <div class="sim-card">
-                        <div class="sim-icon">🚛</div>
-                        <h3>Truk / Alat Berat</h3>
-                        <div class="sim-detail">
-                            <div class="sim-row">
-                                <span>Plafon Pinjaman:</span>
-                                <strong>50 - 500 Juta</strong>
-                            </div>
-                            <div class="sim-row">
-                                <span>Tenor:</span>
-                                <strong>12 - 60 Bulan</strong>
-                            </div>
-                            <div class="sim-row">
-                                <span>Bunga per bulan:</span>
-                                <strong>0.9% - 1.2%</strong>
+                    <div class="simulation-card">
+                        <div class="ribbon-badge">Best Offer</div>
+                        <div class="car-preview">
+                            <div class="car-img">
+                                <img src="images/car-xpander.jpg" alt="Mitsubishi Xpander">
                             </div>
                         </div>
-                        <div class="sim-example">
-                            <p><strong>Contoh:</strong></p>
-                            <p>Pinjaman: Rp 100.000.000</p>
-                            <p>Tenor: 36 bulan</p>
-                            <p>Cicilan: <strong>Rp 3.200.000/bulan</strong></p>
+                        <div class="sim-header">Mitsubishi Xpander 2020</div>
+                        <div class="sim-body">
+                            <div class="price-row">
+                                <div class="price-label">Total Pencairan</div>
+                                <div class="price-value">Rp 120.000.000</div>
+                            </div>
+                            <div class="price-row">
+                                <div class="price-label">Cicilan 48x</div>
+                                <div class="price-original">Rp 3.900.000</div>
+                                <div class="price-value">Rp 3.450.000</div>
+                                <span class="green-text">0.79% / bulan</span>
+                            </div>
+                            <ul class="check-list">
+                                <li>Angsuran lebih terjangkau tenor lebih panjang</li>
+                                <li>Harga wajar berdasarkan pasar</li>
+                                <li>Tim profesional</li>
+                                <li>Proses aman dan transparan</li>
+                            </ul>
+                            <!-- Insurance Icons - Emojis -->
+                            <div class="insurance-icons">
+                                <div class="insurance-item">
+                                    <span class="icon-emoji">❤️</span>
+                                    <span>Asuransi Jiwa</span>
+                                </div>
+                                <div class="insurance-item">
+                                    <span class="icon-emoji">🚗</span>
+                                    <span>Asuransi Mobil</span>
+                                </div>
+                                <div class="insurance-item">
+                                    <span class="icon-emoji">🚛</span>
+                                    <span>Derek 24/7</span>
+                                </div>
+                            </div>
+                            <button class="btn-cta-hero" style="margin-bottom: 0;">Ajukan Sekarang</button>
                         </div>
-                        <button class="btn-primary">Ajukan Sekarang</button>
+                    </div>
+                </div>
+                <!-- Slide 4: HR-V -->
+                <div class="slider-slide">
+                    <div class="simulation-card">
+                        <div class="ribbon-badge">Best Offer</div>
+                        <div class="car-preview">
+                            <div class="car-img">
+                                <img src="images/car-hrv.jpg" alt="Honda HR-V">
+                            </div>
+                        </div>
+                        <div class="sim-header">Honda HR-V 2019</div>
+                        <div class="sim-body">
+                            <div class="price-row">
+                                <div class="price-label">Total Pencairan</div>
+                                <div class="price-value">Rp 180.000.000</div>
+                            </div>
+                            <div class="price-row">
+                                <div class="price-label">Cicilan 48x</div>
+                                <div class="price-original">Rp 5.800.000</div>
+                                <div class="price-value">Rp 5.100.000</div>
+                                <span class="green-text">0.79% / bulan</span>
+                            </div>
+                            <ul class="check-list">
+                                <li>Angsuran lebih terjangkau tenor lebih panjang</li>
+                                <li>Harga wajar berdasarkan pasar</li>
+                                <li>Tim profesional</li>
+                                <li>Proses aman dan transparan</li>
+                            </ul>
+                            <!-- Insurance Icons - Emojis -->
+                            <div class="insurance-icons">
+                                <div class="insurance-item">
+                                    <span class="icon-emoji">❤️</span>
+                                    <span>Asuransi Jiwa</span>
+                                </div>
+                                <div class="insurance-item">
+                                    <span class="icon-emoji">🚗</span>
+                                    <span>Asuransi Mobil</span>
+                                </div>
+                                <div class="insurance-item">
+                                    <span class="icon-emoji">🚛</span>
+                                    <span>Derek 24/7</span>
+                                </div>
+                            </div>
+                            <button class="btn-cta-hero" style="margin-bottom: 0;">Ajukan Sekarang</button>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="slider-dots" id="simDots"></div>
         </div>
-
-        <div class="sim-note">
-            <p>💡 <em>*Simulasi di atas adalah estimasi. Nilai pencairan dan bunga akan disesuaikan dengan kondisi kendaraan dan hasil survey.</em></p>
-        </div>
     </section>
 
-    <!-- KEUNTUNGAN -->
     <section class="section">
-        <h2 class="section-title">⭐ Kenapa Pilih Kami?</h2>
-        
-        <div class="benefit-grid">
+        <h2 class="section-title">Keuntungan Fasilitas Dana BPKB</h2>
+        <div class="benefits-grid">
             <div class="benefit-item">
-                <div class="benefit-icon">⚡</div>
-                <h4>Proses Super Cepat</h4>
-                <p>Pengajuan hingga pencairan hanya 30 menit - 1 hari kerja</p>
-            </div>
-            <div class="benefit-item">
-                <div class="benefit-icon">🔒</div>
-                <h4>Aman & Terpercaya</h4>
-                <p>Terdaftar OJK dan berpengalaman lebih dari 10 tahun</p>
+                <div class="benefit-icon">🌸</div>
+                <div class="benefit-title">Bunga Mulai<br>0.79%/bln</div>
             </div>
             <div class="benefit-item">
                 <div class="benefit-icon">💰</div>
-                <h4>Bunga Kompetitif</h4>
-                <p>Suku bunga rendah mulai dari 0.9% per bulan</p>
+                <div class="benefit-title">Pencairan s.d.<br>Rp 500 Jt</div>
             </div>
             <div class="benefit-item">
-                <div class="benefit-icon">🚗</div>
-                <h4>Kendaraan Tetap Dipakai</h4>
-                <p>BPKB dijaminkan, kendaraan tetap bisa digunakan</p>
+                <div class="benefit-icon">📅</div>
+                <div class="benefit-title">Tenor s.d.<br>48 Bulan</div>
             </div>
             <div class="benefit-item">
-                <div class="benefit-icon">📍</div>
-                <h4>Jangkauan Luas</h4>
-                <p>Melayani seluruh Jabodetabek dan sekitarnya</p>
+                <div class="benefit-icon">🛡️</div>
+                <div class="benefit-title">Terpercaya<br>Bagian dari Astra</div>
             </div>
             <div class="benefit-item">
-                <div class="benefit-icon">🎯</div>
-                <h4>Tanpa Jaminan Tambahan</h4>
-                <p>Cukup BPKB dan KTP, tanpa slip gaji atau BI Checking</p>
+                <div class="benefit-icon">⚡</div>
+                <div class="benefit-title">Proses Cepat</div>
+                <div class="benefit-desc">Dokumen lengkap, cair cepat</div>
             </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🏠</div>
+                <div class="benefit-title">Penggunaan Mudah</div>
+                <div class="benefit-desc">Untuk segala kebutuhan</div>
+            </div>
+        </div>
+        <button class="btn-cta-hero">Ajukan Sekarang</button>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title" style="text-align: left;">Cukup Siapkan 4 Dokumen untuk Proses Awal</h2>
+        <div class="doc-list">
+            <div class="doc-item"><span class="doc-icon">☑</span> KTP Pemohon & Pasangan (jika menikah)</div>
+            <div class="doc-item"><span class="doc-icon">☑</span> Kartu Keluarga</div>
+            <div class="doc-item"><span class="doc-icon">☑</span> STNK Mobil</div>
+            <div class="doc-item"><span class="doc-icon">☑</span> BPKB Mobil</div>
         </div>
     </section>
 
-    <!-- TESTIMONI -->
-    <section class="section section-testi">
-        <h2 class="section-title">💬 Testimoni Pelanggan</h2>
-        
+    <!-- SLIDER: TESTIMONI -->
+    <section class="section">
+        <h2 class="section-title" style="text-align: left;">Cerita Pengguna</h2>
         <div class="slider-container" id="testiSlider">
             <div class="slider-wrapper">
+                <!-- Slide 1 -->
                 <div class="slider-slide">
                     <div class="testi-card">
-                        <div class="testi-header">
-                            <div class="testi-avatar">👨</div>
-                            <div class="testi-info">
-                                <h4>Budi Santoso</h4>
-                                <p>Pinjaman Mobil - Rp 80 Juta</p>
-                            </div>
-                            <div class="testi-rating">⭐⭐⭐⭐⭐</div>
-                        </div>
-                        <p class="testi-text">"Prosesnya cepat banget! Pagi ngajuin, sore dana sudah cair. Pelayanan ramah dan profesional. Recommended!"</p>
+                        <div class="star-rating">★★★★★</div>
+                        <h3 style="margin-top: 5px; font-size: 16px;">"Solusi Mobil yang Terbukti Aman"</h3>
+                        <p class="testi-text">Butuh modal? Langsung aja ke GadaiBPKBmobil.com. Prosesnya mudah, cepat, dan pastinya aman karena dari Astra.</p>
+                        <div class="user-info">Joko Susilo<br><span style="font-weight: normal; color: #999;">Wiraswasta, Jakarta</span></div>
                     </div>
                 </div>
+                <!-- Slide 2 -->
                 <div class="slider-slide">
                     <div class="testi-card">
-                        <div class="testi-header">
-                            <div class="testi-avatar">👩</div>
-                            <div class="testi-info">
-                                <h4>Siti Nurhaliza</h4>
-                                <p>Pinjaman Motor - Rp 15 Juta</p>
-                            </div>
-                            <div class="testi-rating">⭐⭐⭐⭐⭐</div>
-                        </div>
-                        <p class="testi-text">"Sangat membantu untuk modal usaha saya. Bunga ringan dan bisa dicicil sesuai kemampuan. Terima kasih!"</p>
+                        <div class="star-rating">★★★★★</div>
+                        <h3 style="margin-top: 5px; font-size: 16px;">"Pencairan Dana Super Cepat"</h3>
+                        <p class="testi-text">Saya butuh dana darurat untuk usaha. Dalam 2 hari, dana sudah cair ke rekening saya. Terima kasih GadaiBPKBmobil.com!</p>
+                        <div class="user-info">Siti Rahayu<br><span style="font-weight: normal; color: #999;">Pengusaha, Surabaya</span></div>
                     </div>
                 </div>
+                <!-- Slide 3 -->
                 <div class="slider-slide">
                     <div class="testi-card">
-                        <div class="testi-header">
-                            <div class="testi-avatar">👨</div>
-                            <div class="testi-info">
-                                <h4>Agus Wijaya</h4>
-                                <p>Pinjaman Truk - Rp 150 Juta</p>
-                            </div>
-                            <div class="testi-rating">⭐⭐⭐⭐⭐</div>
-                        </div>
-                        <p class="testi-text">"Untuk dana besar, ternyata prosesnya tetap mudah. Tim survey profesional dan tidak ribet. Top!"</p>
+                        <div class="star-rating">★★★★☆</div>
+                        <h3 style="margin-top: 5px; font-size: 16px;">"Bunga Ringan, Tenor Panjang"</h3>
+                        <p class="testi-text">Cicilan per bulan sangat terjangkau. Tim GadaiBPKBmobil.com juga sangat membantu menjelaskan semua prosesnya.</p>
+                        <div class="user-info">Budi Santoso<br><span style="font-weight: normal; color: #999;">Karyawan, Bandung</span></div>
+                    </div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="slider-slide">
+                    <div class="testi-card">
+                        <div class="star-rating">★★★★★</div>
+                        <h3 style="margin-top: 5px; font-size: 16px;">"BPKB Aman, Proses Transparan"</h3>
+                        <p class="testi-text">Awalnya ragu menggadaikan BPKB, tapi GadaiBPKBmobil.com membuat saya yakin. Proses jelas dan BPKB benar-benar aman.</p>
+                        <div class="user-info">Dewi Kusuma<br><span style="font-weight: normal; color: #999;">Ibu Rumah Tangga, Yogyakarta</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SYARAT & DOKUMEN -->
-    <section class="section section-requirements">
-        <h2 class="section-title">📋 Syarat & Dokumen</h2>
-        
-        <div class="req-container">
-            <div class="req-card">
-                <h3>🏍️ Motor</h3>
-                <ul>
-                    <li>✅ BPKB Asli (atas nama sendiri atau keluarga)</li>
-                    <li>✅ KTP Asli & Kartu Keluarga</li>
-                    <li>✅ STNK Aktif</li>
-                    <li>✅ Kendaraan tahun min. 2010</li>
-                </ul>
-            </div>
-            <div class="req-card">
-                <h3>🚗 Mobil</h3>
-                <ul>
-                    <li>✅ BPKB Asli (atas nama sendiri atau keluarga)</li>
-                    <li>✅ KTP Asli & Kartu Keluarga</li>
-                    <li>✅ STNK Aktif</li>
-                    <li>✅ Kendaraan tahun min. 2012</li>
-                    <li>✅ Faktur pembelian (jika ada)</li>
-                </ul>
-            </div>
-            <div class="req-card">
-                <h3>🚛 Truk</h3>
-                <ul>
-                    <li>✅ BPKB Asli (atas nama sendiri atau perusahaan)</li>
-                    <li>✅ KTP Direktur / Pemilik</li>
-                    <li>✅ STNK & SIUP Aktif</li>
-                    <li>✅ Kendaraan tahun min. 2010</li>
-                    <li>✅ Dokumen perusahaan (jika atas nama PT/CV)</li>
-                </ul>
-            </div>
-        </div>
+    <section class="form-section">
+        <h2>Hitung Simulasi Cepat. GRATIS!</h2>
+        <p>Isi form di bawah ini. Simulasi terkirim dalam waktu 1-2 menit.</p>
 
-        <div class="req-note">
-            <p>📌 <strong>Catatan:</strong> Dokumen tambahan mungkin diperlukan sesuai kebijakan perusahaan dan hasil survey.</p>
-        </div>
+        <form id="pengajuanForm">
+            <div class="form-group">
+                <label class="form-label">Nama Lengkap <span class="required">*</span></label>
+                <input type="text" class="form-input" name="nama" placeholder="Masukkan nama lengkap" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Nomor Handphone <span class="required">*</span></label>
+                <input type="tel" class="form-input" name="hp" placeholder="08x - xxxx - xxxx" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Domisili Pengajuan (Kecamatan) <span class="required">*</span></label>
+                <div class="search-container">
+                    <input type="text" class="search-input" name="kecamatan" id="kecamatanSearch" placeholder="Cari kecamatan..." required>
+                    <span class="search-icon">🔍</span>
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">BPKB yang Dijaminkan <span class="required">*</span></label>
+                <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="bpkb" value="mobil" checked required><span>Mobil</span></label>
+                    <label class="radio-item"><input type="radio" name="bpkb" value="motor" required><span>Motor</span></label>
+                    <label class="radio-item"><input type="radio" name="bpkb" value="truk" required><span>Truk</span></label>
+                </div>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="form-group">
+                <label class="form-label">Upload Dokumen <span class="required">*</span></label>
+                <div class="upload-section">
+                    <div class="upload-grid">
+                        <div class="upload-box" onclick="document.getElementById('uploadFile').click()">
+                            <div class="upload-icon">📁</div>
+                            <div class="upload-text">Upload Gambar<br>BPKB/STNK</div>
+                            <img class="upload-preview" id="uploadPreview" alt="Preview">
+                            <input type="file" id="uploadFile" name="uploadFile" accept="image/*" required onchange="previewImage(this, 'uploadPreview')">
+                        </div>
+                        <div class="upload-box" onclick="document.getElementById('cameraFile').click()">
+                            <div class="upload-icon">📷</div>
+                            <div class="upload-text">Ambil Foto<br>Kendaraan</div>
+                            <img class="upload-preview" id="cameraPreview" alt="Preview">
+                            <input type="file" id="cameraFile" name="cameraFile" accept="image/*" capture="environment" required onchange="previewImage(this, 'cameraPreview')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="policy" name="policy" required>
+                <label for="policy">Saya setuju data direkam dan diproses sesuai Kebijakan Privasi yang berlaku. <span class="required">*</span></label>
+            </div>
+            
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="promo" name="promo">
+                <label for="promo">Saya bersedia menerima informasi layanan/produk terbaru dari GadaiBPKBmobil.com.</label>
+            </div>
+
+            <button type="submit" class="btn-submit">Kirim via WhatsApp</button>
+        </form>
     </section>
 
-    <!-- AREA LAYANAN -->
     <section class="section">
-        <h2 class="section-title">📍 Area Layanan Kami</h2>
+        <h2 class="section-title" style="text-align: left; border-bottom: none;">Pertanyaan yang Sering Diajukan</h2>
         
-        <div class="area-grid">
-            <div class="area-item">Jakarta Pusat</div>
-            <div class="area-item">Jakarta Utara</div>
-            <div class="area-item">Jakarta Barat</div>
-            <div class="area-item">Jakarta Selatan</div>
-            <div class="area-item">Jakarta Timur</div>
-            <div class="area-item">Tangerang</div>
-            <div class="area-item">Tangerang Selatan</div>
-            <div class="area-item">Bekasi</div>
-            <div class="area-item">Depok</div>
-            <div class="area-item">Bogor</div>
-        </div>
-
-        <div class="search-container">
-            <label for="kecamatanSearch">🔍 Cari Kecamatan Anda:</label>
-            <input type="text" id="kecamatanSearch" placeholder="Ketik nama kecamatan...">
-            <div class="search-results" id="searchResults"></div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section section-faq">
-        <h2 class="section-title">❓ Pertanyaan Umum (FAQ)</h2>
-        
-        <div class="faq-list">
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Berapa lama proses pencairan dana?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    Proses pencairan dana sangat cepat, mulai dari 30 menit hingga 1 hari kerja setelah semua dokumen lengkap dan disetujui.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Apakah kendaraan harus diserahkan?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    Tidak! Yang dijaminkan hanya BPKB, kendaraan tetap bisa Anda gunakan sehari-hari.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Bagaimana jika BPKB masih atas nama orang lain?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    Bisa diproses jika atas nama keluarga (suami/istri/orang tua/anak) dengan melampirkan Kartu Keluarga sebagai bukti hubungan.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Apakah ada biaya tersembunyi?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    Tidak ada biaya tersembunyi. Semua biaya admin, survey, dan lainnya akan dijelaskan secara transparan di awal pengajuan.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Bagaimana cara pelunasan sebelum jatuh tempo?</span>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    Pelunasan dipercepat sangat diperbolehkan tanpa penalti. Anda hanya perlu membayar sisa pokok dan bunga berjalan.
-                </div>
-            </div>
+        <div class="faq-container">
+            <details>
+                <summary>Apa itu Fasilitas Dana?</summary>
+                <div class="faq-ans">Fasilitas dana adalah layanan pinjaman tunai dengan agunan BPKB mobil.</div>
+            </details>
+            <details>
+                <summary>Apakah BPKB saya aman digadaikan?</summary>
+                <div class="faq-ans">Ya, aman. Kami bekerjasama dengan leasing terpercaya di bawah naungan Astra dan OJK.</div>
+            </details>
+            <details>
+                <summary>Berapa lama proses pencairan dana?</summary>
+                <div class="faq-ans">Proses pencairan biasanya memakan waktu 1-3 hari kerja setelah survei dan dokumen lengkap.</div>
+            </details>
+            <details>
+                <summary>Berapa minimal tahun kendaraan?</summary>
+                <div class="faq-ans">Minimal tahun kendaraan adalah 2012 untuk mobil Jepang.</div>
+            </details>
+            <details>
+                <summary>Bagaimana cara mengajukan pinjaman?</summary>
+                <div class="faq-ans">Cukup isi form di atas dan tim kami akan menghubungi Anda.</div>
+            </details>
         </div>
     </section>
 
-    <!-- CTA FINAL -->
-    <section class="section section-cta-final">
-        <h2>🚀 Siap Dapatkan Dana Cepat?</h2>
-        <p>Hubungi kami sekarang untuk konsultasi gratis dan dapatkan persetujuan dalam hitungan menit!</p>
-        <button class="btn-cta-wa">
-            <span>💬 Chat WhatsApp Sekarang</span>
-        </button>
-        <p class="cta-note">Atau telepon kami di: <strong>0812-3456-7890</strong></p>
-    </section>
-
-    <!-- FOOTER -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="https://via.placeholder.com/100x40/004990/FFFFFF?text=Logo" alt="Logo">
-            </div>
-            <div class="footer-info">
-                <p><strong>PT. Fasilitas Dana Indonesia</strong></p>
-                <p>📍 Jl. Contoh No. 123, Jakarta Pusat</p>
-                <p>📞 0812-3456-7890</p>
-                <p>✉️ info@fasilitasdana.com</p>
-            </div>
-            <div class="footer-social">
-                <a href="#" class="social-icon">📘</a>
-                <a href="#" class="social-icon">📷</a>
-                <a href="#" class="social-icon">🐦</a>
-            </div>
+        <div class="footer-logos">
+            <div class="footer-logo-box" style="width: 40px; height: 40px;"></div>
+            <div class="footer-logo-box" style="width: 80px; height: 40px;"></div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 PT. Fasilitas Dana Indonesia. All Rights Reserved.</p>
-            <p><small>Terdaftar dan diawasi oleh OJK</small></p>
+        <p style="margin-bottom: 15px;">PT Astra Auto Digital. Menara Astra Lt. 55, Jl. Jend. Sudirman Kav 5-6, Jakarta 10220.</p>
+        
+        <div class="footer-links">
+            <a href="#">Tentang Kami</a>
+            <a href="#">Syarat & Ketentuan</a>
+            <a href="#">Kebijakan Privasi</a>
+            <a href="#">Hubungi Kami</a>
         </div>
+
+        <div class="social-icons">
+            <div class="social-box"></div> <div class="social-box"></div> <div class="social-box"></div> <div class="social-box"></div> </div>
+
+        <div style="margin-top: 30px; display: flex; align-items: center; gap: 10px;">
+            <div style="width: 30px; height: 30px; background: #fff; border-radius: 50%;"></div>
+            <p style="font-size: 10px;">Terdaftar dan diawasi oleh Otoritas Jasa Keuangan (OJK)</p>
+        </div>
+
+        <p style="margin-top: 30px; text-align: center; font-size: 10px; opacity: 0.7;">&copy; 2024 Copyright GadaiBPKBmobil.com</p>
     </footer>
+
+    <a href="#" class="wa-float">
+        <span>📞</span> 
+    </a>
 
 </div>
 
+
 <script src="js/script.js"></script>
+
 </body>
 </html>
