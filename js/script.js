@@ -1,45 +1,15 @@
-// Image Preview Function
-function previewImage(input, previewId) {
-    const preview = document.getElementById(previewId);
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            preview.classList.add('active');
-            input.parentElement.querySelector('.upload-icon').style.display = 'none';
-            input.parentElement.querySelector('.upload-text').style.display = 'none';
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-// Form Validation
-document.getElementById('pengajuanForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const requiredFields = this.querySelectorAll('[required]');
-    let isValid = true;
-    
-    requiredFields.forEach(field => {
-        if (!field.value || (field.type === 'checkbox' && !field.checked)) {
-            isValid = false;
-            field.style.borderLeft = '3px solid #ff6b6b';
-        } else {
-            field.style.borderLeft = 'none';
-        }
+// FAQ Toggle
+document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', () => {
+        const faqItem = question.parentElement;
+        faqItem.classList.toggle('active');
     });
-    
-    if (isValid) {
-        alert('Form berhasil dikirim! Tim kami akan segera menghubungi Anda.');
-    } else {
-        alert('Mohon lengkapi semua field yang wajib diisi.');
-    }
 });
 
-// Slider Class (without dots for testi slider)
+// Slider Class
 class Slider {
-    constructor(containerId, dotsId = null) {
-        this.container = document.getElementById(containerId);
+    constructor(sliderId, dotsId = null) {
+        this.container = document.getElementById(sliderId);
         this.wrapper = this.container.querySelector('.slider-wrapper');
         this.slides = this.wrapper.querySelectorAll('.slider-slide');
         this.dotsContainer = dotsId ? document.getElementById(dotsId) : null;
@@ -54,20 +24,57 @@ class Slider {
     }
     
     init() {
-        // Create dots only if dotsContainer exists
         if (this.dotsContainer) {
-            for (let i = 0; i < this.totalSlides; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
-                dot.addEventListener('click', () => this.goToSlide(i));
-                this.dotsContainer.appendChild(dot);
-            }
-            this.dots = this.dotsContainer.querySelectorAll('.slider-dot');
+            this.createDots();
         }
-        
+        this.addEventListeners();
+        this.startAutoPlay();
+    }
+    
+    createDots() {
+        for (let i = 0; i < this.totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('slider-dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => this.goToSlide(i));
+            this.dotsContainer.appendChild(dot);
+        }
+    }
+    
+    updateDots() {
+        if (!this.dotsContainer) return;
+        const dots = this.dotsContainer.querySelectorAll('.slider-dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === this.currentSlide);
+        });
+    }
+    
+    goToSlide(index) {
+        this.currentSlide = index;
+        this.updateSlider();
+        this.updateDots();
+    }
+    
+    nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+        this.updateSlider();
+        this.updateDots();
+    }
+    
+    prevSlide() {
+        this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        this.updateSlider();
+        this.updateDots();
+    }
+    
+    updateSlider() {
+        this.wrapper.style.transform = `translateX(-${this.currentSlide * 100}%)`;
+    }
+    
+    addEventListeners() {
         // Touch events
-        this.wrapper.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
-        this.wrapper.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: true });
+        this.wrapper.addEventListener('touchstart', (e) => this.handleTouchStart(e));
+        this.wrapper.addEventListener('touchmove', (e) => this.handleTouchMove(e));
         this.wrapper.addEventListener('touchend', () => this.handleTouchEnd());
         
         // Mouse events
@@ -75,53 +82,18 @@ class Slider {
         this.wrapper.addEventListener('mousemove', (e) => this.handleMouseMove(e));
         this.wrapper.addEventListener('mouseup', () => this.handleMouseUp());
         this.wrapper.addEventListener('mouseleave', () => this.handleMouseUp());
-        
-        // Auto play
-        this.startAutoPlay();
-        
-        // Pause on hover
-        this.container.addEventListener('mouseenter', () => this.stopAutoPlay());
-        this.container.addEventListener('mouseleave', () => this.startAutoPlay());
-    }
-    
-    goToSlide(index) {
-        this.currentSlide = index;
-        this.updateSlider();
-    }
-    
-    nextSlide() {
-        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
-        this.updateSlider();
-    }
-    
-    prevSlide() {
-        this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-        this.updateSlider();
-    }
-    
-    updateSlider() {
-        this.wrapper.style.transform = `translateX(-${this.currentSlide * 100}%)`;
-        if (this.dots) {
-            this.dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === this.currentSlide);
-            });
-        }
     }
     
     handleTouchStart(e) {
         this.startX = e.touches[0].clientX;
-        this.isDragging = true;
         this.stopAutoPlay();
     }
     
     handleTouchMove(e) {
-        if (!this.isDragging) return;
         this.currentX = e.touches[0].clientX;
     }
     
     handleTouchEnd() {
-        if (!this.isDragging) return;
-        this.isDragging = false;
         const diff = this.startX - this.currentX;
         
         if (Math.abs(diff) > 50) {
