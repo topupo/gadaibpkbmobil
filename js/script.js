@@ -1,158 +1,280 @@
-/* --- SLIDER LOGIC --- */
-class Slider {
-    constructor(wrapperId, dotsId, autoPlay = true) {
-        this.wrapper = document.querySelector(`#${wrapperId} .slider-wrapper`);
-        this.dotsContainer = document.getElementById(dotsId);
-        this.slides = this.wrapper.children;
-        this.total = this.slides.length;
-        this.index = 0;
-        
-        if(this.dotsContainer) this.initDots();
-        if(autoPlay) setInterval(() => this.next(), 4000);
+// --- DATA FOR DYNAMIC CONTENT ---
 
-        // Basic Swipe
-        let startX = 0;
-        this.wrapper.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-        this.wrapper.addEventListener('touchend', e => {
-            if(startX - e.changedTouches[0].clientX > 50) this.next();
-            if(e.changedTouches[0].clientX - startX > 50) this.prev();
-        });
-    }
-
-    initDots() {
-        this.dotsContainer.innerHTML = '';
-        for(let i=0; i<this.total; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'dot' + (i===0 ? ' active' : '');
-            dot.onclick = () => this.goTo(i);
-            this.dotsContainer.appendChild(dot);
-        }
-    }
-
-    update() {
-        this.wrapper.style.transform = `translateX(-${this.index * 100}%)`;
-        if(this.dotsContainer) {
-            Array.from(this.dotsContainer.children).forEach((d, i) => {
-                d.classList.toggle('active', i === this.index);
-            });
-        }
-    }
-
-    goTo(i) {
-        this.index = (i + this.total) % this.total;
-        this.update();
-    }
-
-    next() { this.goTo(this.index + 1); }
-    prev() { this.goTo(this.index - 1); }
-}
-
-/* --- SOCIAL PROOF & VEHICLE TEXT --- */
-const socialTexts = [
-    "Bapak Andi (Jaksel) baru cair Rp 150 Juta",
-    "Pencairan Rp 50 Juta sukses ke rek BCA a/n Budi",
-    "Ibu Rina (Bogor) disetujui unit Avanza 2018",
-    "Dana Pendidikan cair 100% tanpa potongan"
+// Social Proof Data
+const socialProofData = [
+    { name: "Bapak Andi (Jakarta Selatan)", text: "baru saja cair", amount: "Rp 150 Juta" },
+    { name: "Ibu Siti (Bekasi)", text: "disetujui unit", amount: "Avanza 2018" },
+    { name: "Budi Santoso (Tangerang)", text: "dana cair", amount: "Rp 50 Juta" },
+    { name: "Rina (Depok)", text: "pengajuan sukses", amount: "Tanpa Survei" },
+    { name: "Ahmad (Bogor)", text: "cair tunai", amount: "Rp 85 Juta" }
 ];
 
-const vehicleTexts = ["Sedan", "SUV", "MPV", "Pick Up", "Truck", "Motor"];
-
-function initTextSliders() {
-    // Social Proof
-    const proofContainer = document.getElementById('socialProof');
-    let proofIdx = 0;
-    
-    // Render first
-    proofContainer.innerHTML = `<div class="social-proof-slide"><span>${socialTexts[0]}</span></div>`;
-    
-    setInterval(() => {
-        proofIdx = (proofIdx + 1) % socialTexts.length;
-        proofContainer.innerHTML = `<div class="social-proof-slide"><span>${socialTexts[proofIdx]}</span></div>`;
-    }, 3000);
-
-    // Vehicle Type
-    const vehicleContainer = document.getElementById('vehicleType');
-    let vehicleIdx = 0;
-    vehicleContainer.innerText = vehicleTexts[0];
-    
-    setInterval(() => {
-        vehicleIdx = (vehicleIdx + 1) % vehicleTexts.length;
-        vehicleContainer.innerText = vehicleTexts[vehicleIdx];
-    }, 2000);
-}
-
-/* --- KECAMATAN SEARCH --- */
-const kecamatans = [
-    "Tebet, Jakarta Selatan", "Kebayoran Baru, Jakarta Selatan", "Pasar Minggu, Jakarta Selatan",
-    "Gambir, Jakarta Pusat", "Tanah Abang, Jakarta Pusat", "Menteng, Jakarta Pusat",
-    "Kelapa Gading, Jakarta Utara", "Penjaringan, Jakarta Utara",
-    "Kebon Jeruk, Jakarta Barat", "Cengkareng, Jakarta Barat",
-    "Bekasi Barat", "Bekasi Timur", "Serpong, Tangerang", "Ciputat, Tangerang Selatan"
+// Kecamatan Data (Sample for Jabodetabek)
+const kecamatanList = [
+    "Batuceper", "Benda", "Cibodas", "Ciledug", "Cipondoh", "Jatiuwung", "Karangtengah", "Karawaci", "Larangan", "Neglasari", "Periuk", "Pinang", "Tangerang",
+    "Beji", "Bojongsari", "Cilodong", "Cimanggis", "Cinere", "Cipayung", "Limo", "Pancoran Mas", "Sawangan", "Sukmajaya", "Tapos",
+    "Bantar Gebang", "Bekasi Barat", "Bekasi Selatan", "Bekasi Timur", "Bekasi Utara", "Jatiasih", "Jatisampurna", "Medan Satria", "Mustika Jaya", "Pondok Gede", "Pondok Melati", "Rawalumbu",
+    "Cengkareng", "Grogol Petamburan", "Taman Sari", "Tambora", "Kebon Jeruk", "Kalideres", "Palmerah", "Kembangan",
+    "Cempaka Putih", "Gambir", "Johar Baru", "Kemayoran", "Menteng", "Sawah Besar", "Senen", "Tanah Abang",
+    "Cilandak", "Jagakarsa", "Kebayoran Baru", "Kebayoran Lama", "Mampang Prapatan", "Pancoran", "Pasar Minggu", "Pesanggrahan", "Setiabudi", "Tebet",
+    "Cakung", "Cipayung", "Ciracas", "Duren Sawit", "Jatinegara", "Kramat Jati", "Makasar", "Matraman", "Pasar Rebo", "Pulo Gadung",
+    "Cilincing", "Kelapa Gading", "Koja", "Pademangan", "Penjaringan", "Tanjung Priok",
+    "Babakan Madang", "Bojonggede", "Ciawi", "Cibinong", "Citeureup", "Gunung Putri", "Jonggol", "Parung", "Sukaraja", "Tajur Halang",
+    "Balaraja", "Cikupa", "Cisauk", "Cisoka", "Gunung Kaler", "Jalancagak", "Kemiri", "Kosambi", "Kronjo", "Legok", "Pasar Kemis", "Pondok Aren", "Rajeg", "Sepatan", "Sepatan Timur", "Sindang Jaya", "Solear", "Teluknaga", "Tigaraksa"
 ];
 
-function initSearch() {
-    const input = document.getElementById('kecamatanInput');
-    const results = document.getElementById('kecamatanResults');
-    
+// --- LOGIC ---
+
+// Social Proof Slider Logic
+function initSocialProof() {
+    const container = document.getElementById('socialProof');
+    let currentIndex = 0;
+
+    function updateSocialProof() {
+        const item = socialProofData[currentIndex];
+        container.innerHTML = `
+            <div class="social-proof-slide">
+                <span>${item.name} ${item.text} <strong>${item.amount}</strong></span>
+            </div>
+        `;
+        container.style.opacity = 0;
+        setTimeout(() => {
+            container.style.opacity = 1;
+        }, 100);
+
+        currentIndex = (currentIndex + 1) % socialProofData.length;
+    }
+
+    updateSocialProof();
+    setInterval(updateSocialProof, 4000);
+}
+
+// Kecamatan Search Logic
+function initKecamatanSearch() {
+    setupSearch('kecamatanInput', 'kecamatanResults');
+    setupSearch('kecamatanFormInput', 'kecamatanFormResults');
+}
+
+function setupSearch(inputId, resultsId) {
+    const input = document.getElementById(inputId);
+    const results = document.getElementById(resultsId);
+
+    if (!input || !results) return;
+
     input.addEventListener('input', function() {
-        const val = this.value.toLowerCase();
+        const query = this.value.toLowerCase();
         results.innerHTML = '';
-        if(val.length < 3) { results.classList.remove('active'); return; }
         
-        const matches = kecamatans.filter(k => k.toLowerCase().includes(val));
-        if(matches.length) {
-            results.innerHTML = matches.slice(0,5).map(m => `<div class="search-result-item">${m}</div>`).join('');
-            results.classList.add('active');
-            
-            results.querySelectorAll('.search-result-item').forEach(item => {
-                item.onclick = () => {
-                    input.value = item.innerText;
+        if (query.length < 3) {
+            results.classList.remove('active');
+            return;
+        }
+
+        const filtered = kecamatanList.filter(k => k.toLowerCase().includes(query));
+        
+        if (filtered.length > 0) {
+            filtered.slice(0, 10).forEach(kec => {
+                const div = document.createElement('div');
+                div.className = 'search-result-item';
+                div.textContent = kec;
+                div.onclick = function() {
+                    input.value = kec;
                     results.classList.remove('active');
-                }
+                };
+                results.appendChild(div);
             });
+            results.classList.add('active');
         } else {
             results.classList.remove('active');
         }
     });
-    
-    document.addEventListener('click', e => {
-        if(!e.target.closest('.search-container')) results.classList.remove('active');
+
+    // Close on click outside
+    document.addEventListener('click', function(e) {
+        if (e.target !== input && e.target !== results) {
+            results.classList.remove('active');
+        }
     });
 }
 
-/* --- FORM HANDLING --- */
-function previewImage(input, imgId) {
-    const preview = document.getElementById(imgId);
+// File Preview Logic
+function previewImage(input, previewId) {
     if (input.files && input.files[0]) {
         const reader = new FileReader();
         reader.onload = function(e) {
+            const preview = document.getElementById(previewId);
             preview.src = e.target.result;
             preview.style.display = 'block';
+            // Hide the icon/text behind it strictly or styled
         }
         reader.readAsDataURL(input.files[0]);
     }
 }
 
-function handleFormSubmit(e) {
+// Lead Form Submission
+document.getElementById('submissionForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    const btn = document.getElementById('btnSubmit');
-    const originalText = btn.innerText;
+    const btn = document.getElementById('submitBtn');
     
-    btn.innerText = "MENGIRIM...";
-    btn.disabled = true;
+    // Simple Validation for required fields visual feedback
+    const requiredFields = this.querySelectorAll('[required]');
+    let isValid = true;
     
-    setTimeout(() => {
-        alert("Terima kasih! Data Anda berhasil dikirim.");
-        btn.innerText = originalText;
-        btn.disabled = false;
-        e.target.reset();
-    }, 1500);
+    requiredFields.forEach(field => {
+        if (!field.value || (field.type === 'checkbox' && !field.checked)) {
+            isValid = false;
+            field.style.borderLeft = '3px solid #ff6b6b';
+        } else {
+            field.style.borderLeft = 'none';
+        }
+    });
+
+    if (isValid) {
+        alert('Form berhasil dikirim! Tim kami akan segera menghubungi Anda.');
+    } else {
+        alert('Mohon lengkapi semua field yang wajib diisi.');
+    }
+});
+
+// Slider Class (without dots for testi slider)
+class Slider {
+    constructor(containerId, dotsId = null) {
+        this.container = document.getElementById(containerId);
+        this.wrapper = this.container.querySelector('.slider-wrapper');
+        this.slides = this.wrapper.querySelectorAll('.slider-slide');
+        this.dotsContainer = dotsId ? document.getElementById(dotsId) : null;
+        
+        this.currentSlide = 0;
+        this.totalSlides = this.slides.length;
+        
+        this.startX = 0;
+        this.currentX = 0;
+        this.isDragging = false;
+        
+        this.autoPlayInterval = null;
+        
+        this.init();
+    }
+
+    init() {
+        // Create dots only if container provided
+        if (this.dotsContainer) {
+            for (let i = 0; i < this.totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = i === 0 ? 'dot active' : 'dot';
+                dot.addEventListener('click', () => this.goToSlide(i));
+                this.dotsContainer.appendChild(dot);
+            }
+        }
+
+        // Touch Events
+        this.wrapper.addEventListener('touchstart', (e) => this.touchStart(e));
+        this.wrapper.addEventListener('touchmove', (e) => this.touchMove(e));
+        this.wrapper.addEventListener('touchend', () => this.touchEnd());
+        
+        // AutoPlay
+        this.startAutoPlay();
+    }
+
+    touchStart(e) {
+        this.startX = e.touches[0].clientX;
+        this.isDragging = true;
+        this.stopAutoPlay();
+    }
+
+    touchMove(e) {
+        if (!this.isDragging) return;
+        this.currentX = e.touches[0].clientX;
+    }
+
+    touchEnd() {
+        this.isDragging = false;
+        const diff = this.startX - this.currentX;
+        if (Math.abs(diff) > 50) { // Threshold
+            if (diff > 0) this.nextSlide();
+            else this.prevSlide();
+        }
+        this.startAutoPlay();
+    }
+
+    nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+        this.updateSlider();
+    }
+
+    prevSlide() {
+        this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        this.updateSlider();
+    }
+
+    goToSlide(index) {
+        this.currentSlide = index;
+        this.updateSlider();
+        this.stopAutoPlay();
+        this.startAutoPlay();
+    }
+
+    updateSlider() {
+        this.wrapper.style.transform = `translateX(-${this.currentSlide * 100}%)`;
+        if (this.dotsContainer) {
+            const dots = this.dotsContainer.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === this.currentSlide);
+            });
+        }
+    }
+
+    startAutoPlay() {
+        this.stopAutoPlay();
+        this.autoPlayInterval = setInterval(() => this.nextSlide(), 5000);
+    }
+
+    stopAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+    }
 }
 
-// Initialize All
+// Vehicle Type Text Slider
+class VehicleTextSlider {
+    constructor(elementId) {
+        this.element = document.getElementById(elementId);
+        this.vehicles = ['Mobil', 'Motor', 'Truk'];
+        this.currentIndex = 0;
+        this.autoPlayInterval = null;
+        this.init();
+    }
+
+    init() {
+        this.startAutoPlay();
+    }
+
+    nextSlide() {
+        this.currentIndex = (this.currentIndex + 1) % this.vehicles.length;
+        this.element.textContent = this.vehicles[this.currentIndex];
+    }
+
+    startAutoPlay() {
+        this.stopAutoPlay();
+        this.autoPlayInterval = setInterval(() => this.nextSlide(), 3000);
+    }
+
+    stopAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+    }
+}
+
+// Initialize sliders
 document.addEventListener('DOMContentLoaded', () => {
-    // Sliders
     new Slider('promoSlider', 'promoDots');
-    initTextSliders();
-    initSearch();
+    new Slider('simSlider', 'simDots');
+    new Slider('testiSlider'); // No dots for testi slider
+    new VehicleTextSlider('vehicleType'); // Vehicle type text slider
+    initSocialProof();
+    initKecamatanSearch();
 });
