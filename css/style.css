@@ -1,173 +1,219 @@
-/* =========================================
-   MODERN UI VARIABLES (Glassmorphism & Clean)
-   ========================================= */
+/* --- RESET & VARIABLES --- */
 :root {
-    --primary-blue: #0A2647;      /* Deep Navy */
-    --electric-blue: #2C74B3;     /* Brighter Blue */
-    --accent-gold: #FFD56F;       /* Soft Gold */
-    --surface-color: #ffffff;
-    --bg-color: #F4F7FD;
-    --text-main: #141E27;
-    --text-sub: #7B8FA1;
-    --glass-bg: rgba(255, 255, 255, 0.9);
+    --primary-blue: #0A2647; /* Lebih gelap & modern */
+    --dark-blue: #144272;
+    --light-blue-bg: #EAF6FF;
+    --green-acc: #00A651;
+    --text-dark: #1A1A1A;
+    --text-grey: #666;
+    --border-radius: 16px; /* Lebih rounded */
+    --white: #fff;
+    --shadow-soft: 0 10px 30px rgba(0,0,0,0.08); /* Shadow halus */
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
 
 body {
-    background-color: #eef2f5;
-    display: flex;
-    justify-content: center;
+    background-color: #f0f2f5;
+    display: flex; justify-content: center;
     min-height: 100vh;
 }
 
-/* Container Mobile */
 .mobile-container {
     width: 100%; max-width: 480px;
-    background-color: var(--surface-color);
-    box-shadow: 0 0 50px rgba(0,0,0,0.05);
-    position: relative; overflow-x: hidden;
+    background-color: var(--white);
+    box-shadow: 0 0 50px rgba(0,0,0,0.1); /* Shadow lebih deep */
+    position: relative;
+    overflow-x: hidden;
 }
 
-/* --- HEADER --- */
+/* --- HEADER - TRANSPARENT GLASS --- */
 header {
     padding: 15px 20px;
     display: flex; justify-content: space-between; align-items: center;
-    background: var(--glass-bg); backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(15px); /* Efek Glass */
+    -webkit-backdrop-filter: blur(15px);
     position: sticky; top: 0; z-index: 100;
     border-bottom: 1px solid rgba(0,0,0,0.05);
 }
-.logo { font-weight: 800; color: var(--primary-blue); font-size: 20px; }
-.nav-burger { font-size: 24px; cursor: pointer; color: var(--text-main); }
+.logo { height: 40px; display: flex; align-items: center; }
+.logo img { height: 100%; width: auto; object-fit: contain; }
 
-/* --- HERO --- */
+/* Social Proof Slider */
+.social-proof-slider {
+    width: auto; min-width: 200px; height: 32px;
+    overflow: hidden; position: relative;
+    background: rgba(0, 166, 81, 0.1); /* Lebih soft */
+    border-radius: 20px;
+    border: 1px solid rgba(0, 166, 81, 0.2);
+}
+.social-proof-wrapper { display: flex; flex-direction: column; transition: transform 0.5s ease; }
+.social-proof-slide {
+    height: 32px; display: flex; align-items: center; justify-content: center;
+    padding: 0 12px; text-align: center; white-space: nowrap;
+}
+.social-proof-slide span { color: var(--text-dark); font-size: 11px; font-weight: 500; }
+.social-proof-slide strong { color: var(--green-acc); margin-left: 4px; }
+
+/* --- HERO SECTION --- */
 .hero {
-    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--electric-blue) 100%);
-    color: white; padding: 30px 20px 45px;
+    background: linear-gradient(160deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+    color: var(--white); text-align: center;
+    padding: 40px 20px 60px;
     border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
-    position: relative; overflow: hidden;
-    box-shadow: 0 10px 30px rgba(10, 38, 71, 0.2);
+    position: relative; overflow: visible;
 }
-
 .hero-tag {
-    font-size: 10px; background: rgba(255,255,255,0.2);
-    display: inline-block; padding: 5px 12px; border-radius: 20px;
-    margin-bottom: 15px; font-weight: 700; letter-spacing: 0.5px;
+    display: inline-block; background: rgba(255,255,255,0.15);
+    padding: 6px 12px; border-radius: 20px; font-size: 10px; font-weight: bold;
+    margin-bottom: 15px; letter-spacing: 1px; backdrop-filter: blur(5px);
 }
-
 .hero h1 { font-size: 24px; line-height: 1.3; font-weight: 800; margin-bottom: 10px; }
 
-/* Vehicle Slider Text */
-.dynamic-text-wrapper { height: 25px; overflow: hidden; position: relative; margin-bottom: 20px;}
-.dynamic-text { 
-    color: var(--accent-gold); font-weight: 600; font-style: italic; font-size: 16px;
-    position: absolute; width: 100%; transition: transform 0.5s ease;
+/* Vehicle Type Slider */
+.vehicle-slider {
+    display: block; height: 30px; overflow: hidden; margin-bottom: 20px;
+    color: #FFD700; font-weight: 600; font-size: 18px; font-style: italic;
 }
 
-/* Stats */
-.hero-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-.stat-box {
-    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px; padding: 10px 5px; text-align: center;
+.hero-stats {
+    display: flex; justify-content: space-between; margin-bottom: 25px;
+    background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
 }
-.stat-val { font-size: 14px; font-weight: 800; display: block; margin-bottom: 2px; }
-.stat-lbl { font-size: 9px; opacity: 0.8; }
+.stat-item { text-align: center; color: white; flex: 1; }
+.stat-item i { display: block; font-size: 18px; margin-bottom: 5px; opacity: 0.8; }
+.stat-item span { font-size: 10px; display: block; opacity: 0.9; }
+.stat-item strong { font-size: 14px; display: block; margin-top: 2px; }
 
-/* Search Kecamatan */
-.search-container { position: relative; width: 100%; z-index: 20; margin-top: 10px; }
+.btn-cta-hero {
+    background: #FFD700; color: #000; /* Warna Kontras */
+    padding: 14px 40px; border-radius: 50px; font-weight: 800; border: none; width: 100%;
+    margin-bottom: -25px; /* Overlap image */
+    box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+    cursor: pointer; position: relative; z-index: 10;
+    font-size: 16px;
+}
+
+.hero-image {
+    width: 100%; height: 180px;
+    border-radius: 20px; overflow: hidden;
+    margin-top: 40px; box-shadow: var(--shadow-soft);
+    background: #ddd;
+}
+
+/* Search Box Floating */
+.search-container {
+    position: relative; margin-top: -20px; margin-bottom: 20px; z-index: 20; padding: 0 10px;
+}
 .search-box {
-    background: var(--surface-color); border-radius: 50px; padding: 6px 6px 6px 20px;
+    background: var(--white); border-radius: 50px; padding: 5px 5px 5px 20px;
     display: flex; align-items: center; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
-.search-input { border: none; outline: none; flex: 1; font-size: 14px; color: var(--text-main); }
+.search-input { width: 100%; border: none; outline: none; font-size: 14px; color: var(--text-dark); }
 .search-btn {
-    background: var(--electric-blue); color: white; border: none;
-    width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 16px;
+    background: var(--primary-blue); color: white; border: none;
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 18px;
 }
 .search-results {
-    position: absolute; top: 60px; left: 0; right: 0;
+    position: absolute; top: 60px; left: 10px; right: 10px;
     background: white; border-radius: 15px; padding: 10px 0;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1); display: none;
-    max-height: 200px; overflow-y: auto; text-align: left;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15); display: none;
+    max-height: 200px; overflow-y: auto; text-align: left; z-index: 99;
 }
 .search-results.active { display: block; }
-.search-result-item { padding: 12px 20px; border-bottom: 1px solid #f0f0f0; font-size: 13px; cursor: pointer; color: var(--text-main); }
-.search-result-item:hover { background: #f8fbff; color: var(--electric-blue); }
+.search-result-item { padding: 12px 20px; border-bottom: 1px solid #f0f0f0; font-size: 13px; cursor: pointer; }
 
-/* --- SOCIAL PROOF --- */
-.social-proof-bar {
-    background: white; padding: 15px 20px; margin-top: 10px;
-    display: flex; align-items: center; border-bottom: 1px solid #f0f0f0;
-}
-.proof-icon { margin-right: 12px; font-size: 16px; animation: wave 2s infinite; }
-.proof-text-slider { font-size: 12px; color: var(--text-main); font-weight: 500; width: 100%; position: relative; height: 18px; overflow: hidden; }
-.proof-item { position: absolute; opacity: 0; top: 0; width: 100%; transition: all 0.5s ease; transform: translateY(10px); }
-.proof-item.active { opacity: 1; transform: translateY(0); }
-
-/* --- SECTIONS & SLIDERS --- */
+/* --- SECTIONS --- */
 .section { padding: 30px 20px; }
-.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.section-title { font-size: 18px; font-weight: 700; color: var(--text-main); }
-.section-link { font-size: 12px; color: var(--electric-blue); text-decoration: none; font-weight: 600; }
+.section-title { font-size: 18px; font-weight: 800; margin-bottom: 20px; color: var(--primary-blue); border-left: 4px solid #FFD700; padding-left: 10px;}
 
-/* Slider System */
-.slider-container { overflow: hidden; position: relative; }
-.slider-track { display: flex; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
-
-/* Promo Card Styling */
-.promo-card { min-width: 100%; padding: 5px; box-sizing: border-box; }
-.promo-content {
-    background: linear-gradient(135deg, #FF9966 0%, #FF5E62 100%); /* Default Gradient */
-    height: 160px; border-radius: 16px; padding: 20px;
-    display: flex; flex-direction: column; justify-content: flex-end; color: white;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+/* Steps Timeline */
+.steps-timeline { display: flex; flex-direction: column; gap: 20px; position: relative; margin-top: 20px; }
+.steps-timeline::before {
+    content: ''; position: absolute; left: 15px; top: 0; bottom: 0;
+    width: 2px; background: #eee;
 }
-/* Variation colors for next slides via nth-child logic in CSS if structure allows, 
-   but since skeleton is fixed, we rely on generic styling or inline logic if present. 
-   I'll make them all look good. */
-.promo-card:nth-child(2) .promo-content { background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%); }
-.promo-card:nth-child(3) .promo-content { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
-
-.promo-content h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.promo-content p { font-size: 12px; opacity: 0.95; }
-
-/* Simulation Card Styling */
-.sim-card {
-    min-width: 100%; padding: 5px; box-sizing: border-box;
+.step-item { display: flex; gap: 15px; position: relative; background: #fff; padding: 10px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+.step-num {
+    width: 32px; height: 32px; background: var(--primary-blue); color: white;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: bold; font-size: 14px; flex-shrink: 0; z-index: 2;
+    border: 3px solid #fff;
 }
-.sim-inner {
-    background: white; border: 1px solid #edf2f7; border-radius: 16px; padding: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-}
-.sim-car-img { 
-    height: 120px; background: #f1f5f9; border-radius: 12px; margin-bottom: 15px; 
-    display: flex; align-items: center; justify-content: center; font-size: 11px; color: #94a3b8; font-weight: 600;
-}
-.sim-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; color: var(--text-sub); }
-.sim-row strong { color: var(--text-main); font-weight: 700; }
-.sim-price { color: var(--primary-blue); font-weight: 700; font-size: 16px; }
-.btn-outline {
-    width: 100%; padding: 12px; margin-top: 15px; border-radius: 10px;
-    border: 1.5px solid var(--electric-blue); background: transparent;
-    color: var(--electric-blue); font-weight: 700; font-size: 13px; cursor: pointer;
-}
+.step-text h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.step-text p { font-size: 12px; color: var(--text-grey); line-height: 1.4; }
 
-/* Testimonials */
-.testi-card { min-width: 100%; text-align: center; padding: 20px; box-sizing: border-box; }
-.stars { color: #FFB52E; margin-bottom: 10px; letter-spacing: 2px; }
-.testi-text { font-style: italic; font-size: 14px; color: var(--text-main); line-height: 1.6; margin-bottom: 15px; }
-.testi-user { font-size: 12px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; }
+/* Phone Mockup */
+.phone-mockup {
+    width: 160px; height: 280px; background: #333; margin: 0 auto 30px;
+    border-radius: 25px; border: 8px solid #111; position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2); overflow: hidden;
+}
+.screen-content { background: #fff; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
 
-/* Dots */
+/* Promo Slider */
+.slider-container { overflow: hidden; position: relative; margin-bottom: 30px; }
+.slider-wrapper { display: flex; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.promo-slide {
+    min-width: 100%; padding: 25px; border-radius: 20px; color: white;
+    position: relative; box-sizing: border-box; margin-right: 10px; /* Gap handled by logic, but CSS spacing ok */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.ribbon-badge { position: absolute; top: 15px; right: 15px; background: #FF4D4D; padding: 4px 10px; border-radius: 10px; font-size: 10px; font-weight: bold; }
+.promo-slide h3 { font-size: 20px; font-weight: 800; margin-bottom: 5px; }
+.promo-slide p { font-size: 12px; opacity: 0.9; }
 .slider-dots { display: flex; justify-content: center; gap: 6px; margin-top: 15px; }
-.dot { width: 6px; height: 6px; background: #ddd; border-radius: 10px; transition: 0.3s; cursor: pointer; }
-.dot.active { background: var(--electric-blue); width: 20px; }
+.dot { width: 8px; height: 8px; background: #ccc; border-radius: 50%; transition: 0.3s; }
+.dot.active { background: var(--primary-blue); width: 24px; border-radius: 10px; }
+
+/* Simulation Cards */
+.simulation-card {
+    min-width: 260px; background: white; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #f0f0f0;
+}
+.sim-header { background: var(--green-acc); color: white; padding: 12px; font-weight: bold; font-size: 14px; text-align: center; }
+.sim-body { padding: 20px; }
+.price-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; color: var(--text-grey); align-items: center; }
+.price-value { font-size: 18px; font-weight: 800; color: var(--text-dark); }
+.check-list { list-style: none; margin: 15px 0; padding: 0; }
+.check-list li { font-size: 11px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.check-list li::before { content: '✓'; color: var(--green-acc); font-weight: bold; }
+.btn-outline {
+    width: 100%; padding: 10px; border: 1.5px solid var(--primary-blue);
+    background: transparent; color: var(--primary-blue); border-radius: 10px;
+    font-weight: 700; cursor: pointer; transition: 0.2s;
+}
+.btn-outline:hover { background: var(--primary-blue); color: white; }
+
+/* Form Section */
+.form-section { background: var(--primary-blue); padding: 40px 20px; color: white; border-radius: 30px 30px 0 0; margin-top: 20px; }
+.form-section h2 { font-size: 20px; margin-bottom: 10px; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 12px; margin-bottom: 8px; opacity: 0.9; }
+.form-input { width: 100%; padding: 14px; border-radius: 10px; border: none; font-size: 14px; background: rgba(255,255,255,0.95); }
+.btn-submit {
+    width: 100%; padding: 16px; background: #FFD700; color: #333;
+    border: none; border-radius: 12px; font-weight: 800; font-size: 16px;
+    cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* FAQ */
+.faq-container details { background: white; margin-bottom: 10px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); overflow: hidden; }
+.faq-container summary { padding: 15px; font-weight: 600; font-size: 13px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+.faq-container summary::after { content: '+'; font-size: 18px; font-weight: bold; }
+.faq-container details[open] summary::after { content: '-'; }
+.faq-ans { padding: 0 15px 15px; font-size: 12px; color: var(--text-grey); line-height: 1.5; border-top: 1px solid #eee; margin-top: 0; padding-top: 10px; }
+
+/* Footer */
+footer { background: #111; color: #999; padding: 40px 20px 100px; font-size: 12px; text-align: center; }
 
 /* WA Float */
 .wa-float {
-    position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px;
+    position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px;
     background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4); color: white; font-size: 28px; z-index: 99; text-decoration: none;
+    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4); color: white; font-size: 30px; z-index: 999; text-decoration: none;
+    animation: pulse 2s infinite;
 }
-
-@keyframes wave { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-15deg); } 75% { transform: rotate(15deg); } }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
