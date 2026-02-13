@@ -523,9 +523,9 @@ function initSocialProofDynamic() {
     };
 
     const baseData = [
-        { icon: "📩", label: "simulasi terkirim hari ini", key: "simulasi", incrementRange: [3, 8] },
-        { icon: "⏳", label: "pengajuan diproses hari ini", key: "pengajuan", incrementRange: [1, 4] },
-        { icon: "✅", label: "pengajuan approved hari ini", key: "approved", incrementRange: [1, 3] }
+        { icon: "📩", label: "simulasi terkirim 2 menit", key: "simulasi", incrementRange: [3, 8] },
+        { icon: "⏳", label: "pengajuan diproses 30 menit", key: "pengajuan", incrementRange: [1, 4] },
+        { icon: "✅", label: "pengajuan approved 1 hari cair", key: "approved", incrementRange: [1, 3] }
     ];
 
     let currentIndex = 0;
