@@ -54,97 +54,6 @@ function updateMerkDropdown(type) {
     });
 }
 
-// API Wilayah Indonesia Integration
-const API_BASE = 'https://emsifa.github.io/api-wilayah-indonesia/api';
-
-async function loadProvinsi() {
-    try {
-        const response = await fetch(`${API_BASE}/provinces.json`);
-        const provinces = await response.json();
-        
-        const provinsiSelect = document.getElementById('provinsiSelect');
-        provinces.forEach(prov => {
-            const option = document.createElement('option');
-            option.value = prov.id;
-            option.textContent = prov.name;
-            provinsiSelect.appendChild(option);
-        });
-    } catch (error) {
-        console.error('Error loading provinces:', error);
-        alert('Gagal memuat data provinsi. Silakan refresh halaman.');
-    }
-}
-
-async function loadKota(provinsiId) {
-    try {
-        const response = await fetch(`${API_BASE}/regencies/${provinsiId}.json`);
-        const regencies = await response.json();
-        
-        const kotaSelect = document.getElementById('kotaSelect');
-        kotaSelect.innerHTML = '<option value="">Pilih Kota/Kabupaten</option>';
-        kotaSelect.disabled = false;
-        
-        regencies.forEach(reg => {
-            const option = document.createElement('option');
-            option.value = reg.id;
-            option.textContent = reg.name;
-            kotaSelect.appendChild(option);
-        });
-        
-        // Reset kecamatan
-        document.getElementById('kecamatanSelect').innerHTML = '<option value="">Pilih Kecamatan</option>';
-        document.getElementById('kecamatanSelect').disabled = true;
-    } catch (error) {
-        console.error('Error loading regencies:', error);
-        alert('Gagal memuat data kota. Silakan coba lagi.');
-    }
-}
-
-async function loadKecamatan(kotaId) {
-    try {
-        const response = await fetch(`${API_BASE}/districts/${kotaId}.json`);
-        const districts = await response.json();
-        
-        const kecamatanSelect = document.getElementById('kecamatanSelect');
-        kecamatanSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
-        kecamatanSelect.disabled = false;
-        
-        districts.forEach(dist => {
-            const option = document.createElement('option');
-            option.value = dist.name;
-            option.textContent = dist.name;
-            kecamatanSelect.appendChild(option);
-        });
-    } catch (error) {
-        console.error('Error loading districts:', error);
-        alert('Gagal memuat data kecamatan. Silakan coba lagi.');
-    }
-}
-
-// Event Listeners for Wilayah
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('provinsiSelect').addEventListener('change', function() {
-        if (this.value) {
-            loadKota(this.value);
-        } else {
-            document.getElementById('kotaSelect').innerHTML = '<option value="">Pilih Kota/Kabupaten</option>';
-            document.getElementById('kotaSelect').disabled = true;
-            document.getElementById('kecamatanSelect').innerHTML = '<option value="">Pilih Kecamatan</option>';
-            document.getElementById('kecamatanSelect').disabled = true;
-        }
-    });
-
-    document.getElementById('kotaSelect').addEventListener('change', function() {
-        if (this.value) {
-            loadKecamatan(this.value);
-        } else {
-            document.getElementById('kecamatanSelect').innerHTML = '<option value="">Pilih Kecamatan</option>';
-            document.getElementById('kecamatanSelect').disabled = true;
-        }
-    });
-
-    // Event Listeners for BPKB Type
-    document.querySelectorAll('input[name="bpkb"]').forEach(radio => {
         radio.addEventListener('change', function() {
             updateMerkDropdown(this.value);
         });
@@ -441,6 +350,125 @@ class SocialProofSlider {
     }
 }
 
+// Kecamatan Search List (Simple)
+const kecamatanList = [
+    "Cengkareng", "Grogol Petamburan", "Taman Sari", "Tambora", "Kebon Jeruk",
+    "Kalideres", "Palmerah", "Kembangan", "Tanah Abang", "Menteng",
+    "Senen", "Johar Baru", "Cempaka Putih", "Kemayoran", "Sawah Besar",
+    "Gambir", "Pasar Rebo", "Ciracas", "Cipayung", "Makasar",
+    "Kramat Jati", "Jatinegara", "Duren Sawit", "Cakung", "Pulo Gadung",
+    "Matraman", "Koja", "Tanjung Priok", "Penjaringan", "Pademangan",
+    "Kelapa Gading", "Cilincing", "Kebayoran Baru", "Kebayoran Lama", 
+    "Pesanggrahan", "Cilandak", "Pancoran", "Jagakarsa", "Mampang Prapatan"
+];
+
+function initKecamatanSearch() {
+    const searchInput = document.getElementById('kecamatanSearch');
+    const searchResults = document.getElementById('searchResults');
+    
+    if (!searchInput || !searchResults) return;
+    
+    searchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+        
+        if (query.length === 0) {
+            searchResults.classList.remove('active');
+            return;
+        }
+        
+        const filtered = kecamatanList.filter(k => k.toLowerCase().includes(query));
+        
+        if (filtered.length > 0) {
+            searchResults.innerHTML = filtered.slice(0, 5).map(k => 
+                `<div class="search-result-item" data-value="${k}">${k}</div>`
+            ).join('');
+            searchResults.classList.add('active');
+            
+            // Add click handlers
+            searchResults.querySelectorAll('.search-result-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    searchInput.value = this.dataset.value;
+                    searchResults.classList.remove('active');
+                });
+            });
+        } else {
+            searchResults.innerHTML = '<div class="search-result-item">Tidak ditemukan</div>';
+            searchResults.classList.add('active');
+        }
+    });
+    
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-container')) {
+            searchResults.classList.remove('active');
+        }
+    });
+}
+
+// WhatsApp Form Handler
+function initWhatsAppForm() {
+    const form = document.getElementById('pengajuanForm');
+    if (!form) return;
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Validate required fields
+        const requiredFields = this.querySelectorAll('[required]');
+        let isValid = true;
+        
+        requiredFields.forEach(field => {
+            if (!field.value || (field.type === 'checkbox' && !field.checked)) {
+                isValid = false;
+                field.style.borderLeft = '3px solid #ff6b6b';
+            } else {
+                field.style.borderLeft = 'none';
+            }
+        });
+        
+        if (!isValid) {
+            alert('Mohon lengkapi semua field yang wajib diisi.');
+            return;
+        }
+        
+        // Get form data
+        const nama = this.querySelector('input[name="nama"]').value;
+        const whatsapp = this.querySelector('input[name="whatsapp"]').value;
+        const nopol = this.querySelector('input[name="nopol"]').value;
+        const bpkb = this.querySelector('input[name="bpkb"]:checked').value;
+        const atasnama = this.querySelector('input[name="atasnama"]:checked').value;
+        const pengajuan = this.querySelector('input[name="pengajuan"]:checked').value;
+        const merk = this.querySelector('select[name="merk"]').value;
+        const tipe = this.querySelector('input[name="tipe"]').value;
+        const tahun = this.querySelector('select[name="tahun"]').value;
+        const kecamatan = this.querySelector('input[name="kecamatan"]').value;
+        const nominal = this.querySelector('select[name="nominal"]').value;
+        
+        // Format WhatsApp message
+        const message = `*PENGAJUAN FASILITAS DANA BPKB*%0A%0A` +
+                      `👤 *Nama:* ${nama}%0A` +
+                      `📱 *WhatsApp:* ${whatsapp}%0A` +
+                      `🚗 *No. Plat:* ${nopol}%0A%0A` +
+                      `*DETAIL KENDARAAN:*%0A` +
+                      `📋 *Jenis:* ${bpkb.charAt(0).toUpperCase() + bpkb.slice(1)}%0A` +
+                      `📝 *Atas Nama:* ${atasnama.charAt(0).toUpperCase() + atasnama.slice(1)}%0A` +
+                      `🏷️ *Merk:* ${merk}%0A` +
+                      `🔖 *Tipe:* ${tipe}%0A` +
+                      `📅 *Tahun:* ${tahun}%0A%0A` +
+                      `*PENGAJUAN:*%0A` +
+                      `💼 *Jenis:* ${pengajuan.charAt(0).toUpperCase() + pengajuan.slice(1)}%0A` +
+                      `💰 *Nominal:* ${nominal}%0A` +
+                      `📍 *Domisili:* ${kecamatan}%0A%0A` +
+                      `_Mohon proses lebih lanjut. Terima kasih!_`;
+        
+        // WhatsApp number
+        const waNumber = '6282299999036';
+        
+        // Redirect to WhatsApp
+        window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+    });
+}
+
 // Initialize all on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize sliders
@@ -453,5 +481,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize form
     populateTahun();
     updateMerkDropdown('mobil'); // Default to mobil
-    loadProvinsi();
+    initKecamatanSearch();
+    initWhatsAppForm();
 });
