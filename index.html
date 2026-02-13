@@ -520,8 +520,13 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">Nomor Handphone <span class="required">*</span></label>
-                <input type="tel" class="form-input" name="hp" placeholder="08x - xxxx - xxxx" required>
+                <label class="form-label">Nomor WhatsApp <span class="required">*</span></label>
+                <input type="tel" class="form-input" name="whatsapp" placeholder="08xx-xxxx-xxxx" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Nomor Plat Kendaraan <span class="required">*</span></label>
+                <input type="text" class="form-input" name="nopol" placeholder="B 1234 XYZ" required>
             </div>
 
             <div class="form-group">
@@ -534,6 +539,24 @@
             </div>
 
             <div class="form-group">
+                <label class="form-label">Atas Nama Kendaraan <span class="required">*</span></label>
+                <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="atasnama" value="sendiri" checked required><span>Sendiri</span></label>
+                    <label class="radio-item"><input type="radio" name="atasnama" value="pasangan" required><span>Pasangan</span></label>
+                    <label class="radio-item"><input type="radio" name="atasnama" value="orang lain" required><span>Orang Lain</span></label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Jenis Pengajuan <span class="required">*</span></label>
+                <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="pengajuan" value="gadai bpkb" checked required><span>Gadai BPKB</span></label>
+                    <label class="radio-item"><input type="radio" name="pengajuan" value="take over" required><span>Take Over</span></label>
+                    <label class="radio-item"><input type="radio" name="pengajuan" value="jual/beli" required><span>Jual/Beli</span></label>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="form-label">Merk Kendaraan <span class="required">*</span></label>
                 <select class="form-input" name="merk" id="merkKendaraan" required>
                     <option value="">Pilih Merk</option>
@@ -542,7 +565,7 @@
 
             <div class="form-group">
                 <label class="form-label">Tipe Kendaraan <span class="required">*</span></label>
-                <input type="text" class="form-input" name="tipe" placeholder="Contoh: Avanza 1.3 G MT" required>
+                <input type="text" class="form-input" name="tipe" placeholder="Avanza 1.3 G M/T" required>
             </div>
 
             <div class="form-group">
@@ -553,23 +576,25 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">Provinsi <span class="required">*</span></label>
-                <select class="form-input" name="provinsi" id="provinsiSelect" required>
-                    <option value="">Pilih Provinsi</option>
-                </select>
+                <label class="form-label">Domisili Saat Ini (Kecamatan) <span class="required">*</span></label>
+                <div class="search-container">
+                    <input type="text" class="search-input" name="kecamatan" id="kecamatanSearch" placeholder="Cari kecamatan..." required>
+                    <span class="search-icon">🔍</span>
+                    <div class="search-results" id="searchResults"></div>
+                </div>
             </div>
 
             <div class="form-group">
-                <label class="form-label">Kota/Kabupaten <span class="required">*</span></label>
-                <select class="form-input" name="kota" id="kotaSelect" required disabled>
-                    <option value="">Pilih Kota/Kabupaten</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Kecamatan <span class="required">*</span></label>
-                <select class="form-input" name="kecamatan" id="kecamatanSelect" required disabled>
-                    <option value="">Pilih Kecamatan</option>
+                <label class="form-label">Nominal Pengajuan <span class="required">*</span></label>
+                <select class="form-input" name="nominal" required>
+                    <option value="">Pilih Nominal</option>
+                    <option value="< 20 juta">< Rp 20 Juta</option>
+                    <option value="20 - 50 juta">Rp 20 - 50 Juta</option>
+                    <option value="50 - 100 juta">Rp 50 - 100 Juta</option>
+                    <option value="100 - 200 juta">Rp 100 - 200 Juta</option>
+                    <option value="200 - 500 juta">Rp 200 - 500 Juta</option>
+                    <option value="500 juta - 1 miliar">Rp 500 Juta - 1 Miliar</option>
+                    <option value="> 1 miliar">> Rp 1 Miliar</option>
                 </select>
             </div>
 
