@@ -452,8 +452,7 @@ function initSocialProofDynamic() {
             count = target;
             clearInterval(counter);
 
-            // setelah angka full, lanjut ketik label
-            typeWriter(` ${formatNumber(target)} ${label}`, () => {
+            typewriter(`${formatNumber(target)} ${label}`, () => {
                 setTimeout(() => {
                     currentIndex = (currentIndex + 1) % baseData.length;
                     startCycle();
@@ -461,8 +460,7 @@ function initSocialProofDynamic() {
             });
 
         } else {
-            // 🔥 tampilkan angka realtime saat count naik
-            textEl.textContent = ` ${formatNumber(count)} ${label}`;
+            textEl.textContent = `${formatNumber(count)} ${label}`;
         }
 
     }, stepTime);
