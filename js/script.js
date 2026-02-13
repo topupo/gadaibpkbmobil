@@ -1,6 +1,8 @@
 'use strict';
 
-// Data Merk Kendaraan
+// =====================
+// DATA MERK KENDARAAN
+// =====================
 const merkKendaraan = {
     mobil: [
         'Daihatsu','Honda','Isuzu','Mazda','Mitsubishi','Nissan','Suzuki','Toyota',
@@ -17,7 +19,9 @@ const merkKendaraan = {
     ]
 };
 
-// Populate Tahun Dynamic
+// =====================
+// POPULATE TAHUN
+// =====================
 function populateTahun() {
     const tahunSelect = document.getElementById('tahunKendaraan');
     if (!tahunSelect) return;
@@ -35,7 +39,9 @@ function populateTahun() {
     }
 }
 
-// Update Merk Dropdown
+// =====================
+// UPDATE MERK
+// =====================
 function updateMerkDropdown(type) {
     const merkSelect = document.getElementById('merkKendaraan');
     if (!merkSelect) return;
@@ -50,7 +56,9 @@ function updateMerkDropdown(type) {
     });
 }
 
-// Uppercase Nopol
+// =====================
+// NOPOL AUTO UPPERCASE
+// =====================
 function initNopolUppercase() {
     const input = document.getElementById('nopolInput');
     if (!input) return;
@@ -59,7 +67,9 @@ function initNopolUppercase() {
     });
 }
 
-// Scroll To Form
+// =====================
+// SCROLL TO FORM
+// =====================
 function initScrollToForm() {
     const buttons = document.querySelectorAll('.btn-cta-hero');
     const formSection = document.querySelector('.form-section');
@@ -72,54 +82,9 @@ function initScrollToForm() {
     });
 }
 
-const utmParams = new URLSearchParams(window.location.search);
-
-const leadData = {
-    nama: data.get('nama'),
-    whatsapp: cleanWA,
-    nopol: data.get('nopol'),
-    pengajuan: data.get('pengajuan'),
-    bpkb: data.get('bpkb'),
-    atasnama: data.get('atasnama'),
-    statustinggal: data.get('statustinggal'),
-    merk: data.get('merk'),
-    tipe: data.get('tipe'),
-    tahun: data.get('tahun'),
-    kecamatan: data.get('kecamatan'),
-    nominal: data.get('nominal'),
-    utm_source: utmParams.get('utm_source') || '',
-    utm_campaign: utmParams.get('utm_campaign') || '',
-    utm_content: utmParams.get('utm_content') || '',
-    utm_term: utmParams.get('utm_term') || ''
-};
-
-fetch("https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec", {
-    method: "POST",
-    mode: "no-cors",
-    keepalive: true,
-    body: JSON.stringify(leadData),
-    headers: {
-        "Content-Type": "application/json"
-    }
-}).then(res => res.json())
-  .then(response => {
-      if (response.status === "success") {
-          window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
-      } else {
-          alert("Terjadi kesalahan. Silakan coba lagi.");
-      }
-  }).catch(err => {
-      alert("Gagal mengirim data.");
-  });
-
-// Tracking tetap jalan
-if (window.fbq) fbq('track', 'Lead');
-if (window.gtag) gtag('event', 'generate_lead');
-
-// Redirect WA langsung
-window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
-
-// WhatsApp Handler
+// =====================
+// WHATSAPP FORM HANDLER
+// =====================
 function initWhatsAppForm() {
     const form = document.getElementById('pengajuanForm');
     if (!form) return;
@@ -181,7 +146,38 @@ function initWhatsAppForm() {
             `💰 *Nominal:* ${data.get('nominal')}%0A%0A` +
             `_Mohon proses lebih lanjut. Terima kasih!_`;
 
-        // Tracking hooks
+        const utmParams = new URLSearchParams(window.location.search);
+
+        const leadData = {
+            nama: data.get('nama'),
+            whatsapp: cleanWA,
+            nopol: data.get('nopol'),
+            pengajuan: data.get('pengajuan'),
+            bpkb: data.get('bpkb'),
+            atasnama: data.get('atasnama'),
+            statustinggal: data.get('statustinggal'),
+            merk: data.get('merk'),
+            tipe: data.get('tipe'),
+            tahun: data.get('tahun'),
+            kecamatan: data.get('kecamatan'),
+            nominal: data.get('nominal'),
+            utm_source: utmParams.get('utm_source') || '',
+            utm_campaign: utmParams.get('utm_campaign') || '',
+            utm_content: utmParams.get('utm_content') || '',
+            utm_term: utmParams.get('utm_term') || ''
+        };
+
+        // SEND TO GOOGLE SHEET
+        fetch("https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec", {
+            method: "POST",
+            mode: "no-cors",
+            keepalive: true,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(leadData)
+        });
+
         if (window.fbq) fbq('track', 'Lead');
         if (window.gtag) gtag('event', 'generate_lead');
 
@@ -190,7 +186,9 @@ function initWhatsAppForm() {
     });
 }
 
-// DOM Ready
+// =====================
+// DOM READY
+// =====================
 document.addEventListener('DOMContentLoaded', () => {
     document.body.style.touchAction = "pan-y";
     populateTahun();
