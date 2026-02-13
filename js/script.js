@@ -326,6 +326,64 @@ function initMultiStepForm() {
     updateSlider();
 }
 
+class Slider {
+    constructor(sliderId, dotsId = null) {
+        this.slider = document.getElementById(sliderId);
+        if (!this.slider) return;
+
+        this.wrapper = this.slider.querySelector('.slider-wrapper');
+        this.slides = this.slider.querySelectorAll('.slider-slide');
+        this.dotsContainer = dotsId ? document.getElementById(dotsId) : null;
+
+        this.currentIndex = 0;
+        this.totalSlides = this.slides.length;
+
+        this.init();
+    }
+
+    init() {
+        if (!this.wrapper || this.totalSlides === 0) return;
+
+        this.createDots();
+        this.update();
+        this.autoSlide();
+    }
+
+    createDots() {
+        if (!this.dotsContainer) return;
+
+        this.dotsContainer.innerHTML = '';
+
+        for (let i = 0; i < this.totalSlides; i++) {
+            const dot = document.createElement('span');
+            dot.classList.add('dot');
+            dot.addEventListener('click', () => {
+                this.currentIndex = i;
+                this.update();
+            });
+            this.dotsContainer.appendChild(dot);
+        }
+    }
+
+    update() {
+        this.wrapper.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+
+        if (this.dotsContainer) {
+            const dots = this.dotsContainer.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === this.currentIndex);
+            });
+        }
+    }
+
+    autoSlide() {
+        setInterval(() => {
+            this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
+            this.update();
+        }, 4000);
+    }
+}
+
 // =====================
 // DOM READY
 // =====================
