@@ -389,10 +389,17 @@ function initSocialProofDynamic() {
     const iconEl = document.getElementById("socialIcon");
     if (!textEl || !iconEl) return;
 
+    // Base numbers that will ALWAYS INCREMENT (realistic!)
+    const stats = {
+        simulasi: 1247,    // Starting point
+        pengajuan: 189,    // Starting point
+        approved: 103      // Starting point
+    };
+
     const baseData = [
-        { icon: "📩", label: "simulasi terkirim hari ini", min: 1200, max: 1500 },
-        { icon: "⏳", label: "pengajuan diproses hari ini", min: 150, max: 300 },
-        { icon: "✅", label: "pengajuan approved hari ini", min: 80, max: 150 }
+        { icon: "📩", label: "simulasi terkirim hari ini", key: "simulasi", incrementRange: [3, 8] },
+        { icon: "⏳", label: "pengajuan diproses hari ini", key: "pengajuan", incrementRange: [1, 4] },
+        { icon: "✅", label: "pengajuan approved hari ini", key: "approved", incrementRange: [1, 3] }
     ];
 
     let currentIndex = 0;
@@ -413,7 +420,7 @@ function initSocialProofDynamic() {
             if (i < text.length) {
                 textEl.textContent += text.charAt(i);
                 i++;
-                setTimeout(typing, 35); // Slower typing (was 20ms)
+                setTimeout(typing, 35); // Slower typing
             } else {
                 if (callback) callback();
             }
@@ -423,10 +430,10 @@ function initSocialProofDynamic() {
     }
 
     function animateCount(target, label, icon) {
-        let count = 0;
-        const duration = 1500; // Slower count animation (was 800ms)
-        const stepTime = 30; // Slower steps (was 20ms)
-        const increment = Math.ceil(target / (duration / stepTime));
+        let count = Math.max(0, target - 50); // Start from slightly below target
+        const duration = 1500; // Slower animation
+        const stepTime = 30;
+        const increment = Math.ceil((target - count) / (duration / stepTime));
 
         iconEl.textContent = icon;
 
@@ -441,7 +448,7 @@ function initSocialProofDynamic() {
                     setTimeout(() => {
                         currentIndex = (currentIndex + 1) % baseData.length;
                         startCycle();
-                    }, 3500); // Longer pause before next (was 1800ms)
+                    }, 3500); // Longer pause
                 });
 
             } else {
@@ -452,8 +459,13 @@ function initSocialProofDynamic() {
 
     function startCycle() {
         const item = baseData[currentIndex];
-        const value = randomBetween(item.min, item.max);
-        animateCount(value, item.label, item.icon);
+        
+        // INCREMENT the stat (realistic - always going up!)
+        const increment = randomBetween(item.incrementRange[0], item.incrementRange[1]);
+        stats[item.key] += increment;
+        
+        // Animate to new value
+        animateCount(stats[item.key], item.label, item.icon);
     }
 
     startCycle();
