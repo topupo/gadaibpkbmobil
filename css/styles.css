@@ -643,3 +643,38 @@ footer {
     transform: scale(1.2);
 }
 
+/* === MULTI STEP FORM SLIDER === */
+
+.form-slider {
+    overflow: hidden;
+    width: 100%;
+}
+
+.form-slider-wrapper {
+    display: flex;
+    width: 300%;
+    transition: transform 0.4s ease-in-out;
+}
+
+.form-step {
+    width: 100%;
+    flex-shrink: 0;
+    padding: 10px 0;
+}
+
+.form-progress {
+    width: 100%;
+    height: 6px;
+    background: #eee;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 33%;
+    background: var(--green-acc);
+    transition: width 0.4s ease;
+}
+
