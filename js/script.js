@@ -273,6 +273,59 @@ function initWhatsAppForm() {
     });
 }
 
+function initMultiStepForm() {
+    const wrapper = document.querySelector('.form-slider-wrapper');
+    const steps = document.querySelectorAll('.form-step');
+    const nextBtns = document.querySelectorAll('.btn-next');
+    const prevBtns = document.querySelectorAll('.btn-prev');
+    const progressBar = document.querySelector('.progress-bar');
+
+    if (!wrapper) return;
+
+    let currentStep = 0;
+    const totalSteps = steps.length;
+
+    function updateSlider() {
+        wrapper.style.transform = `translateX(-${currentStep * 100}%)`;
+        const progressPercent = ((currentStep + 1) / totalSteps) * 100;
+        progressBar.style.width = progressPercent + "%";
+    }
+
+    nextBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const currentFields = steps[currentStep].querySelectorAll('[required]');
+            let valid = true;
+
+            currentFields.forEach(field => {
+                if (!field.value) {
+                    field.style.borderLeft = '3px solid #ff6b6b';
+                    valid = false;
+                } else {
+                    field.style.borderLeft = 'none';
+                }
+            });
+
+            if (!valid) return;
+
+            if (currentStep < totalSteps - 1) {
+                currentStep++;
+                updateSlider();
+            }
+        });
+    });
+
+    prevBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                updateSlider();
+            }
+        });
+    });
+
+    updateSlider();
+}
+
 // =====================
 // DOM READY
 // =====================
@@ -285,4 +338,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initNopolUppercase();
     initWhatsAppForm();
     initScrollToForm();
+    initMultiStepForm();
+
 });
