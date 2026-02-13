@@ -483,6 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initWhatsAppForm();
     initScrollToForm();
     initMultiStepForm();
+    initSocialProofDynamic();
 
     // 🔥 TAMBAHKAN INI LAGI
     new Slider('promoSlider', 'promoDots');
