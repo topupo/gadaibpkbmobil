@@ -678,3 +678,20 @@ footer {
     transition: width 0.4s ease;
 }
 
+.social-proof {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#socialIcon {
+    font-size: 14px;
+}
+
+#socialText {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
