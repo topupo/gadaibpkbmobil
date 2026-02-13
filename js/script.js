@@ -486,4 +486,3 @@ document.addEventListener('DOMContentLoaded', () => {
     new Slider('simSlider', 'simDots');
     new Slider('testiSlider');
 });
-}
