@@ -232,7 +232,8 @@ function initWhatsAppForm() {
             utm_content: utmParams.get('utm_content') || '',
             utm_term: utmParams.get('utm_term') || '',
             fbclid: localStorage.getItem('fbclid') || '',
-            gclid: localStorage.getItem('gclid') || ''
+            gclid: localStorage.getItem('gclid') || '',
+            token: "X8dk04sK12Abc8"
 
         };
 
