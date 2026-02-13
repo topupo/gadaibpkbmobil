@@ -20,6 +20,21 @@ const merkKendaraan = {
 };
 
 // =====================
+// DATA KECAMATAN
+// =====================
+const kecamatanList = [
+    "Cengkareng","Grogol Petamburan","Taman Sari","Tambora","Kebon Jeruk",
+    "Kalideres","Palmerah","Kembangan","Tanah Abang","Menteng",
+    "Senen","Johar Baru","Cempaka Putih","Kemayoran","Sawah Besar",
+    "Gambir","Pasar Rebo","Ciracas","Cipayung","Makasar",
+    "Kramat Jati","Jatinegara","Duren Sawit","Cakung","Pulo Gadung",
+    "Matraman","Koja","Tanjung Priok","Penjaringan","Pademangan",
+    "Kelapa Gading","Cilincing","Kebayoran Baru","Kebayoran Lama",
+    "Pesanggrahan","Cilandak","Pancoran","Jagakarsa","Mampang Prapatan",
+    "Pasar Minggu","Tebet","Setiabudi","Cibubur","Cipete"
+];
+
+// =====================
 // POPULATE TAHUN
 // =====================
 function populateTahun() {
@@ -56,6 +71,64 @@ function updateMerkDropdown(type) {
     });
 }
 
+// LISTENER RADIO BPKB
+function initBPKBListener() {
+    const radios = document.querySelectorAll('input[name="bpkb"]');
+    radios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            updateMerkDropdown(this.value);
+        });
+    });
+}
+
+// =====================
+// SEARCH KECAMATAN
+// =====================
+function initKecamatanSearch() {
+    const searchInput = document.getElementById('kecamatanSearch');
+    const searchResults = document.getElementById('searchResults');
+    if (!searchInput || !searchResults) return;
+
+    searchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+
+        if (!query) {
+            searchResults.classList.remove('active');
+            return;
+        }
+
+        const filtered = kecamatanList.filter(k =>
+            k.toLowerCase().includes(query)
+        );
+
+        if (filtered.length > 0) {
+            searchResults.innerHTML = filtered.slice(0,5).map(k =>
+                `<div class="search-result-item" data-value="${k}">${k}</div>`
+            ).join('');
+
+            searchResults.classList.add('active');
+
+            searchResults.querySelectorAll('.search-result-item')
+                .forEach(item => {
+                    item.addEventListener('click', function() {
+                        searchInput.value = this.dataset.value;
+                        searchResults.classList.remove('active');
+                    });
+                });
+
+        } else {
+            searchResults.innerHTML = '<div class="search-result-item">Tidak ditemukan</div>';
+            searchResults.classList.add('active');
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-container')) {
+            searchResults.classList.remove('active');
+        }
+    });
+}
+
 // =====================
 // NOPOL AUTO UPPERCASE
 // =====================
@@ -83,7 +156,7 @@ function initScrollToForm() {
 }
 
 // =====================
-// WHATSAPP FORM HANDLER
+// FORM SUBMIT
 // =====================
 function initWhatsAppForm() {
     const form = document.getElementById('pengajuanForm');
@@ -122,30 +195,7 @@ function initWhatsAppForm() {
             cleanWA = '62' + cleanWA.substring(1);
         }
 
-        const submitBtn = this.querySelector('.btn-submit');
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Mengirim...';
-
         const data = new FormData(this);
-
-        const message = `*PENGAJUAN FASILITAS DANA BPKB*%0A%0A` +
-            `👤 *Nama:* ${data.get('nama')}%0A` +
-            `📱 *WhatsApp:* ${cleanWA}%0A` +
-            `🚗 *No. Plat:* ${data.get('nopol')}%0A%0A` +
-            `*DETAIL PENGAJUAN:*%0A` +
-            `💼 *Jenis Pengajuan:* ${data.get('pengajuan')}%0A` +
-            `📋 *Jenis Kendaraan:* ${data.get('bpkb')}%0A` +
-            `📝 *Atas Nama:* ${data.get('atasnama')}%0A` +
-            `🏠 *Status Tinggal:* ${data.get('statustinggal')}%0A%0A` +
-            `*DETAIL KENDARAAN:*%0A` +
-            `🏷️ *Merk:* ${data.get('merk')}%0A` +
-            `🔖 *Tipe:* ${data.get('tipe')}%0A` +
-            `📅 *Tahun:* ${data.get('tahun')}%0A%0A` +
-            `*INFORMASI LAINNYA:*%0A` +
-            `📍 *Domisili:* ${data.get('kecamatan')}%0A` +
-            `💰 *Nominal:* ${data.get('nominal')}%0A%0A` +
-            `_Mohon proses lebih lanjut. Terima kasih!_`;
-
         const utmParams = new URLSearchParams(window.location.search);
 
         const leadData = {
@@ -167,14 +217,11 @@ function initWhatsAppForm() {
             utm_term: utmParams.get('utm_term') || ''
         };
 
-        // SEND TO GOOGLE SHEET
         fetch("https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec", {
             method: "POST",
             mode: "no-cors",
             keepalive: true,
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(leadData)
         });
 
@@ -182,6 +229,8 @@ function initWhatsAppForm() {
         if (window.gtag) gtag('event', 'generate_lead');
 
         const waNumber = '6282299999036';
+        const message = `*PENGAJUAN FASILITAS DANA BPKB*%0A%0A👤 *Nama:* ${leadData.nama}%0A📱 *WhatsApp:* ${cleanWA}%0A`;
+
         window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
     });
 }
@@ -193,6 +242,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.touchAction = "pan-y";
     populateTahun();
     updateMerkDropdown('mobil');
+    initBPKBListener();
+    initKecamatanSearch();
     initNopolUppercase();
     initWhatsAppForm();
     initScrollToForm();
