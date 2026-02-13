@@ -229,7 +229,25 @@ function initWhatsAppForm() {
         if (window.gtag) gtag('event', 'generate_lead');
 
         const waNumber = '6282299999036';
-        const message = `*PENGAJUAN FASILITAS DANA BPKB*%0A%0A👤 *Nama:* ${leadData.nama}%0A📱 *WhatsApp:* ${cleanWA}%0A`;
+        const message =
+`*PENGAJUAN FASILITAS DANA BPKB*%0A%0A` +
+`👤 *Nama:* ${data.get('nama')}%0A` +
+`📱 *WhatsApp:* ${cleanWA}%0A` +
+`🚗 *No. Plat:* ${data.get('nopol')}%0A%0A` +
+`*DETAIL PENGAJUAN:*%0A` +
+`💼 *Jenis Pengajuan:* ${data.get('pengajuan')}%0A` +
+`📋 *Jenis Kendaraan:* ${data.get('bpkb')}%0A` +
+`📝 *Atas Nama:* ${data.get('atasnama')}%0A` +
+`🏠 *Status Tinggal:* ${data.get('statustinggal')}%0A%0A` +
+`*DETAIL KENDARAAN:*%0A` +
+`🏷️ *Merk:* ${data.get('merk')}%0A` +
+`🔖 *Tipe:* ${data.get('tipe')}%0A` +
+`📅 *Tahun:* ${data.get('tahun')}%0A%0A` +
+`*INFORMASI LAINNYA:*%0A` +
+`📍 *Domisili:* ${data.get('kecamatan')}%0A` +
+`💰 *Nominal:* ${data.get('nominal')}%0A%0A` +
+`_Mohon proses lebih lanjut. Terima kasih!_`;
+
 
         window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
     });
