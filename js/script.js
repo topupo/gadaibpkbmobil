@@ -72,6 +72,44 @@ function initScrollToForm() {
     });
 }
 
+const utmParams = new URLSearchParams(window.location.search);
+
+const leadData = {
+    nama: data.get('nama'),
+    whatsapp: cleanWA,
+    nopol: data.get('nopol'),
+    pengajuan: data.get('pengajuan'),
+    bpkb: data.get('bpkb'),
+    atasnama: data.get('atasnama'),
+    statustinggal: data.get('statustinggal'),
+    merk: data.get('merk'),
+    tipe: data.get('tipe'),
+    tahun: data.get('tahun'),
+    kecamatan: data.get('kecamatan'),
+    nominal: data.get('nominal'),
+    utm_source: utmParams.get('utm_source') || '',
+    utm_campaign: utmParams.get('utm_campaign') || '',
+    utm_content: utmParams.get('utm_content') || '',
+    utm_term: utmParams.get('utm_term') || ''
+};
+
+fetch("https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec", {
+    method: "POST",
+    body: JSON.stringify(leadData),
+    headers: {
+        "Content-Type": "application/json"
+    }
+}).then(res => res.json())
+  .then(response => {
+      if (response.status === "success") {
+          window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+      } else {
+          alert("Terjadi kesalahan. Silakan coba lagi.");
+      }
+  }).catch(err => {
+      alert("Gagal mengirim data.");
+  });
+
 // WhatsApp Handler
 function initWhatsAppForm() {
     const form = document.getElementById('pengajuanForm');
