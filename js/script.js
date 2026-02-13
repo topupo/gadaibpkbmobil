@@ -390,24 +390,9 @@ function initSocialProofDynamic() {
     if (!textEl || !iconEl) return;
 
     const baseData = [
-        {
-            icon: "📩",
-            label: "simulasi terkirim hari ini",
-            min: 1200,
-            max: 1500
-        },
-        {
-            icon: "⏳",
-            label: "pengajuan diproses hari ini",
-            min: 150,
-            max: 300
-        },
-        {
-            icon: "✅",
-            label: "pengajuan approved hari ini",
-            min: 80,
-            max: 150
-        }
+        { icon: "📩", label: "simulasi terkirim hari ini", min: 1200, max: 1500 },
+        { icon: "⏳", label: "pengajuan diproses hari ini", min: 150, max: 300 },
+        { icon: "✅", label: "pengajuan approved hari ini", min: 80, max: 150 }
     ];
 
     let currentIndex = 0;
@@ -438,41 +423,39 @@ function initSocialProofDynamic() {
     }
 
     function animateCount(target, label, icon) {
-    let count = 0;
-    const duration = 800;
-    const stepTime = 20;
-    const increment = Math.ceil(target / (duration / stepTime));
+        let count = 0;
+        const duration = 800;
+        const stepTime = 20;
+        const increment = Math.ceil(target / (duration / stepTime));
 
-    iconEl.textContent = icon;
+        iconEl.textContent = icon;
 
-    const counter = setInterval(() => {
-        count += increment;
+        const counter = setInterval(() => {
+            count += increment;
 
-        if (count >= target) {
-            count = target;
-            clearInterval(counter);
+            if (count >= target) {
+                count = target;
+                clearInterval(counter);
 
-            typewriter(`${formatNumber(target)} ${label}`, () => {
-                setTimeout(() => {
-                    currentIndex = (currentIndex + 1) % baseData.length;
-                    startCycle();
-                }, 1800);
-            });
+                typeWriter(`${formatNumber(target)} ${label}`, () => {
+                    setTimeout(() => {
+                        currentIndex = (currentIndex + 1) % baseData.length;
+                        startCycle();
+                    }, 1800);
+                });
 
-        } else {
-            textEl.textContent = `${formatNumber(count)} ${label}`;
-        }
+            } else {
+                textEl.textContent = `${formatNumber(count)} ${label}`;
+            }
+        }, stepTime);
+    }
 
-    }, stepTime);
-}
-
-        function startCycle() {
+    function startCycle() {
         const item = baseData[currentIndex];
         const value = randomBetween(item.min, item.max);
         animateCount(value, item.label, item.icon);
     }
 
-    // start pertama kali
     startCycle();
 }
     
