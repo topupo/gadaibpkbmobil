@@ -87,27 +87,48 @@ function initBPKBListener() {
 // =====================
 let kecamatanData = [];
 let dataLoaded = false;
+let isLoading = false;
 
-async function loadKecamatanData() {
+async function loadKecamatanData(forceReload = false) {
+    if (isLoading) return;
+    
+    // Clear old cache if force reload
+    if (forceReload) {
+        localStorage.removeItem('kecamatanCache');
+        localStorage.removeItem('kecamatanCacheTime');
+        console.log('Cache cleared');
+    }
+    
     // Check cache first
     const cached = localStorage.getItem('kecamatanCache');
     const cacheTime = localStorage.getItem('kecamatanCacheTime');
     
     // Cache valid for 30 days
     if (cached && cacheTime && (Date.now() - parseInt(cacheTime) < 30 * 24 * 60 * 60 * 1000)) {
-        kecamatanData = JSON.parse(cached);
-        dataLoaded = true;
-        console.log(`Loaded ${kecamatanData.length} kecamatan from cache`);
-        return;
+        try {
+            kecamatanData = JSON.parse(cached);
+            dataLoaded = true;
+            console.log(`✓ Loaded ${kecamatanData.length} kecamatan from cache`);
+            return;
+        } catch (e) {
+            console.error('Cache parse error, reloading...', e);
+            localStorage.removeItem('kecamatanCache');
+        }
     }
     
+    isLoading = true;
+    
     try {
+        console.log('Loading kecamatan from API...');
+        
         // Load all districts from API
         const response = await fetch('https://www.emsifa.com/api-wilayah-indonesia/api/districts.json');
+        if (!response.ok) throw new Error('Failed to fetch districts');
         const districts = await response.json();
         
         // Load all regencies to get names
         const regResponse = await fetch('https://www.emsifa.com/api-wilayah-indonesia/api/regencies.json');
+        if (!regResponse.ok) throw new Error('Failed to fetch regencies');
         const regencies = await regResponse.json();
         
         // Create lookup map for regencies
@@ -133,19 +154,38 @@ async function loadKecamatanData() {
         localStorage.setItem('kecamatanCacheTime', Date.now().toString());
         
         dataLoaded = true;
-        console.log(`Loaded ${kecamatanData.length} kecamatan from API`);
+        isLoading = false;
+        console.log(`✓ Loaded ${kecamatanData.length} kecamatan from API and cached`);
         
     } catch (error) {
         console.error('Error loading kecamatan data:', error);
-        // Fallback to basic list if API fails
+        isLoading = false;
+        
+        // Fallback to comprehensive basic list if API fails
         kecamatanData = [
             {display: "Cengkareng, Jakarta Barat"},
             {display: "Grogol Petamburan, Jakarta Barat"},
             {display: "Taman Sari, Jakarta Barat"},
             {display: "Tambora, Jakarta Barat"},
-            {display: "Kebon Jeruk, Jakarta Barat"}
+            {display: "Kebon Jeruk, Jakarta Barat"},
+            {display: "Menteng, Jakarta Pusat"},
+            {display: "Tanah Abang, Jakarta Pusat"},
+            {display: "Senen, Jakarta Pusat"},
+            {display: "Kebayoran Baru, Jakarta Selatan"},
+            {display: "Kebayoran Lama, Jakarta Selatan"},
+            {display: "Tebet, Jakarta Selatan"},
+            {display: "Pasar Minggu, Jakarta Selatan"},
+            {display: "Kelapa Gading, Jakarta Utara"},
+            {display: "Penjaringan, Jakarta Utara"},
+            {display: "Pademangan, Jakarta Utara"},
+            {display: "Bekasi Barat, Bekasi"},
+            {display: "Bekasi Timur, Bekasi"},
+            {display: "Bandung Wetan, Bandung"},
+            {display: "Bandung Kulon, Bandung"},
+            {display: "Surabaya, Surabaya"}
         ];
         dataLoaded = true;
+        console.log('Using fallback data');
     }
 }
 
@@ -154,14 +194,30 @@ function initKecamatanSearch() {
     const searchResults = document.getElementById('searchResults');
     if (!searchInput || !searchResults) return;
     
-    // Load data on first focus
+    // Load data on first focus with force reload to clear old cache
+    let loadAttempted = false;
     searchInput.addEventListener('focus', async function() {
-        if (!dataLoaded) {
+        if (!loadAttempted) {
+            loadAttempted = true;
             this.placeholder = 'Loading data...';
-            await loadKecamatanData();
+            this.disabled = true;
+            
+            // Force reload to clear any old cache
+            await loadKecamatanData(true);
+            
+            this.disabled = false;
             this.placeholder = 'Cari kecamatan...';
+            
+            // Show ready message
+            if (dataLoaded) {
+                searchResults.innerHTML = `<div class="search-result-item" style="color: green;">✓ ${kecamatanData.length} kecamatan siap dicari</div>`;
+                searchResults.classList.add('active');
+                setTimeout(() => {
+                    searchResults.classList.remove('active');
+                }, 2000);
+            }
         }
-    }, { once: true });
+    });
 
     searchInput.addEventListener('input', function() {
         const query = this.value.toLowerCase().trim();
@@ -171,8 +227,8 @@ function initKecamatanSearch() {
             return;
         }
         
-        if (!dataLoaded) {
-            searchResults.innerHTML = '<div class="search-result-item">Loading data...</div>';
+        if (!dataLoaded || isLoading) {
+            searchResults.innerHTML = '<div class="search-result-item">⏳ Loading data...</div>';
             searchResults.classList.add('active');
             return;
         }
@@ -183,13 +239,18 @@ function initKecamatanSearch() {
         );
 
         if (filtered.length > 0) {
-            searchResults.innerHTML = filtered.slice(0, 10).map(k => 
-                `<div class="search-result-item" data-value="${k.display}">${k.display}</div>`
-            ).join('');
+            const resultCount = filtered.length;
+            const showing = Math.min(resultCount, 10);
+            
+            searchResults.innerHTML = 
+                `<div class="search-result-item" style="background: #f0f0f0; font-weight: bold; font-size: 11px;">Showing ${showing} of ${resultCount} results</div>` +
+                filtered.slice(0, 10).map(k => 
+                    `<div class="search-result-item" data-value="${k.display}">${k.display}</div>`
+                ).join('');
 
             searchResults.classList.add('active');
 
-            searchResults.querySelectorAll('.search-result-item')
+            searchResults.querySelectorAll('.search-result-item[data-value]')
                 .forEach(item => {
                     item.addEventListener('click', function() {
                         searchInput.value = this.dataset.value;
@@ -198,7 +259,7 @@ function initKecamatanSearch() {
                 });
 
         } else {
-            searchResults.innerHTML = '<div class="search-result-item">Tidak ditemukan</div>';
+            searchResults.innerHTML = '<div class="search-result-item">❌ Tidak ditemukan</div>';
             searchResults.classList.add('active');
         }
     });
