@@ -96,6 +96,7 @@ const leadData = {
 fetch("https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec", {
     method: "POST",
     mode: "no-cors",
+    keepalive: true,
     body: JSON.stringify(leadData),
     headers: {
         "Content-Type": "application/json"
@@ -110,6 +111,13 @@ fetch("https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17
   }).catch(err => {
       alert("Gagal mengirim data.");
   });
+
+// Tracking tetap jalan
+if (window.fbq) fbq('track', 'Lead');
+if (window.gtag) gtag('event', 'generate_lead');
+
+// Redirect WA langsung
+window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
 
 // WhatsApp Handler
 function initWhatsAppForm() {
