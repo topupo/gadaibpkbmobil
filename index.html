@@ -526,7 +526,17 @@
 
             <div class="form-group">
                 <label class="form-label">Nomor Plat Kendaraan <span class="required">*</span></label>
-                <input type="text" class="form-input" name="nopol" placeholder="B 1234 XYZ" required>
+                <input type="text" class="form-input" name="nopol" id="nopolInput" placeholder="B 1234 XYZ" style="text-transform: uppercase;" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Jenis Pengajuan <span class="required">*</span></label>
+                <select class="form-input" name="pengajuan" required>
+                    <option value="">Pilih Jenis Pengajuan</option>
+                    <option value="gadai bpkb">Gadai BPKB</option>
+                    <option value="take over">Take Over</option>
+                    <option value="jual/beli">Jual/Beli</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -540,20 +550,23 @@
 
             <div class="form-group">
                 <label class="form-label">Atas Nama Kendaraan <span class="required">*</span></label>
-                <div class="radio-group">
-                    <label class="radio-item"><input type="radio" name="atasnama" value="sendiri" checked required><span>Sendiri</span></label>
-                    <label class="radio-item"><input type="radio" name="atasnama" value="pasangan" required><span>Pasangan</span></label>
-                    <label class="radio-item"><input type="radio" name="atasnama" value="orang lain" required><span>Orang Lain</span></label>
-                </div>
+                <select class="form-input" name="atasnama" required>
+                    <option value="">Pilih Atas Nama</option>
+                    <option value="sendiri">Sendiri</option>
+                    <option value="pasangan">Pasangan</option>
+                    <option value="orang lain">Orang Lain</option>
+                </select>
             </div>
 
             <div class="form-group">
-                <label class="form-label">Jenis Pengajuan <span class="required">*</span></label>
-                <div class="radio-group">
-                    <label class="radio-item"><input type="radio" name="pengajuan" value="gadai bpkb" checked required><span>Gadai BPKB</span></label>
-                    <label class="radio-item"><input type="radio" name="pengajuan" value="take over" required><span>Take Over</span></label>
-                    <label class="radio-item"><input type="radio" name="pengajuan" value="jual/beli" required><span>Jual/Beli</span></label>
-                </div>
+                <label class="form-label">Status Tempat Tinggal <span class="required">*</span></label>
+                <select class="form-input" name="statustinggal" required>
+                    <option value="">Pilih Status Tempat Tinggal</option>
+                    <option value="sendiri">Sendiri</option>
+                    <option value="keluarga">Keluarga</option>
+                    <option value="kontrak">Kontrak</option>
+                    <option value="kos">Kos</option>
+                </select>
             </div>
 
             <div class="form-group">
