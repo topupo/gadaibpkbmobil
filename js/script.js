@@ -1,3 +1,19 @@
+// === CAPTURE CLICK IDS ===
+(function captureClickIds() {
+    const params = new URLSearchParams(window.location.search);
+
+    const fbclid = params.get('fbclid');
+    const gclid = params.get('gclid');
+
+    if (fbclid) {
+        localStorage.setItem('fbclid', fbclid);
+    }
+
+    if (gclid) {
+        localStorage.setItem('gclid', gclid);
+    }
+})();
+
 'use strict';
 
 // =====================
@@ -215,8 +231,9 @@ function initWhatsAppForm() {
             utm_campaign: utmParams.get('utm_campaign') || '',
             utm_content: utmParams.get('utm_content') || '',
             utm_term: utmParams.get('utm_term') || '',
-            fbclid: utmParams.get('fbclid') || '',
-            gclid: utmParams.get('gclid') || ''
+            fbclid: localStorage.getItem('fbclid') || '',
+            gclid: localStorage.getItem('gclid') || ''
+
         };
 
         fetch("https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec", {
