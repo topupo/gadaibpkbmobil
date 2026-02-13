@@ -518,6 +518,14 @@
         <p>Isi form di bawah ini. Simulasi terkirim dalam waktu 1-2 menit.</p>
 
         <form id="pengajuanForm">
+            <div class="form-progress">
+    <div class="progress-bar"></div>
+</div>
+            <div class="form-slider">
+    <div class="form-slider-wrapper">
+
+        <!-- STEP 1 -->
+        <div class="form-step">
             <div class="form-group">
                 <label class="form-label">Nama Lengkap <span class="required">*</span></label>
                 <input type="text" class="form-input" name="nama" placeholder="Masukkan nama lengkap" required>
@@ -533,6 +541,11 @@
                 <input type="text" class="form-input" name="nopol" id="nopolInput" placeholder="B 1234 XYZ" style="text-transform: uppercase;" required>
             </div>
 
+            <button type="button" class="btn-next">Lanjut</button>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="form-step">
             <div class="form-group">
                 <label class="form-label">Jenis Pengajuan <span class="required">*</span></label>
                 <select class="form-input" name="pengajuan" required>
@@ -573,6 +586,12 @@
                 </select>
             </div>
 
+            <button type="button" class="btn-prev">Kembali</button>
+            <button type="button" class="btn-next">Lanjut</button>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="form-step">
             <div class="form-group">
                 <label class="form-label">Merk Kendaraan <span class="required">*</span></label>
                 <select class="form-input" name="merk" id="merkKendaraan" required>
@@ -614,6 +633,13 @@
                     <option value="> 1 miliar">> Rp 1 Miliar</option>
                 </select>
             </div>
+
+            <button type="button" class="btn-prev">Kembali</button>
+            <button type="submit" class="btn-submit">Ajukan Sekarang</button>
+        </div>
+
+    </div>
+</div>
 
             <div class="form-note" style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ffc107;">
                 <p style="font-size: 13px; margin: 0; color: #856404;">
