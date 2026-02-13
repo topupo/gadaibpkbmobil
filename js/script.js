@@ -95,6 +95,7 @@ const leadData = {
 
 fetch("https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec", {
     method: "POST",
+    mode: "no-cors",
     body: JSON.stringify(leadData),
     headers: {
         "Content-Type": "application/json"
