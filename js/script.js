@@ -438,36 +438,34 @@ function initSocialProofDynamic() {
     }
 
     function animateCount(target, label, icon) {
-        let count = 0;
-        const duration = 800;
-        const stepTime = 20;
-        const increment = Math.ceil(target / (duration / stepTime));
+    let count = 0;
+    const duration = 800;
+    const stepTime = 20;
+    const increment = Math.ceil(target / (duration / stepTime));
 
-        iconEl.textContent = icon;
+    iconEl.textContent = icon;
 
-        const counter = setInterval(() => {
-            count += increment;
-            if (count >= target) {
-                count = target;
-                clearInterval(counter);
+    const counter = setInterval(() => {
+        count += increment;
 
-                typeWriter(` ${formatNumber(target)} ${label}`, () => {
-                    setTimeout(() => {
-                        currentIndex = (currentIndex + 1) % baseData.length;
-                        startCycle();
-                    }, 1800);
-                });
-            }
-        }, stepTime);
-    }
+        if (count >= target) {
+            count = target;
+            clearInterval(counter);
 
-    function startCycle() {
-        const item = baseData[currentIndex];
-        const value = randomBetween(item.min, item.max);
-        animateCount(value, item.label, item.icon);
-    }
+            // setelah angka full, lanjut ketik label
+            typeWriter(` ${formatNumber(target)} ${label}`, () => {
+                setTimeout(() => {
+                    currentIndex = (currentIndex + 1) % baseData.length;
+                    startCycle();
+                }, 1800);
+            });
 
-    startCycle();
+        } else {
+            // 🔥 tampilkan angka realtime saat count naik
+            textEl.textContent = ` ${formatNumber(count)} ${label}`;
+        }
+
+    }, stepTime);
 }
 
 // =====================
