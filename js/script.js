@@ -413,7 +413,7 @@ function initSocialProofDynamic() {
             if (i < text.length) {
                 textEl.textContent += text.charAt(i);
                 i++;
-                setTimeout(typing, 20);
+                setTimeout(typing, 35); // Slower typing (was 20ms)
             } else {
                 if (callback) callback();
             }
@@ -424,8 +424,8 @@ function initSocialProofDynamic() {
 
     function animateCount(target, label, icon) {
         let count = 0;
-        const duration = 800;
-        const stepTime = 20;
+        const duration = 1500; // Slower count animation (was 800ms)
+        const stepTime = 30; // Slower steps (was 20ms)
         const increment = Math.ceil(target / (duration / stepTime));
 
         iconEl.textContent = icon;
@@ -441,7 +441,7 @@ function initSocialProofDynamic() {
                     setTimeout(() => {
                         currentIndex = (currentIndex + 1) % baseData.length;
                         startCycle();
-                    }, 1800);
+                    }, 3500); // Longer pause before next (was 1800ms)
                 });
 
             } else {
