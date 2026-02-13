@@ -620,3 +620,26 @@ footer {
     font-size: 24px;
     z-index: 999;
 }
+
+/* --- SLIDER DOTS --- */
+.slider-dots {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.slider-dot {
+    width: 8px;
+    height: 8px;
+    background: #ccc;
+    border-radius: 50%;
+    margin: 0 4px;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.slider-dot.active {
+    background: var(--green-acc);
+    transform: scale(1.2);
+}
+
