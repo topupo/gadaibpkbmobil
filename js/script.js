@@ -36,21 +36,6 @@ const merkKendaraan = {
 };
 
 // =====================
-// DATA KECAMATAN
-// =====================
-const kecamatanList = [
-    "Cengkareng","Grogol Petamburan","Taman Sari","Tambora","Kebon Jeruk",
-    "Kalideres","Palmerah","Kembangan","Tanah Abang","Menteng",
-    "Senen","Johar Baru","Cempaka Putih","Kemayoran","Sawah Besar",
-    "Gambir","Pasar Rebo","Ciracas","Cipayung","Makasar",
-    "Kramat Jati","Jatinegara","Duren Sawit","Cakung","Pulo Gadung",
-    "Matraman","Koja","Tanjung Priok","Penjaringan","Pademangan",
-    "Kelapa Gading","Cilincing","Kebayoran Baru","Kebayoran Lama",
-    "Pesanggrahan","Cilandak","Pancoran","Jagakarsa","Mampang Prapatan",
-    "Pasar Minggu","Tebet","Setiabudi","Cibubur","Cipete"
-];
-
-// =====================
 // POPULATE TAHUN
 // =====================
 function populateTahun() {
@@ -98,12 +83,85 @@ function initBPKBListener() {
 }
 
 // =====================
-// SEARCH KECAMATAN
+// KECAMATAN API - SELURUH INDONESIA
 // =====================
+let kecamatanData = [];
+let dataLoaded = false;
+
+async function loadKecamatanData() {
+    // Check cache first
+    const cached = localStorage.getItem('kecamatanCache');
+    const cacheTime = localStorage.getItem('kecamatanCacheTime');
+    
+    // Cache valid for 30 days
+    if (cached && cacheTime && (Date.now() - parseInt(cacheTime) < 30 * 24 * 60 * 60 * 1000)) {
+        kecamatanData = JSON.parse(cached);
+        dataLoaded = true;
+        console.log(`Loaded ${kecamatanData.length} kecamatan from cache`);
+        return;
+    }
+    
+    try {
+        // Load all districts from API
+        const response = await fetch('https://www.emsifa.com/api-wilayah-indonesia/api/districts.json');
+        const districts = await response.json();
+        
+        // Load all regencies to get names
+        const regResponse = await fetch('https://www.emsifa.com/api-wilayah-indonesia/api/regencies.json');
+        const regencies = await regResponse.json();
+        
+        // Create lookup map for regencies
+        const regencyMap = {};
+        regencies.forEach(reg => {
+            regencyMap[reg.id] = reg.name;
+        });
+        
+        // Format data: "Kecamatan, Kabupaten/Kota"
+        kecamatanData = districts.map(dist => {
+            const regencyId = dist.regency_id;
+            const regencyName = regencyMap[regencyId] || '';
+            return {
+                id: dist.id,
+                name: dist.name,
+                regency: regencyName,
+                display: `${dist.name}, ${regencyName}`
+            };
+        });
+        
+        // Cache the data
+        localStorage.setItem('kecamatanCache', JSON.stringify(kecamatanData));
+        localStorage.setItem('kecamatanCacheTime', Date.now().toString());
+        
+        dataLoaded = true;
+        console.log(`Loaded ${kecamatanData.length} kecamatan from API`);
+        
+    } catch (error) {
+        console.error('Error loading kecamatan data:', error);
+        // Fallback to basic list if API fails
+        kecamatanData = [
+            {display: "Cengkareng, Jakarta Barat"},
+            {display: "Grogol Petamburan, Jakarta Barat"},
+            {display: "Taman Sari, Jakarta Barat"},
+            {display: "Tambora, Jakarta Barat"},
+            {display: "Kebon Jeruk, Jakarta Barat"}
+        ];
+        dataLoaded = true;
+    }
+}
+
 function initKecamatanSearch() {
     const searchInput = document.getElementById('kecamatanSearch');
     const searchResults = document.getElementById('searchResults');
     if (!searchInput || !searchResults) return;
+    
+    // Load data on first focus
+    searchInput.addEventListener('focus', async function() {
+        if (!dataLoaded) {
+            this.placeholder = 'Loading data...';
+            await loadKecamatanData();
+            this.placeholder = 'Cari kecamatan...';
+        }
+    }, { once: true });
 
     searchInput.addEventListener('input', function() {
         const query = this.value.toLowerCase().trim();
@@ -112,14 +170,21 @@ function initKecamatanSearch() {
             searchResults.classList.remove('active');
             return;
         }
+        
+        if (!dataLoaded) {
+            searchResults.innerHTML = '<div class="search-result-item">Loading data...</div>';
+            searchResults.classList.add('active');
+            return;
+        }
 
-        const filtered = kecamatanList.filter(k =>
-            k.toLowerCase().includes(query)
+        // Search in both kecamatan name and kabupaten/kota name
+        const filtered = kecamatanData.filter(k => 
+            k.display.toLowerCase().includes(query)
         );
 
         if (filtered.length > 0) {
-            searchResults.innerHTML = filtered.slice(0,5).map(k =>
-                `<div class="search-result-item" data-value="${k}">${k}</div>`
+            searchResults.innerHTML = filtered.slice(0, 10).map(k => 
+                `<div class="search-result-item" data-value="${k.display}">${k.display}</div>`
             ).join('');
 
             searchResults.classList.add('active');
@@ -397,9 +462,9 @@ function initSocialProofDynamic() {
     };
 
     const baseData = [
-        { icon: "📩", label: "simulasi terkirim", key: "simulasi", incrementRange: [3, 8] },
-        { icon: "⏳", label: "pengajuan diproses", key: "pengajuan", incrementRange: [1, 4] },
-        { icon: "✅", label: "pengajuan approved", key: "approved", incrementRange: [1, 3] }
+        { icon: "📩", label: "simulasi terkirim hari ini", key: "simulasi", incrementRange: [3, 8] },
+        { icon: "⏳", label: "pengajuan diproses hari ini", key: "pengajuan", incrementRange: [1, 4] },
+        { icon: "✅", label: "pengajuan approved hari ini", key: "approved", incrementRange: [1, 3] }
     ];
 
     let currentIndex = 0;
@@ -470,6 +535,47 @@ function initSocialProofDynamic() {
 
     startCycle();
 }
+
+// =====================
+// DISPLAY CURRENT DATE
+// =====================
+function displayCurrentDate() {
+    const dateEl = document.getElementById('currentDate');
+    if (!dateEl) return;
+    
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+    const now = new Date();
+    const day = now.getDate();
+    const month = months[now.getMonth()];
+    const year = now.getFullYear();
+    
+    dateEl.textContent = `${day} ${month} ${year}`;
+}
+
+// =====================
+// AUTO REFRESH AT MIDNIGHT
+// =====================
+function initMidnightRefresh() {
+    function scheduleRefresh() {
+        const now = new Date();
+        const night = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate() + 1, // Tomorrow
+            0, 0, 0, 0 // 00:00:00
+        );
+        
+        const msToMidnight = night.getTime() - now.getTime();
+        
+        setTimeout(() => {
+            location.reload();
+        }, msToMidnight);
+        
+        console.log(`Page will auto-refresh at midnight (in ${Math.floor(msToMidnight / 1000 / 60)} minutes)`);
+    }
+    
+    scheduleRefresh();
+}
     
 // =====================
 // DOM READY
@@ -485,6 +591,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollToForm();
     initMultiStepForm();
     initSocialProofDynamic();
+    initMidnightRefresh();
+    displayCurrentDate();
 
     // 🔥 TAMBAHKAN INI LAGI
     new Slider('promoSlider', 'promoDots');
