@@ -340,4 +340,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollToForm();
     initMultiStepForm();
 
+    // 🔥 TAMBAHKAN INI LAGI
+    new Slider('promoSlider', 'promoDots');
+    new Slider('simSlider', 'simDots');
+    new Slider('testiSlider');
 });
