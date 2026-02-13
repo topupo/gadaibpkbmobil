@@ -214,7 +214,9 @@ function initWhatsAppForm() {
             utm_source: utmParams.get('utm_source') || '',
             utm_campaign: utmParams.get('utm_campaign') || '',
             utm_content: utmParams.get('utm_content') || '',
-            utm_term: utmParams.get('utm_term') || ''
+            utm_term: utmParams.get('utm_term') || '',
+            fbclid: utmParams.get('fbclid') || '',
+            gclid: utmParams.get('gclid') || ''
         };
 
         fetch("https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec", {
