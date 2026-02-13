@@ -465,7 +465,7 @@ function initSocialProofDynamic() {
 
     }, stepTime);
 }
-
+}
 // =====================
 // DOM READY
 // =====================
