@@ -121,7 +121,7 @@ header {
     background: linear-gradient(135deg, #F97316, #EA580C);
     color: var(--white);
     padding: 14px 32px;
-    border-radius: 999px;
+    border-radius: 10px;
     font-weight: 700;
     border: none;
     width: 100%;
