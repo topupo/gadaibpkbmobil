@@ -83,192 +83,62 @@ function initBPKBListener() {
 }
 
 // =====================
-// KECAMATAN API - SELURUH INDONESIA
+// SIMPLE KECAMATAN INPUT (NO API, SMART PLACEHOLDER)
 // =====================
-let kecamatanData = [];
-let dataLoaded = false;
-let isLoading = false;
-
-async function loadKecamatanData(forceReload = false) {
-    if (isLoading) return;
+async function initSimpleKecamatan() {
+    const kecamatanInput = document.getElementById('kecamatanSearch');
+    if (!kecamatanInput) return;
     
-    // Clear old cache if force reload
-    if (forceReload) {
-        localStorage.removeItem('kecamatanCache');
-        localStorage.removeItem('kecamatanCacheTime');
-        console.log('Cache cleared');
-    }
+    // Change type from search to text
+    kecamatanInput.type = 'text';
     
-    // Check cache first
-    const cached = localStorage.getItem('kecamatanCache');
-    const cacheTime = localStorage.getItem('kecamatanCacheTime');
-    
-    // Cache valid for 30 days
-    if (cached && cacheTime && (Date.now() - parseInt(cacheTime) < 30 * 24 * 60 * 60 * 1000)) {
-        try {
-            kecamatanData = JSON.parse(cached);
-            dataLoaded = true;
-            console.log(`✓ Loaded ${kecamatanData.length} kecamatan from cache`);
-            return;
-        } catch (e) {
-            console.error('Cache parse error, reloading...', e);
-            localStorage.removeItem('kecamatanCache');
-        }
-    }
-    
-    isLoading = true;
+    // Default placeholder
+    const defaultPlaceholder = "Kebon Jeruk, Jakarta Barat";
     
     try {
-        console.log('Loading kecamatan from API...');
+        // Get user location from IP (free API, no CORS)
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
         
-        // Load all districts from API - FIXED URL
-        const response = await fetch('https://emsifa.github.io/api-wilayah-indonesia/api/districts.json');
-        if (!response.ok) throw new Error('Failed to fetch districts');
-        const districts = await response.json();
+        // Get city name
+        const city = data.city || '';
         
-        // Load all regencies to get names - FIXED URL
-        const regResponse = await fetch('https://emsifa.github.io/api-wilayah-indonesia/api/regencies.json');
-        if (!regResponse.ok) throw new Error('Failed to fetch regencies');
-        const regencies = await regResponse.json();
+        // City-specific examples (13 major cities)
+        const cityExamples = {
+            'Jakarta': 'Menteng, Jakarta Pusat',
+            'Surabaya': 'Sukolilo, Surabaya',
+            'Bandung': 'Cibiru, Bandung',
+            'Medan': 'Medan Baru, Medan',
+            'Semarang': 'Semarang Tengah, Semarang',
+            'Makassar': 'Tamalate, Makassar',
+            'Palembang': 'Ilir Timur I, Palembang',
+            'Tangerang': 'Tangerang Kota, Tangerang',
+            'Depok': 'Beji, Depok',
+            'Bekasi': 'Bekasi Barat, Bekasi',
+            'Yogyakarta': 'Gondokusuman, Yogyakarta',
+            'Malang': 'Lowokwaru, Malang',
+            'Bogor': 'Bogor Tengah, Bogor'
+        };
         
-        // Create lookup map for regencies
-        const regencyMap = {};
-        regencies.forEach(reg => {
-            regencyMap[reg.id] = reg.name;
-        });
-        
-        // Format data: "Kecamatan, Kabupaten/Kota"
-        kecamatanData = districts.map(dist => {
-            const regencyId = dist.regency_id;
-            const regencyName = regencyMap[regencyId] || '';
-            return {
-                id: dist.id,
-                name: dist.name,
-                regency: regencyName,
-                display: `${dist.name}, ${regencyName}`
-            };
-        });
-        
-        // Cache the data
-        localStorage.setItem('kecamatanCache', JSON.stringify(kecamatanData));
-        localStorage.setItem('kecamatanCacheTime', Date.now().toString());
-        
-        dataLoaded = true;
-        isLoading = false;
-        console.log(`✓ Loaded ${kecamatanData.length} kecamatan from API and cached`);
-        
-    } catch (error) {
-        console.error('Error loading kecamatan data:', error);
-        isLoading = false;
-        
-        // Fallback to comprehensive basic list if API fails
-        kecamatanData = [
-            {display: "Cengkareng, Jakarta Barat"},
-            {display: "Grogol Petamburan, Jakarta Barat"},
-            {display: "Taman Sari, Jakarta Barat"},
-            {display: "Tambora, Jakarta Barat"},
-            {display: "Kebon Jeruk, Jakarta Barat"},
-            {display: "Menteng, Jakarta Pusat"},
-            {display: "Tanah Abang, Jakarta Pusat"},
-            {display: "Senen, Jakarta Pusat"},
-            {display: "Kebayoran Baru, Jakarta Selatan"},
-            {display: "Kebayoran Lama, Jakarta Selatan"},
-            {display: "Tebet, Jakarta Selatan"},
-            {display: "Pasar Minggu, Jakarta Selatan"},
-            {display: "Kelapa Gading, Jakarta Utara"},
-            {display: "Penjaringan, Jakarta Utara"},
-            {display: "Pademangan, Jakarta Utara"},
-            {display: "Bekasi Barat, Bekasi"},
-            {display: "Bekasi Timur, Bekasi"},
-            {display: "Bandung Wetan, Bandung"},
-            {display: "Bandung Kulon, Bandung"},
-            {display: "Surabaya, Surabaya"}
-        ];
-        dataLoaded = true;
-        console.log('Using fallback data');
-    }
-}
-
-function initKecamatanSearch() {
-    const searchInput = document.getElementById('kecamatanSearch');
-    const searchResults = document.getElementById('searchResults');
-    if (!searchInput || !searchResults) return;
-    
-    // Load data on first focus with force reload to clear old cache
-    let loadAttempted = false;
-    searchInput.addEventListener('focus', async function() {
-        if (!loadAttempted) {
-            loadAttempted = true;
-            this.placeholder = 'Loading data...';
-            this.disabled = true;
-            
-            // Force reload to clear any old cache
-            await loadKecamatanData(true);
-            
-            this.disabled = false;
-            this.placeholder = 'Cari kecamatan...';
-            
-            // Show ready message
-            if (dataLoaded) {
-                searchResults.innerHTML = `<div class="search-result-item" style="color: green;">✓ ${kecamatanData.length} kecamatan siap dicari</div>`;
-                searchResults.classList.add('active');
-                setTimeout(() => {
-                    searchResults.classList.remove('active');
-                }, 2000);
+        // Find matching city
+        let placeholder = defaultPlaceholder;
+        for (const [cityName, example] of Object.entries(cityExamples)) {
+            if (city.includes(cityName)) {
+                placeholder = example;
+                break;
             }
         }
-    });
-
-    searchInput.addEventListener('input', function() {
-        const query = this.value.toLowerCase().trim();
-
-        if (!query) {
-            searchResults.classList.remove('active');
-            return;
-        }
         
-        if (!dataLoaded || isLoading) {
-            searchResults.innerHTML = '<div class="search-result-item">⏳ Loading data...</div>';
-            searchResults.classList.add('active');
-            return;
-        }
-
-        // Search in both kecamatan name and kabupaten/kota name
-        const filtered = kecamatanData.filter(k => 
-            k.display.toLowerCase().includes(query)
-        );
-
-        if (filtered.length > 0) {
-            const resultCount = filtered.length;
-            const showing = Math.min(resultCount, 10);
-            
-            searchResults.innerHTML = 
-                `<div class="search-result-item" style="background: #f0f0f0; font-weight: bold; font-size: 11px;">Showing ${showing} of ${resultCount} results</div>` +
-                filtered.slice(0, 10).map(k => 
-                    `<div class="search-result-item" data-value="${k.display}">${k.display}</div>`
-                ).join('');
-
-            searchResults.classList.add('active');
-
-            searchResults.querySelectorAll('.search-result-item[data-value]')
-                .forEach(item => {
-                    item.addEventListener('click', function() {
-                        searchInput.value = this.dataset.value;
-                        searchResults.classList.remove('active');
-                    });
-                });
-
-        } else {
-            searchResults.innerHTML = '<div class="search-result-item">❌ Tidak ditemukan</div>';
-            searchResults.classList.add('active');
-        }
-    });
-
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.search-container')) {
-            searchResults.classList.remove('active');
-        }
-    });
+        // Update placeholder
+        kecamatanInput.placeholder = placeholder;
+        
+        console.log(`✓ Smart placeholder set: ${placeholder} (detected city: ${city})`);
+        
+    } catch (error) {
+        // Fallback to default if IP API fails
+        console.log('Using default placeholder (IP detection failed)');
+        kecamatanInput.placeholder = defaultPlaceholder;
+    }
 }
 
 // =====================
