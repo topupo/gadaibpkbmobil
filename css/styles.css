@@ -124,7 +124,7 @@ header {
     border-radius: 999px;
     font-weight: 700;
     border: none;
-    width: 80%;
+    width: 100%;
     margin-bottom: 20px;
     box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);
     cursor: pointer;
