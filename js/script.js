@@ -121,13 +121,13 @@ async function loadKecamatanData(forceReload = false) {
     try {
         console.log('Loading kecamatan from API...');
         
-        // Load all districts from API
-        const response = await fetch('https://www.emsifa.com/api-wilayah-indonesia/api/districts.json');
+        // Load all districts from API - FIXED URL
+        const response = await fetch('https://emsifa.github.io/api-wilayah-indonesia/api/districts.json');
         if (!response.ok) throw new Error('Failed to fetch districts');
         const districts = await response.json();
         
-        // Load all regencies to get names
-        const regResponse = await fetch('https://www.emsifa.com/api-wilayah-indonesia/api/regencies.json');
+        // Load all regencies to get names - FIXED URL
+        const regResponse = await fetch('https://emsifa.github.io/api-wilayah-indonesia/api/regencies.json');
         if (!regResponse.ok) throw new Error('Failed to fetch regencies');
         const regencies = await regResponse.json();
         
@@ -523,9 +523,9 @@ function initSocialProofDynamic() {
     };
 
     const baseData = [
-        { icon: "📩", label: "simulasi terkirim 2 menit", key: "simulasi", incrementRange: [3, 8] },
-        { icon: "⏳", label: "pengajuan diproses 30 menit", key: "pengajuan", incrementRange: [1, 4] },
-        { icon: "✅", label: "pengajuan approved 1 hari cair", key: "approved", incrementRange: [1, 3] }
+        { icon: "📩", label: "simulasi terkirim hari ini", key: "simulasi", incrementRange: [3, 8] },
+        { icon: "⏳", label: "pengajuan diproses hari ini", key: "pengajuan", incrementRange: [1, 4] },
+        { icon: "✅", label: "pengajuan approved hari ini", key: "approved", incrementRange: [1, 3] }
     ];
 
     let currentIndex = 0;
@@ -659,4 +659,4 @@ document.addEventListener('DOMContentLoaded', () => {
     new Slider('promoSlider', 'promoDots');
     new Slider('simSlider', 'simDots');
     new Slider('testiSlider');
-});
+}); 
