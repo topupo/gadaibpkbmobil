@@ -586,7 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
     populateTahun();
     updateMerkDropdown('mobil');
     initBPKBListener();
-    initKecamatanSearch();
+    initSimpleKecamatan();
     initNopolUppercase();
     initWhatsAppForm();
     initScrollToForm();
