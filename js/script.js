@@ -363,7 +363,7 @@ function initWhatsAppForm() {
             utm_term: utmParams.get('utm_term') || '',
             fbclid: localStorage.getItem('fbclid') || '',
             gclid: localStorage.getItem('gclid') || '',
-            token: "X8dk04sK12Abc82"
+            token: "X7mK29aPqL8zR4vBc9D2tY6wFh81JsQ"
         };
 
         // 5. SHOW LOADING STATE
