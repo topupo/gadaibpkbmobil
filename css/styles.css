@@ -120,11 +120,12 @@ header {
 .btn-cta-hero {
     background: linear-gradient(135deg, #F97316, #EA580C);
     color: var(--white);
-    padding: 14px 30px;
+    padding: 14px 32px;
     border-radius: 999px;
     font-weight: 700;
     border: none;
-    width: 100%;
+    min-width: 220%;
+    display:inline-block;
     margin-bottom: 20px;
     box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);
     cursor: pointer;
