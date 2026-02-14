@@ -298,15 +298,16 @@ function initScrollToForm() {
 }
 
 // =====================
-// FORM SUBMIT
+// FORM SUBMIT WITH PROPER CORS & USER FEEDBACK
 // =====================
 function initWhatsAppForm() {
     const form = document.getElementById('pengajuanForm');
     if (!form) return;
 
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
+        // 1. VALIDATE REQUIRED FIELDS
         const requiredFields = this.querySelectorAll('[required]');
         let isValid = true;
 
@@ -320,23 +321,26 @@ function initWhatsAppForm() {
         });
 
         if (!isValid) {
-            alert('Mohon lengkapi semua field yang wajib diisi.');
+            alert('❌ Mohon lengkapi semua field yang wajib diisi.');
             return;
         }
 
+        // 2. VALIDATE WHATSAPP FORMAT
         const whatsappInput = this.querySelector('input[name="whatsapp"]').value;
         const waRegex = /^(\+62|62|0)8[1-9][0-9]{6,9}$/;
 
         if (!waRegex.test(whatsappInput.replace(/\s+/g, ''))) {
-            alert('Nomor WhatsApp tidak valid.');
+            alert('❌ Nomor WhatsApp tidak valid. Format: 08xxxxxxxxxx');
             return;
         }
 
+        // 3. CLEAN WHATSAPP NUMBER
         let cleanWA = whatsappInput.replace(/\D/g, '');
         if (cleanWA.startsWith('0')) {
             cleanWA = '62' + cleanWA.substring(1);
         }
 
+        // 4. COLLECT FORM DATA
         const data = new FormData(this);
         const utmParams = new URLSearchParams(window.location.search);
 
@@ -360,22 +364,45 @@ function initWhatsAppForm() {
             fbclid: localStorage.getItem('fbclid') || '',
             gclid: localStorage.getItem('gclid') || '',
             token: "X8dk04sK12Abc82"
-
         };
 
-        fetch("https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec", {
-            method: "POST",
-            mode: "no-cors",
-            keepalive: true,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(leadData)
-        });
+        // 5. SHOW LOADING STATE
+        const submitBtn = this.querySelector('.btn-submit');
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = '⏳ Mengirim data...';
+        submitBtn.style.opacity = '0.7';
 
-        if (window.fbq) fbq('track', 'Lead');
-        if (window.gtag) gtag('event', 'generate_lead');
+        try {
+            // 6. SEND TO GOOGLE SHEETS (PROPER CORS - NO MORE no-cors!)
+            const response = await fetch("https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(leadData)
+            });
 
-        const waNumber = '6282299999036';
-        const message =
+            const result = await response.json();
+
+            // 7. HANDLE RESPONSE
+            if (result.success) {
+                // SUCCESS - Track conversions
+                if (window.fbq) fbq('track', 'Lead');
+                if (window.gtag) gtag('event', 'generate_lead');
+
+                // Show success message based on status
+                let successMsg = '✅ Data berhasil dikirim!';
+                if (result.status === 'updated') {
+                    successMsg = '✅ Data Anda berhasil diupdate!';
+                }
+                successMsg += '\n\nAnda akan diarahkan ke WhatsApp.';
+                
+                alert(successMsg);
+
+                // 8. REDIRECT TO WHATSAPP
+                const waNumber = '6282299999036';
+                const message =
 `*PENGAJUAN FASILITAS DANA BPKB*%0A%0A` +
 `👤 *Nama:* ${data.get('nama')}%0A` +
 `📱 *WhatsApp:* ${cleanWA}%0A` +
@@ -394,8 +421,51 @@ function initWhatsAppForm() {
 `💰 *Nominal:* ${data.get('nominal')}%0A%0A` +
 `_Mohon proses lebih lanjut. Terima kasih!_`;
 
+                window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
 
-        window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+                // Reset form after short delay
+                setTimeout(() => {
+                    form.reset();
+                    // Reset to step 1
+                    if (typeof currentStep !== 'undefined') {
+                        currentStep = 0;
+                        if (typeof updateSlider === 'function') updateSlider();
+                    }
+                }, 1000);
+
+            } else {
+                // ERROR FROM SERVER
+                throw new Error(result.error || 'Terjadi kesalahan di server');
+            }
+
+        } catch (error) {
+            console.error('Submission error:', error);
+            
+            // SHOW USER-FRIENDLY ERROR MESSAGE
+            let errorMsg = '❌ Gagal mengirim data.\n\n';
+            
+            if (error.message.includes('Too many requests') || error.message.includes('rate_limited')) {
+                errorMsg += 'Anda terlalu sering mengirim pengajuan.\nMohon tunggu 1 menit sebelum mencoba lagi.';
+            } else if (error.message.includes('Invalid token') || error.message.includes('forbidden')) {
+                errorMsg += 'Sesi Anda telah berakhir.\nSilakan refresh halaman dan coba lagi.';
+            } else if (error.message.includes('Missing required field')) {
+                errorMsg += 'Ada field yang belum terisi.\nMohon lengkapi semua field yang wajib diisi.';
+            } else if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
+                errorMsg += 'Koneksi internet bermasalah.\nCek koneksi Anda dan coba lagi.';
+            } else if (error.message.includes('Invalid WhatsApp')) {
+                errorMsg += 'Format nomor WhatsApp tidak valid.\nGunakan format: 08xxxxxxxxxx';
+            } else {
+                errorMsg += 'Silakan coba lagi atau hubungi admin jika masalah berlanjut.';
+            }
+            
+            alert(errorMsg);
+
+        } finally {
+            // 9. RESTORE BUTTON STATE
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+            submitBtn.style.opacity = '1';
+        }
     });
 }
 
