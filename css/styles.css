@@ -1,13 +1,13 @@
 /* --- RESET & VARIABLES --- */
 :root {
-    --primary-blue: #004990;
-    --dark-blue: #002D5F;
-    --light-blue-bg: #EAF6FF;
-    --green-acc: #00A651;
-    --text-dark: #333;
-    --text-grey: #666;
-    --border-radius: 8px;
-    --white: #fff;
+    --primary-blue: #1E3A8A;
+    --dark-blue: #0F172A;
+    --light-blue-bg: #F8FAFC;
+    --green-acc: #16A34A;
+    --text-dark: #111827;
+    --text-grey: #6B7280;
+    --border-radius: 10px;
+    --white: #FFFFFF;
 }
 
 * {
