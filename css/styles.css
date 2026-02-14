@@ -116,19 +116,30 @@ header {
     margin-bottom: 20px;
     font-size: 11px;
 }
-.stat-item i { display: block; font-size: 20px; margin-bottom: 5px; }
+.stat-item i { display: block; font-size: 22px; margin-bottom: 6px; color: var(--primary-blue); }
 .btn-cta-hero {
-    background: var(--dark-blue);
+    background: linear-gradient(135deg, #F97316, #EA580C);
     color: var(--white);
-    padding: 12px 30px;
-    border-radius: 25px;
+    padding: 14px 30px;
+    border-radius: 999px;
     font-weight: 700;
     border: none;
     width: 100%;
     margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);
     cursor: pointer;
+    transition: all 0.25s ease;
 }
+
+.btn-cta-hero:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(249, 115, 22, 0.45);
+}
+
+.btn-cta-hero:active {
+    transform: scale(0.98);
+}
+
 .hero-image {
     width: 100%;
     height: 200px;
