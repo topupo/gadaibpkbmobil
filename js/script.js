@@ -19,7 +19,7 @@
 // =====================
 // CONFIGURATION
 // =====================
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec";
 const SECRET_TOKEN = "X7mK29aPqL8zR4vBc9D2tY6wFh81JsQ";
 const WA_NUMBER = "6282299999036";
 
