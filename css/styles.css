@@ -140,6 +140,13 @@ header {
     transform: scale(0.98);
 }
 
+.hero-image {
+    width: 100%;
+    max-width: 420px; /* kontrol ukuran maksimal */
+    margin: 30px auto 0;
+    text-align: center;
+}
+
 .hero-image img {
     width: 100%;
     height: auto;
