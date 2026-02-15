@@ -681,3 +681,25 @@ function initTrustAutoSlide() {
 document.addEventListener('DOMContentLoaded', function () {
     initTrustAutoSlide();
 });
+
+function initScrollToForm() {
+    const btn = document.querySelector('.btn-simulasi');
+    const form = document.getElementById('formSection');
+    if (!btn || !form) return;
+
+    btn.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const offset = 80; // sesuaikan kalau ada header fixed
+        const position = form.getBoundingClientRect().top + window.scrollY - offset;
+
+        window.scrollTo({
+            top: position,
+            behavior: 'smooth'
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    initScrollToForm();
+});
