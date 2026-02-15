@@ -140,12 +140,11 @@ header {
     transform: scale(0.98);
 }
 
-.hero-image {
+.hero-image img {
     width: 100%;
-    height: 200px;
-    overflow: hidden;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 25px 40px rgba(0,0,0,0.25));
 }
 .hero-image img {
     width: 100%;
