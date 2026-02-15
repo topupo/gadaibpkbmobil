@@ -367,7 +367,7 @@ function initMultiStepForm() {
             if (!valid) {
     alert("❌ Mohon lengkapi semua data sebelum lanjut.");
     return;
-
+            }
             if (currentStep < totalSteps - 1) {
                 currentStep++;
                 updateSlider();
