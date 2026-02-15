@@ -364,7 +364,9 @@ function initMultiStepForm() {
     }
 });
 
-            if (!valid) return;
+            if (!valid) {
+    alert("❌ Mohon lengkapi semua data sebelum lanjut.");
+    return;
 
             if (currentStep < totalSteps - 1) {
                 currentStep++;
