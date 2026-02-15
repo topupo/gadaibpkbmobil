@@ -800,4 +800,46 @@ body {
     100% { transform: scale(1); }
 }
 
+/* ============================= */
+/* WHATSAPP RADAR RIPPLE */
+/* ============================= */
+
+.wa-radar {
+    position: relative;
+    overflow: visible;
+}
+
+/* Radar waves */
+.wa-radar::before,
+.wa-radar::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    background: rgba(0,166,81,0.35);
+    transform: translate(-50%, -50%) scale(1);
+    z-index: -1;
+    animation: radarPulse 3s infinite;
+}
+
+.wa-radar::after {
+    animation-delay: 1.5s;
+}
+
+@keyframes radarPulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+    }
+    70% {
+        transform: translate(-50%, -50%) scale(1.7);
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
 
