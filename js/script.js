@@ -330,48 +330,51 @@ function initMultiStepForm() {
     const prevBtns = document.querySelectorAll('.btn-prev');
     const progressBar = document.querySelector('.progress-bar');
 
-    if (!wrapper) return;
+    if (!wrapper || steps.length === 0) return;
 
     let currentStep = 0;
     const totalSteps = steps.length;
 
     function updateSlider() {
         wrapper.style.transform = `translateX(-${currentStep * 100}%)`;
-        const progressPercent = ((currentStep + 1) / totalSteps) * 100;
-        progressBar.style.width = progressPercent + "%";
+        if (progressBar) {
+            const progressPercent = ((currentStep + 1) / totalSteps) * 100;
+            progressBar.style.width = progressPercent + "%";
+        }
     }
 
     nextBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+
             const currentFields = steps[currentStep].querySelectorAll('[required]');
             let valid = true;
 
             currentFields.forEach(field => {
 
-    if (field.type === 'radio') {
-        const checked = steps[currentStep].querySelector(`input[name="${field.name}"]:checked`);
-        if (!checked) {
-            valid = false;
-        }
-        return;
-    }
+                if (field.type === 'radio') {
+                    const checked = steps[currentStep].querySelector(`input[name="${field.name}"]:checked`);
+                    if (!checked) valid = false;
+                    return;
+                }
 
-    if (!field.value || field.value.trim() === '') {
-        field.style.borderLeft = '3px solid #ff6b6b';
-        valid = false;
-    } else {
-        field.style.borderLeft = 'none';
-    }
-});
+                if (!field.value || field.value.trim() === '') {
+                    field.style.borderLeft = '3px solid #ff6b6b';
+                    valid = false;
+                } else {
+                    field.style.borderLeft = 'none';
+                }
+            });
 
             if (!valid) {
-    alert("❌ Mohon lengkapi semua data sebelum lanjut.");
-    return;
+                alert("❌ Mohon lengkapi semua data sebelum lanjut.");
+                return;
             }
+
             if (currentStep < totalSteps - 1) {
                 currentStep++;
                 updateSlider();
             }
+
         });
     });
 
@@ -386,6 +389,7 @@ function initMultiStepForm() {
 
     updateSlider();
 }
+
 
 class Slider {
     constructor(sliderId, dotsId = null) {
