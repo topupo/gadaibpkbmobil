@@ -578,6 +578,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initSocialProofDynamic();
     initMidnightRefresh();
     displayCurrentDate();
+    initBottomBarVisibility();
+
 
     // 🔥 TAMBAHKAN INI LAGI
     new Slider('promoSlider', 'promoDots');
@@ -585,16 +587,20 @@ document.addEventListener('DOMContentLoaded', () => {
     new Slider('testiSlider');
 }); 
 
-const bottomBar = document.querySelector('.bottom-action-bar');
-const formSection = document.getElementById('formSection');
+function initBottomBarVisibility() {
+    const bottomBar = document.querySelector('.bottom-action-bar');
+    const formSection = document.querySelector('.form-section');
 
-window.addEventListener('scroll', () => {
-  if (!formSection) return;
+    if (!bottomBar || !formSection) return;
 
-  const rect = formSection.getBoundingClientRect();
-  if (rect.top <= 100 && rect.bottom >= 0) {
-    bottomBar.style.transform = 'translateY(100%)';
-  } else {
-    bottomBar.style.transform = 'translateY(0)';
-  }
-});
+    window.addEventListener('scroll', () => {
+        const rect = formSection.getBoundingClientRect();
+
+        // If form section visible in viewport
+        if (rect.top <= window.innerHeight * 0.4 && rect.bottom >= 0) {
+            bottomBar.style.transform = 'translateY(100%)';
+        } else {
+            bottomBar.style.transform = 'translateY(0)';
+        }
+    });
+}
