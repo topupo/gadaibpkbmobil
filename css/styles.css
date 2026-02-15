@@ -150,13 +150,7 @@ header {
 .hero-image img {
     width: 100%;
     height: auto;
-    display: block;
-    filter: drop-shadow(0 25px 40px rgba(0,0,0,0.25));
-}
-.hero-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 /* --- SECTION: CARA PENGAJUAN with Timeline --- */
@@ -247,16 +241,17 @@ header {
     padding: 20px;
 }
 .promo-img {
-    width: 100%; 
-    height: 150px; 
-    border-radius: 10px; 
+    width: 100%;
+    border-radius: 10px;
     margin-bottom: 15px;
     overflow: hidden;
 }
+
 .promo-img img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
+    display: block;
 }
 
 /* Running Text / Marquee for Partners */
@@ -321,15 +316,15 @@ header {
 }
 .car-img { 
     width: 100%; 
-    height: 120px; 
-    margin: 0 auto; 
     border-radius: 8px;
     overflow: hidden;
 }
+
 .car-img img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
+    display: block;
 }
 
 /* Insurance Icons - Emojis */
