@@ -615,24 +615,6 @@ footer {
 .social-icons { margin-top: 20px; display: flex; gap: 15px; }
 .social-box { width: 30px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 50%; }
 
-/* --- WHATSAPP FLOATING --- */
-.wa-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background: #25D366;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    color: white;
-    font-size: 24px;
-    z-index: 999;
-}
-
 /* --- SLIDER DOTS --- */
 .slider-dots {
     text-align: center;
@@ -720,3 +702,55 @@ footer {
     color: var(--green-acc);
     font-weight: 700;
 }
+
+/* ============================= */
+/* FLOATING BOTTOM ACTION BAR */
+/* ============================= */
+
+.bottom-action-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    background: #ffffff;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+    z-index: 9999;
+}
+
+.btn-bottom {
+    flex: 1;
+    text-align: center;
+    padding: 14px 10px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.btn-simulasi {
+    background: var(--primary-blue);
+    color: #fff;
+}
+
+.btn-simulasi:hover {
+    background: var(--dark-blue);
+}
+
+.btn-wa {
+    background: var(--green-acc);
+    color: #fff;
+}
+
+.btn-wa:hover {
+    opacity: 0.9;
+}
+
+body {
+    padding-bottom: 70px;
+}
+
+.bottom-action-bar {
+    transition: transform 0.3s ease;
+}
+
