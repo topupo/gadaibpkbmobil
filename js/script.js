@@ -245,7 +245,7 @@ function initWhatsAppForm() {
 
         try {
             // 6. SEND TO GOOGLE SHEETS (PROPER CORS - NO MORE no-cors!)
-            const response = await fetch("https://script.google.com/macros/s/AKfycbxCsSgLn6zGsk77yOlTAOFIdp72wttRzAIINKf3uOPZZ2V6-NSDJn-GRW85TdllmfKk0w/exec", {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbyYR1XT1_YzfpwNeffG2NljEzcS8nwPeLlzjGn3r4o5qVmqPSKIrEsDxV9xJfSweb1jlg/exec", {
                 method: "POST",
                 headers: { 
                     "Content-Type": "application/json"
