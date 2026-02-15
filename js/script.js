@@ -347,13 +347,22 @@ function initMultiStepForm() {
             let valid = true;
 
             currentFields.forEach(field => {
-                if (!field.value) {
-                    field.style.borderLeft = '3px solid #ff6b6b';
-                    valid = false;
-                } else {
-                    field.style.borderLeft = 'none';
-                }
-            });
+
+    if (field.type === 'radio') {
+        const checked = steps[currentStep].querySelector(`input[name="${field.name}"]:checked`);
+        if (!checked) {
+            valid = false;
+        }
+        return;
+    }
+
+    if (!field.value || field.value.trim() === '') {
+        field.style.borderLeft = '3px solid #ff6b6b';
+        valid = false;
+    } else {
+        field.style.borderLeft = 'none';
+    }
+});
 
             if (!valid) return;
 
