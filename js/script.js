@@ -619,3 +619,65 @@ function initBottomBarVisibility() {
         }
     });
 }
+
+function initTrustAutoSlide() {
+    const slider = document.getElementById('trustSlider');
+    if (!slider) return;
+
+    let scrollAmount = 0;
+    let isPaused = false;
+
+    function autoScroll() {
+        if (isPaused) return;
+
+        scrollAmount += 0.5; // makin kecil makin halus
+        slider.scrollLeft = scrollAmount;
+
+        if (scrollAmount >= slider.scrollWidth - slider.clientWidth) {
+            scrollAmount = 0;
+        }
+    }
+
+    const interval = setInterval(autoScroll, 20);
+
+    // Pause saat disentuh / hover
+    slider.addEventListener('mouseenter', () => isPaused = true);
+    slider.addEventListener('mouseleave', () => isPaused = false);
+    slider.addEventListener('touchstart', () => isPaused = true);
+    slider.addEventListener('touchend', () => isPaused = false);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    initTrustAutoSlide();
+});
+
+function initTrustAutoSlide() {
+    const slider = document.getElementById('trustSlider');
+    if (!slider) return;
+
+    let scrollAmount = 0;
+    let isPaused = false;
+
+    function autoScroll() {
+        if (isPaused) return;
+
+        scrollAmount += 0.5; // makin kecil makin halus
+        slider.scrollLeft = scrollAmount;
+
+        if (scrollAmount >= slider.scrollWidth - slider.clientWidth) {
+            scrollAmount = 0;
+        }
+    }
+
+    const interval = setInterval(autoScroll, 20);
+
+    // Pause saat disentuh / hover
+    slider.addEventListener('mouseenter', () => isPaused = true);
+    slider.addEventListener('mouseleave', () => isPaused = false);
+    slider.addEventListener('touchstart', () => isPaused = true);
+    slider.addEventListener('touchend', () => isPaused = false);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    initTrustAutoSlide();
+});
