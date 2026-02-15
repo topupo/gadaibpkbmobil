@@ -268,10 +268,7 @@ function initWhatsAppForm() {
             if (window.fbq) fbq('track', 'Lead');
             if (window.gtag) gtag('event', 'generate_lead');
 
-            // 8. SHOW SUCCESS MESSAGE
-            alert('✅ Data berhasil dikirim!\n\nAnda akan diarahkan ke WhatsApp.');
-
-            // 9. REDIRECT TO WHATSAPP
+            // 8. REDIRECT TO WHATSAPP
             const message =
 `*PENGAJUAN FASILITAS DANA BPKB*%0A%0A` +
 `👤 *Nama:* ${data.get('nama')}%0A` +
@@ -293,7 +290,7 @@ function initWhatsAppForm() {
 
             window.open(`https://wa.me/${WA_NUMBER}?text=${message}`, '_blank');
 
-            // 10. RESET FORM
+            // 9. RESET FORM
             setTimeout(() => {
                 form.reset();
                 const wrapper = document.querySelector('.form-slider-wrapper');
