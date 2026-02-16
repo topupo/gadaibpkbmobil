@@ -878,3 +878,32 @@ body {
     font-size: 13px;
     opacity: 0.85;
 }
+.default-banner {
+    width: 100%;
+    padding: 12px 16px;
+    background: linear-gradient(90deg,#004990,#00A651);
+    color: #fff;
+    display: none;
+}
+
+.default-content {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.default-title {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.default-subtitle {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.default-image {
+    width: 80px;
+}
