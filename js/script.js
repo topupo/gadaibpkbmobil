@@ -924,55 +924,55 @@ document.addEventListener("DOMContentLoaded", function () {
     applySeasonToUI();
 });
 
-function initModernPhoneSlider() {
-  const slider = document.getElementById("modernPhoneSlider");
-  if (!slider) return;
+function initPortraitSlider() {
+    const slider = document.getElementById("portraitSlider");
+    if (!slider) return;
 
-  const slides = slider.querySelectorAll("img");
-  if (slides.length <= 1) return;
+    const slides = slider.querySelectorAll("img");
+    if (slides.length <= 1) return;
 
-  let index = 0;
-  let startX = 0;
-  let interval;
+    let index = 0;
+    let startX = 0;
+    let interval;
 
-  function updateSlide() {
-    slider.style.transform = `translateX(-${index * 100}%)`;
-  }
-
-  function nextSlide() {
-    index = (index + 1) % slides.length;
-    updateSlide();
-  }
-
-  function startAuto() {
-    interval = setInterval(nextSlide, 3500);
-  }
-
-  function stopAuto() {
-    clearInterval(interval);
-  }
-
-  slider.addEventListener("touchstart", e => {
-    stopAuto();
-    startX = e.touches[0].clientX;
-  });
-
-  slider.addEventListener("touchend", e => {
-    const diff = startX - e.changedTouches[0].clientX;
-
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        index = (index + 1) % slides.length;
-      } else {
-        index = (index - 1 + slides.length) % slides.length;
-      }
-      updateSlide();
+    function updateSlide() {
+        slider.style.transform = `translateX(-${index * 100}%)`;
     }
 
-    startAuto();
-  });
+    function nextSlide() {
+        index = (index + 1) % slides.length;
+        updateSlide();
+    }
 
-  startAuto();
+    function startAuto() {
+        interval = setInterval(nextSlide, 3500);
+    }
+
+    function stopAuto() {
+        clearInterval(interval);
+    }
+
+    slider.addEventListener("touchstart", e => {
+        stopAuto();
+        startX = e.touches[0].clientX;
+    });
+
+    slider.addEventListener("touchend", e => {
+        const diff = startX - e.changedTouches[0].clientX;
+
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) {
+                index = (index + 1) % slides.length;
+            } else {
+                index = (index - 1 + slides.length) % slides.length;
+            }
+            updateSlide();
+        }
+
+        startAuto();
+    });
+
+    startAuto();
 }
 
     
@@ -994,7 +994,7 @@ document.addEventListener('DOMContentLoaded', () => {
     displayCurrentDate();
     initBottomBarVisibility();
     applySeasonToUI();
-    initModernPhoneSlider();
+    initPortraitSlider();
 
     const activeSeason = detectActiveSeason();
 
