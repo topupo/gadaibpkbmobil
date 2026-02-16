@@ -842,68 +842,60 @@ const SEASON_CONFIG = [
 
 function detectActiveSeason() {
     const today = new Date();
-    const todayTime = today.getTime();
+    const todayStr = today.toISOString().split("T")[0];
 
     for (let season of SEASON_CONFIG) {
-        const start = new Date(season.start).getTime();
-        const end = new Date(season.end).getTime();
+        if (todayStr >= season.start && todayStr <= season.end) {
 
-        if (todayTime >= start && todayTime <= end) {
+            const endDate = new Date(season.end);
+            const diffTime = endDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-            const diffDays = Math.ceil((end - todayTime) / (1000 * 60 * 60 * 24));
+            let mode = "normal";
+
+            if (diffDays <= 3) {
+                mode = "promo";
+            }
 
             if (diffDays <= 0) {
-                return { ...season, mode: "hday", diffDays };
+                mode = "hday";
             }
 
-            if (diffDays <= season.urgencyDays) {
-                return { ...season, mode: "urgency", diffDays };
-            }
-
-            return { ...season, mode: "normal", diffDays };
+            return { ...season, mode, diffDays };
         }
     }
-
     return null;
 }
 
+
 function applySeasonToUI() {
-    const activeSeason = detectActiveSeason();
-    const ctas = document.querySelectorAll('.cta-scroll');
-    const microText = document.getElementById('seasonMicroText');
-    const trustBadge = document.querySelector('.trust-badge.highlight');
+    const season = detectActiveSeason();
+    if (!season) return;
 
-    if (!activeSeason) {
-        if (microText) microText.textContent = "";
-        return;
+    const banner = document.getElementById("seasonBanner");
+    const hero = document.querySelector(".hero-section");
+
+    if (banner) {
+        banner.classList.remove("season-normal", "season-promo");
+        banner.classList.add("season-" + season.mode);
+
+        const title = banner.querySelector(".season-title");
+        const sub = banner.querySelector(".season-subtext");
+        const countdown = banner.querySelector(".season-countdown");
+
+        if (title) title.innerText = season.title;
+        if (sub) sub.innerText = season.subtitle;
+
+        if (season.mode === "promo" && countdown) {
+            countdown.innerText = "Sisa " + season.diffDays + " hari lagi";
+        } else if (countdown) {
+            countdown.innerText = "";
+        }
     }
 
-    let ctaText = activeSeason.ctaNormal;
-
-    if (activeSeason.mode === "urgency") {
-        ctaText = activeSeason.ctaUrgency;
-        if (microText)
-            microText.textContent =
-                "Sisa " + activeSeason.diffDays + " hari menuju hari raya.";
-    }
-    else if (activeSeason.mode === "hday") {
-        ctaText = activeSeason.ctaHDay;
-        if (microText)
-            microText.textContent = "Tim tetap online membantu Anda.";
-    }
-    else {
-        if (microText)
-            microText.textContent = activeSeason.subText;
-    }
-
-    // Update all CTA buttons
-    ctas.forEach(btn => {
-        btn.textContent = ctaText;
-    });
-
-    // Update trust badge highlight (badge terakhir)
-    if (trustBadge) {
-        trustBadge.textContent = activeSeason.badgeText;
+    // HERO THEME SWITCH
+    if (hero) {
+        hero.classList.add("hero-season-active");
     }
 }
 
