@@ -576,31 +576,6 @@ function initMidnightRefresh() {
     
     scheduleRefresh();
 }
-    
-// =====================
-// DOM READY
-// =====================
-document.addEventListener('DOMContentLoaded', () => {
-    document.body.style.touchAction = "pan-y";
-    populateTahun();
-    updateMerkDropdown('mobil');
-    initBPKBListener();
-    initSimpleKecamatan();
-    initNopolUppercase();
-    initWhatsAppForm();
-    initScrollToForm();
-    initMultiStepForm();
-    initSocialProofDynamic();
-    initMidnightRefresh();
-    displayCurrentDate();
-    initBottomBarVisibility();
-
-
-    // 🔥 TAMBAHKAN INI LAGI
-    new Slider('promoSlider', 'promoDots');
-    new Slider('simSlider', 'simDots');
-    new Slider('testiSlider');
-}); 
 
 function initBottomBarVisibility() {
     const bottomBar = document.querySelector('.bottom-action-bar');
@@ -730,3 +705,141 @@ function initAllCTAButtons() {
 document.addEventListener('DOMContentLoaded', function () {
     initAllCTAButtons();
 });
+
+/* ============================= */
+/* SEASONAL CONVERSION SYSTEM */
+/* ============================= */
+
+const SEASON_CONFIG = [
+  {
+    name: "idul_fitri_2026",
+    start: "2026-03-20",
+    end: "2026-04-10",
+    urgencyDays: 10,
+    ctaNormal: "📊 Persiapan Dana Hari Raya",
+    ctaUrgency: "📊 Cair Sebelum Hari Raya",
+    ctaHDay: "📊 Proses Kilat Hari Ini",
+    subText: "Siapkan kebutuhan lebih awal.",
+    badgeText: "🏆 Dana Cair Jelang Hari Raya"
+  },
+  {
+    name: "imlek_2026",
+    start: "2026-02-01",
+    end: "2026-02-10",
+    urgencyDays: 10,
+    ctaNormal: "📊 Persiapan Dana Imlek",
+    ctaUrgency: "📊 Cair Sebelum Imlek",
+    ctaHDay: "📊 Proses Kilat Hari Ini",
+    subText: "Siapkan kebutuhan hari raya.",
+    badgeText: "🏆 Dana Cair Jelang Imlek"
+  },
+  {
+    name: "natal_2026",
+    start: "2026-12-01",
+    end: "2026-12-25",
+    urgencyDays: 10,
+    ctaNormal: "📊 Persiapan Dana Akhir Tahun",
+    ctaUrgency: "📊 Cair Sebelum Natal",
+    ctaHDay: "📊 Proses Kilat Hari Ini",
+    subText: "Siapkan kebutuhan hari raya.",
+    badgeText: "🏆 Dana Cair Jelang Natal"
+  }
+];
+
+function detectActiveSeason() {
+    const today = new Date();
+    const todayTime = today.getTime();
+
+    for (let season of SEASON_CONFIG) {
+        const start = new Date(season.start).getTime();
+        const end = new Date(season.end).getTime();
+
+        if (todayTime >= start && todayTime <= end) {
+
+            const diffDays = Math.ceil((end - todayTime) / (1000 * 60 * 60 * 24));
+
+            if (diffDays <= 0) {
+                return { ...season, mode: "hday", diffDays };
+            }
+
+            if (diffDays <= season.urgencyDays) {
+                return { ...season, mode: "urgency", diffDays };
+            }
+
+            return { ...season, mode: "normal", diffDays };
+        }
+    }
+
+    return null;
+}
+
+function applySeasonToUI() {
+    const activeSeason = detectActiveSeason();
+    const ctas = document.querySelectorAll('.cta-scroll');
+    const microText = document.getElementById('seasonMicroText');
+    const trustBadge = document.querySelector('.trust-badge.highlight');
+
+    if (!activeSeason) {
+        if (microText) microText.textContent = "";
+        return;
+    }
+
+    let ctaText = activeSeason.ctaNormal;
+
+    if (activeSeason.mode === "urgency") {
+        ctaText = activeSeason.ctaUrgency;
+        if (microText)
+            microText.textContent =
+                "Sisa " + activeSeason.diffDays + " hari menuju hari raya.";
+    }
+    else if (activeSeason.mode === "hday") {
+        ctaText = activeSeason.ctaHDay;
+        if (microText)
+            microText.textContent = "Tim tetap online membantu Anda.";
+    }
+    else {
+        if (microText)
+            microText.textContent = activeSeason.subText;
+    }
+
+    // Update all CTA buttons
+    ctas.forEach(btn => {
+        btn.textContent = ctaText;
+    });
+
+    // Update trust badge highlight (badge terakhir)
+    if (trustBadge) {
+        trustBadge.textContent = activeSeason.badgeText;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    applySeasonToUI();
+});
+    
+// =====================
+// DOM READY
+// =====================
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.style.touchAction = "pan-y";
+    populateTahun();
+    updateMerkDropdown('mobil');
+    initBPKBListener();
+    initSimpleKecamatan();
+    initNopolUppercase();
+    initWhatsAppForm();
+    initScrollToForm();
+    initMultiStepForm();
+    initSocialProofDynamic();
+    initMidnightRefresh();
+    displayCurrentDate();
+    initBottomBarVisibility();
+    applySeasonToUI();
+    updateAdvancedSeason();
+
+
+    // 🔥 TAMBAHKAN INI LAGI
+    new Slider('promoSlider', 'promoDots');
+    new Slider('simSlider', 'simDots');
+    new Slider('testiSlider');
+}); 
