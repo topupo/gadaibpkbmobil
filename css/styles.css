@@ -178,7 +178,7 @@ header {
 .portrait-slider img {
     min-width: 100%;
     height: 100%;
-    object-fit: cover;   /* ganti contain kalau tidak mau crop */
+    object-fit: contain;   /* ganti contain kalau tidak mau crop */
     user-select: none;
     pointer-events: none;
 }
