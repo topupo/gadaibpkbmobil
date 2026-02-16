@@ -151,24 +151,11 @@ async function initSimpleKecamatan() {
 // =====================
 // NOPOL AUTO UPPERCASE
 // =====================
-function initPlatFormatter() {
-    const input = document.getElementById("platNomor");
+function initNopolUppercase() {
+    const input = document.getElementById('nopolInput');
     if (!input) return;
-
-    input.addEventListener("input", function () {
-        let value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
-
-        // Format XX YYYY XXX
-        let part1 = value.substring(0, 2).replace(/[^A-Z]/g, "");
-        let part2 = value.substring(2, 6).replace(/[^0-9]/g, "");
-        let part3 = value.substring(6, 9).replace(/[^A-Z]/g, "");
-
-        let formatted = "";
-        if (part1) formatted += part1;
-        if (part2) formatted += " " + part2;
-        if (part3) formatted += " " + part3;
-
-        this.value = formatted.trim();
+    input.addEventListener('input', function () {
+        this.value = this.value.toUpperCase();
     });
 }
 
@@ -946,7 +933,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateMerkDropdown('mobil');
     initBPKBListener();
     initSimpleKecamatan();
-    initPlatFormatter();
+    initNopolUppercase();
     initWhatsAppForm();
     initScrollToForm();
     initMultiStepForm();
