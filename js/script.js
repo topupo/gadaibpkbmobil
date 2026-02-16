@@ -840,50 +840,58 @@ const SEASON_CONFIG = [
 
 ];
 
-const DEFAULT_SEASON = {
-    name: "DEFAULT",
-    mode: "normal",
-    bg: "linear-gradient(90deg,#004990,#00A651)",
-    title: "Promo Spesial Hari Ini",
-    subtitle: "Simulasi cepat & proses lebih prioritas",
-    image: "/assets/banner-default.webp"
-};
-
 function detectActiveSeason() {
     const today = new Date();
     const todayStr = today.toISOString().split("T")[0];
 
     for (let season of SEASON_CONFIG) {
         if (todayStr >= season.start && todayStr <= season.end) {
-            return season;
+
+            const endDate = new Date(season.end);
+            const diffTime = endDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            let mode = "normal";
+
+            if (diffDays <= 3) {
+                mode = "promo";
+            }
+
+            if (diffDays <= 0) {
+                mode = "hday";
+            }
+
+            return { ...season, mode, diffDays };
         }
     }
-
-    // ⬇️ FALLBACK DEFAULT
-    return DEFAULT_SEASON;
+    return null;
 }
 
-function applySeasonToUI(season) {
+
+function applySeasonToUI() {
+    const season = detectActiveSeason();
+    if (!season) return;
+
     const banner = document.getElementById("seasonBanner");
-    const title = document.getElementById("seasonTitle");
-    const subtitle = document.getElementById("seasonSubtitle");
+    const hero = document.querySelector(".hero-section");
 
-    if (!season || !banner) {
-        if (banner) banner.style.display = "none";
-        return;
+    if (banner) {
+        banner.classList.remove("season-normal", "season-promo");
+        banner.classList.add("season-" + season.mode);
+
+        const title = banner.querySelector(".season-title");
+        const sub = banner.querySelector(".season-subtext");
+        const countdown = banner.querySelector(".season-countdown");
+
+        if (title) title.innerText = season.title;
+        if (sub) sub.innerText = season.subtitle;
+
+        if (season.mode === "promo" && countdown) {
+            countdown.innerText = "Sisa " + season.diffDays + " hari lagi";
+        } else if (countdown) {
+            countdown.innerText = "";
+        }
     }
-
-    banner.style.display = "block";
-    banner.style.background = season.bg;
-    title.textContent = season.title;
-    subtitle.textContent = season.subtitle;
-}
-
-const img = banner.querySelector(".season-image");
-if (img && season.image) {
-    img.src = season.image;
-    img.style.display = "block";
-}
 
     // HERO THEME SWITCH
     if (hero) {
