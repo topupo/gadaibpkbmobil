@@ -994,6 +994,7 @@ document.addEventListener('DOMContentLoaded', () => {
     displayCurrentDate();
     initBottomBarVisibility();
     applySeasonToUI();
+    initModernPhoneSlider();
 
     const activeSeason = detectActiveSeason();
 
