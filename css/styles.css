@@ -851,3 +851,8 @@ body {
     min-height: 16px; /* supaya layout tidak loncat */
 }
 
+.season-subtext {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 500;
+}
