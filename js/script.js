@@ -162,14 +162,34 @@ function initNopolUppercase() {
 // =====================
 // SCROLL TO FORM
 // =====================
-function initScrollToForm() {
-    const buttons = document.querySelectorAll('.btn-cta-hero');
+function initAllCTAButtons() {
+    const buttons = document.querySelectorAll('.cta-scroll');
     const formSection = document.querySelector('.form-section');
+    if (!buttons.length || !formSection) return;
 
     buttons.forEach(btn => {
         btn.addEventListener('click', function (e) {
+
+            // Jangan ganggu tombol dalam form
+            if (btn.closest('form')) return;
+
             e.preventDefault();
-            formSection.scrollIntoView({ behavior: 'smooth' });
+
+            const header = document.querySelector('header');
+            const headerHeight = header ? header.offsetHeight : 0;
+
+            const extraSpacing = 20;
+
+            const targetPosition =
+                formSection.getBoundingClientRect().top +
+                window.pageYOffset -
+                headerHeight -
+                extraSpacing;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
         });
     });
 }
@@ -594,37 +614,6 @@ function initBottomBarVisibility() {
         }
     });
 }
-
-function initTrustAutoSlide() {
-    const slider = document.getElementById('trustSlider');
-    if (!slider) return;
-
-    let scrollAmount = 0;
-    let isPaused = false;
-
-    function autoScroll() {
-        if (isPaused) return;
-
-        scrollAmount += 0.5; // makin kecil makin halus
-        slider.scrollLeft = scrollAmount;
-
-        if (scrollAmount >= slider.scrollWidth - slider.clientWidth) {
-            scrollAmount = 0;
-        }
-    }
-
-    const interval = setInterval(autoScroll, 20);
-
-    // Pause saat disentuh / hover
-    slider.addEventListener('mouseenter', () => isPaused = true);
-    slider.addEventListener('mouseleave', () => isPaused = false);
-    slider.addEventListener('touchstart', () => isPaused = true);
-    slider.addEventListener('touchend', () => isPaused = false);
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    initTrustAutoSlide();
-});
 
 function initTrustAutoSlide() {
     const slider = document.getElementById('trustSlider');
