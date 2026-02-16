@@ -158,39 +158,39 @@ header {
 .section-title { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 25px; color: var(--text-dark); }
 
 /* Phone Mockup - Normal Image */
-.phone-showcase {
-  display: flex;
-  justify-content: center;
-  padding: 80px 0;
-}
-
 .phone-wrapper {
   position: relative;
-  width: 300px;
-  aspect-ratio: 0.549; /* 572 / 1042 */
+  width: 320px; /* bebas, bisa 280–360 */
+  aspect-ratio: 572 / 1042; /* ratio asli frame */
+  margin: 0 auto;
 }
 
-.phone-screen-slider {
+/* Area layar */
+.phone-screen {
   position: absolute;
-  top: 4.8%;
-  left: 6.5%;
-  width: 87%;
-  height: 90%;
+  top: 4.5%;   /* adjust sesuai frame */
+  left: 6%;
+  width: 88%;
+  height: 91%;
   overflow: hidden;
-  border-radius: 36px;
-  outline: 2px solid red;
+  border-radius: 40px;
 }
 
-.phone-screen-slider img {
+/* Slide */
+.phone-slide {
+  position: absolute;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* full tanpa distorsi */
+  opacity: 0;
+  transition: opacity .5s ease;
 }
 
-.phone-screen-slider img.active {
+.phone-slide.active {
   opacity: 1;
 }
 
+/* Frame overlay */
 .phone-frame {
   position: absolute;
   width: 100%;
@@ -198,18 +198,6 @@ header {
   pointer-events: none;
   z-index: 10;
 }
-
-/* subtle floating premium effect */
-.phone-wrapper {
-  animation: phoneFloat 4s ease-in-out infinite;
-}
-
-@keyframes phoneFloat {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0px); }
-}
-
 
 /* Timeline Steps */
 .steps-timeline {
