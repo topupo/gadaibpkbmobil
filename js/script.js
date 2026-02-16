@@ -148,14 +148,30 @@ async function initSimpleKecamatan() {
     }
 }
 
-// =====================
-// NOPOL AUTO UPPERCASE
-// =====================
-function initNopolUppercase() {
-    const input = document.getElementById('nopolInput');
-    if (!input) return;
-    input.addEventListener('input', function () {
-        this.value = this.value.toUpperCase();
+// ===== FORMAT NOMOR PLAT =====
+const platField = document.getElementById("nopolInput");
+
+if (platField) {
+
+    platField.setAttribute("maxlength", "12");
+    platField.setAttribute("autocomplete", "off");
+
+    platField.addEventListener("input", function () {
+
+        let value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+
+        let hurufDepan = value.match(/^[A-Z]{0,2}/)?.[0] || "";
+        let sisa = value.substring(hurufDepan.length);
+
+        let angka = sisa.replace(/[^0-9]/g, "").substring(0, 4);
+        let hurufBelakang = sisa.replace(/[^A-Z]/g, "").substring(0, 3);
+
+        let formatted = hurufDepan;
+
+        if (angka) formatted += " " + angka;
+        if (hurufBelakang) formatted += " " + hurufBelakang;
+
+        this.value = formatted.trim();
     });
 }
 
