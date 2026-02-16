@@ -162,6 +162,7 @@ header {
   width: 300px;
   margin: 0 auto;
   perspective: 1000px;
+  margin-bottom: 60px;
 }
 
 .modern-phone-frame {
