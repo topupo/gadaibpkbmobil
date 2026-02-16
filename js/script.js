@@ -924,57 +924,19 @@ document.addEventListener("DOMContentLoaded", function () {
     applySeasonToUI();
 });
 
-function initPortraitSlider() {
-    const slider = document.getElementById("portraitSlider");
-    if (!slider) return;
+function initPhoneSlider() {
+    const slides = document.querySelectorAll("#phoneScreenSlider img");
+    if (!slides.length) return;
 
-    const slides = slider.querySelectorAll("img");
-    if (slides.length <= 1) return;
+    let current = 0;
+    slides[current].classList.add("active");
 
-    let index = 0;
-    let startX = 0;
-    let interval;
-
-    function updateSlide() {
-        slider.style.transform = `translateX(-${index * 100}%)`;
-    }
-
-    function nextSlide() {
-        index = (index + 1) % slides.length;
-        updateSlide();
-    }
-
-    function startAuto() {
-        interval = setInterval(nextSlide, 3500);
-    }
-
-    function stopAuto() {
-        clearInterval(interval);
-    }
-
-    slider.addEventListener("touchstart", e => {
-        stopAuto();
-        startX = e.touches[0].clientX;
-    });
-
-    slider.addEventListener("touchend", e => {
-        const diff = startX - e.changedTouches[0].clientX;
-
-        if (Math.abs(diff) > 50) {
-            if (diff > 0) {
-                index = (index + 1) % slides.length;
-            } else {
-                index = (index - 1 + slides.length) % slides.length;
-            }
-            updateSlide();
-        }
-
-        startAuto();
-    });
-
-    startAuto();
+    setInterval(() => {
+        slides[current].classList.remove("active");
+        current = (current + 1) % slides.length;
+        slides[current].classList.add("active");
+    }, 3000);
 }
-
     
 // =====================
 // DOM READY
@@ -994,7 +956,7 @@ document.addEventListener('DOMContentLoaded', () => {
     displayCurrentDate();
     initBottomBarVisibility();
     applySeasonToUI();
-    initPortraitSlider();
+    initPhoneSlider();
 
     const activeSeason = detectActiveSeason();
 
