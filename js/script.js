@@ -913,6 +913,13 @@ function applySeason(season) {
     subtitle.textContent = season.subtitle;
 }
 
+function renderDefaultBanner() {
+    const banner = document.getElementById("defaultBanner");
+    if (banner) {
+        banner.style.display = "block";
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     applySeasonToUI();
 });
@@ -935,6 +942,14 @@ document.addEventListener('DOMContentLoaded', () => {
     displayCurrentDate();
     initBottomBarVisibility();
     applySeasonToUI();
+
+    const activeSeason = detectActiveSeason();
+
+if (activeSeason) {
+    applySeasonToUI(activeSeason);
+} else {
+    renderDefaultBanner();
+}
 
     // 🔥 TAMBAHKAN INI LAGI
     new Slider('promoSlider', 'promoDots');
