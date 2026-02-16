@@ -167,26 +167,24 @@ header {
 .phone-wrapper {
   position: relative;
   width: 300px;
-  aspect-ratio: 9 / 19;
+  aspect-ratio: 0.549; /* 572 / 1042 */
 }
 
 .phone-screen-slider {
   position: absolute;
-  top: 6%;
-  left: 7%;
-  width: 86%;
-  height: 88%;
+  top: 4.8%;
+  left: 6.5%;
+  width: 87%;
+  height: 90%;
   overflow: hidden;
-  border-radius: 30px;
+  border-radius: 36px;
+  outline: 2px solid red;
 }
 
 .phone-screen-slider img {
-  position: absolute;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out;
 }
 
 .phone-screen-slider img.active {
