@@ -923,20 +923,6 @@ function renderDefaultBanner() {
 document.addEventListener("DOMContentLoaded", function () {
     applySeasonToUI();
 });
-
-function initPhoneSlider() {
-    const slides = document.querySelectorAll("#phoneScreenSlider img");
-    if (!slides.length) return;
-
-    let current = 0;
-    slides[current].classList.add("active");
-
-    setInterval(() => {
-        slides[current].classList.remove("active");
-        current = (current + 1) % slides.length;
-        slides[current].classList.add("active");
-    }, 3000);
-}
     
 // =====================
 // DOM READY
@@ -956,7 +942,6 @@ document.addEventListener('DOMContentLoaded', () => {
     displayCurrentDate();
     initBottomBarVisibility();
     applySeasonToUI();
-    initPhoneSlider();
 
     const activeSeason = detectActiveSeason();
 
