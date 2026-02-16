@@ -706,7 +706,7 @@ const SEASON_CONFIG = [
   {
     name: "imlek_2026",
     start: "2026-02-01",
-    end: "2026-12-31",
+    end: "2026-02-10",
     urgencyDays: 10,
     ctaNormal: "📊 Persiapan Dana Hari Raya",
     ctaUrgency: "📊 Cair Sebelum Imlek",
