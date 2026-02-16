@@ -703,3 +703,30 @@ function initScrollToForm() {
 document.addEventListener('DOMContentLoaded', function () {
     initScrollToForm();
 });
+
+function initAllCTAButtons() {
+    const buttons = document.querySelectorAll('.cta-scroll');
+    const form = document.getElementById('formSection');
+    if (!buttons.length || !form) return;
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const offset = 80; // sesuaikan kalau ada header fixed
+            const targetPosition =
+                form.getBoundingClientRect().top +
+                window.scrollY -
+                offset;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    initAllCTAButtons();
+});
