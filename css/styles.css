@@ -158,54 +158,18 @@ header {
 .section-title { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 25px; color: var(--text-dark); }
 
 /* Phone Mockup - Normal Image */
-.iphone-mockup {
-  width: 280px;
-  margin: 0 auto;
+.phone-mockup {
+    width: 160px;
+    height: 280px;
+    margin: 0 auto 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
-
-.iphone-frame {
-  background: #111;
-  padding: 14px;
-  border-radius: 42px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  position: relative;
-}
-
-.iphone-frame::before { /* dynamic island */
-  content: "";
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 110px;
-  height: 28px;
-  background: #000;
-  border-radius: 18px;
-  z-index: 2;
-}
-
-.iphone-screen {
-  width: 100%;
-  aspect-ratio: 9 / 16;
-  overflow: hidden;
-  border-radius: 30px;
-  background: #000;
-  position: relative;
-}
-
-.iphone-slider {
-  display: flex;
-  height: 100%;
-  transition: transform 0.45s ease;
-  touch-action: pan-y; /* penting biar swipe horizontal mulus */
-}
-
-.iphone-slider img {
-  min-width: 100%;
-  height: 100%;
-  object-fit: cover; /* ganti contain kalau mau tanpa crop */
-  user-select: none;
-  pointer-events: none;
+.phone-mockup img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* Timeline Steps */
