@@ -201,53 +201,6 @@ function initWhatsAppForm() {
     const form = document.getElementById('pengajuanForm');
     if (!form) return;
 
-    // 0. WHATSAPP FORMATTER
-        const waField = form.querySelector('input[name="whatsapp"]');
-const waCheck = document.getElementById("waCheck");
-const waIcon = document.getElementById("waStatusIcon");
-const waText = document.getElementById("waStatusText");
-
-if (waField) {
-    waField.setAttribute("maxlength", "14");
-    waField.setAttribute("inputmode", "numeric");
-
-    waField.addEventListener("input", function () {
-
-        // 1️⃣ Auto clean
-        let value = this.value.replace(/\D/g, "");
-
-        // 2️⃣ Batasi max 14 digit
-        if (value.length > 14) {
-            value = value.substring(0, 14);
-        }
-
-        this.value = value;
-
-        // 3️⃣ Realtime validation
-        waCheck.style.display = "block";
-
-        if (value.startsWith("08") && value.length >= 10 && value.length <= 14) {
-            waIcon.textContent = "✔";
-            waText.textContent = "Nomor WhatsApp valid";
-            waCheck.classList.remove("wa-invalid");
-            waCheck.classList.add("wa-valid");
-        } else {
-            waIcon.textContent = "❌";
-            waText.textContent = "Harus diawali 08 dan 10–14 digit";
-            waCheck.classList.remove("wa-valid");
-            waCheck.classList.add("wa-invalid");
-        }
-    });
-}
-
-    const waValue = waField.value;
-
-if (!waValue.startsWith("08") || waValue.length < 10) {
-    alert("Nomor WhatsApp harus diawali 08 dan minimal 10 digit.");
-    waField.focus();
-    return;
-}
-
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
