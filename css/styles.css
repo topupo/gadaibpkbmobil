@@ -843,3 +843,11 @@ body {
     }
 }
 
+.cta-micro-text {
+    font-size: 12px;
+    margin-top: 6px;
+    opacity: 0.85;
+    color: var(--text-grey);
+    min-height: 16px; /* supaya layout tidak loncat */
+}
+
