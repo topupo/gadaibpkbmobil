@@ -177,7 +177,7 @@ header {
 }
 
 /* Slide */
-.phone-slide {
+#phoneScreenSlider img {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -186,7 +186,7 @@ header {
   transition: opacity .5s ease;
 }
 
-.phone-slide.active {
+#phoneScreenSlider img.active {
   opacity: 1;
 }
 
