@@ -929,8 +929,6 @@ document.addEventListener('DOMContentLoaded', () => {
     displayCurrentDate();
     initBottomBarVisibility();
     applySeasonToUI();
-    updateAdvancedSeason();
-
 
     // 🔥 TAMBAHKAN INI LAGI
     new Slider('promoSlider', 'promoDots');
