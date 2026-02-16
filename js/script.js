@@ -700,28 +700,69 @@ document.addEventListener('DOMContentLoaded', function () {
 /* ============================= */
 
 const SEASON_CONFIG = [
-  {
-    name: "idul_fitri_2026",
-    start: "2026-03-20",
-    end: "2026-04-10",
-    urgencyDays: 10,
-    ctaNormal: "📊 Persiapan Dana Hari Raya",
-    ctaUrgency: "📊 Cair Sebelum Hari Raya",
-    ctaHDay: "📊 Proses Kilat Hari Ini",
-    subText: "Siapkan kebutuhan lebih awal.",
-    badgeText: "🏆 Dana Cair Jelang Hari Raya"
-  },
+
+  // ===== RELIGIOUS EVENTS =====
+
   {
     name: "imlek_2026",
     start: "2026-02-01",
     end: "2026-02-10",
     urgencyDays: 10,
-    ctaNormal: "📊 Persiapan Dana Imlek",
+    ctaNormal: "📊 Persiapan Dana Hari Raya",
     ctaUrgency: "📊 Cair Sebelum Imlek",
     ctaHDay: "📊 Proses Kilat Hari Ini",
-    subText: "Siapkan kebutuhan hari raya.",
+    subText: "Siapkan kebutuhan perayaan lebih awal.",
     badgeText: "🏆 Dana Cair Jelang Imlek"
   },
+
+  {
+    name: "nyepi_2026",
+    start: "2026-03-18",
+    end: "2026-03-20",
+    urgencyDays: 5,
+    ctaNormal: "📊 Persiapan Dana Hari Raya",
+    ctaUrgency: "📊 Cair Sebelum Nyepi",
+    ctaHDay: "📊 Proses Kilat Hari Ini",
+    subText: "Siapkan kebutuhan hari raya.",
+    badgeText: "🏆 Dana Cair Jelang Nyepi"
+  },
+
+  {
+    name: "ramadan_2026",
+    start: "2026-03-20",
+    end: "2026-04-10",
+    urgencyDays: 10,
+    ctaNormal: "📊 Persiapan Dana Hari Raya",
+    ctaUrgency: "📊 Cair Sebelum Lebaran",
+    ctaHDay: "📊 Proses Kilat Hari Ini",
+    subText: "Persiapkan kebutuhan Ramadan & Lebaran.",
+    badgeText: "🏆 Dana Cair Jelang Lebaran"
+  },
+
+  {
+    name: "idul_adha_2026",
+    start: "2026-06-15",
+    end: "2026-06-18",
+    urgencyDays: 7,
+    ctaNormal: "📊 Persiapan Dana Hari Raya",
+    ctaUrgency: "📊 Cair Sebelum Idul Adha",
+    ctaHDay: "📊 Proses Kilat Hari Ini",
+    subText: "Siapkan kebutuhan hari raya.",
+    badgeText: "🏆 Dana Cair Jelang Idul Adha"
+  },
+
+  {
+    name: "waisak_2026",
+    start: "2026-05-23",
+    end: "2026-05-25",
+    urgencyDays: 5,
+    ctaNormal: "📊 Persiapan Dana Hari Raya",
+    ctaUrgency: "📊 Cair Sebelum Waisak",
+    ctaHDay: "📊 Proses Kilat Hari Ini",
+    subText: "Siapkan kebutuhan hari raya.",
+    badgeText: "🏆 Dana Cair Jelang Waisak"
+  },
+
   {
     name: "natal_2026",
     start: "2026-12-01",
@@ -730,9 +771,73 @@ const SEASON_CONFIG = [
     ctaNormal: "📊 Persiapan Dana Akhir Tahun",
     ctaUrgency: "📊 Cair Sebelum Natal",
     ctaHDay: "📊 Proses Kilat Hari Ini",
-    subText: "Siapkan kebutuhan hari raya.",
+    subText: "Siapkan kebutuhan perayaan akhir tahun.",
     badgeText: "🏆 Dana Cair Jelang Natal"
+  },
+
+
+  // ===== NATIONAL EVENTS =====
+
+  {
+    name: "tahun_baru_2026",
+    start: "2026-01-01",
+    end: "2026-01-02",
+    urgencyDays: 0,
+    ctaNormal: "📊 Awali Tahun dengan Rencana Keuangan",
+    ctaUrgency: "📊 Proses Cepat Awal Tahun",
+    ctaHDay: "📊 Proses Kilat Hari Ini",
+    subText: "Mulai tahun dengan solusi finansial yang tepat.",
+    badgeText: "🏆 Dipercaya 10.000+ Nasabah"
+  },
+
+  {
+    name: "hari_buruh_2026",
+    start: "2026-05-01",
+    end: "2026-05-02",
+    urgencyDays: 0,
+    ctaNormal: "📊 Solusi Dana Cepat untuk Anda",
+    ctaUrgency: "📊 Proses Cepat Hari Ini",
+    ctaHDay: "📊 Proses Kilat Hari Ini",
+    subText: "Solusi dana cepat dan aman.",
+    badgeText: "🏆 Dipercaya 10.000+ Nasabah"
+  },
+
+  {
+    name: "hari_pancasila_2026",
+    start: "2026-06-01",
+    end: "2026-06-02",
+    urgencyDays: 0,
+    ctaNormal: "📊 Solusi Dana Cepat & Aman",
+    ctaUrgency: "📊 Proses Cepat Hari Ini",
+    ctaHDay: "📊 Proses Kilat Hari Ini",
+    subText: "Layanan cepat dan terpercaya.",
+    badgeText: "🏆 Dipercaya 10.000+ Nasabah"
+  },
+
+  {
+    name: "kemerdekaan_2026",
+    start: "2026-08-10",
+    end: "2026-08-17",
+    urgencyDays: 5,
+    ctaNormal: "📊 Persiapan Dana Agustusan",
+    ctaUrgency: "📊 Cair Sebelum 17 Agustus",
+    ctaHDay: "📊 Proses Kilat Hari Ini",
+    subText: "Siapkan kebutuhan perayaan kemerdekaan.",
+    badgeText: "🏆 Dana Cair Jelang 17 Agustus"
+  },
+
+  {
+    name: "hari_ibu_2026",
+    start: "2026-12-20",
+    end: "2026-12-22",
+    urgencyDays: 0,
+    ctaNormal: "📊 Solusi Dana untuk Kebutuhan Keluarga",
+    ctaUrgency: "📊 Proses Cepat Hari Ini",
+    ctaHDay: "📊 Proses Kilat Hari Ini",
+    subText: "Dukung kebutuhan keluarga Anda.",
+    badgeText: "🏆 Dipercaya 10.000+ Nasabah"
   }
+
 ];
 
 function detectActiveSeason() {
