@@ -899,6 +899,20 @@ function applySeasonToUI() {
     }
 }
 
+function applySeason(season) {
+    const banner = document.getElementById("seasonBanner");
+    const title = document.getElementById("seasonTitle");
+    const subtitle = document.getElementById("seasonSubtitle");
+
+    if (!banner || !season) return;
+
+    banner.style.display = "block";
+    banner.style.background = season.background;
+
+    title.textContent = season.title;
+    subtitle.textContent = season.subtitle;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     applySeasonToUI();
 });
