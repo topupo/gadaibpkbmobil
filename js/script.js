@@ -204,11 +204,6 @@ function initWhatsAppForm() {
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        // 0. META
-        if (typeof fbq !== "undefined") {
-    fbq('track', 'Lead');
-}
-
         // 1. VALIDATE REQUIRED FIELDS
         const requiredFields = this.querySelectorAll('[required]');
         let isValid = true;
