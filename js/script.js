@@ -19,8 +19,8 @@
 // =====================
 // CONFIGURATION
 // =====================
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec";
-const SECRET_TOKEN = "X7mK29aPqL8zR4vBc9D2tY6wFh81JsQ";
+// ⚠️ APPS_SCRIPT_URL & SECRET_TOKEN sudah dipindah ke Netlify Environment Variables
+// Tidak ada kredensial sensitif di sini
 const WA_NUMBER = "6282299999036";
 
 // =====================
@@ -259,8 +259,8 @@ function initWhatsAppForm() {
             utm_content: utmParams.get('utm_content') || '',
             utm_term: utmParams.get('utm_term') || '',
             fbclid: localStorage.getItem('fbclid') || '',
-            gclid: localStorage.getItem('gclid') || '',
-            token: SECRET_TOKEN
+            gclid: localStorage.getItem('gclid') || ''
+            // ⚠️ token TIDAK dikirim dari browser — ditambahkan di server (Netlify Function)
         };
 
         // 5. SHOW LOADING STATE
@@ -271,18 +271,12 @@ function initWhatsAppForm() {
         submitBtn.style.opacity = '0.7';
 
         try {
-            // 6. SEND TO GOOGLE SHEETS (NO-CORS MODE - WORKS!)
-            fetch(APPS_SCRIPT_URL, {
+            // 6. KIRIM KE NETLIFY FUNCTION (proxy aman — token ada di server)
+            await fetch('/.netlify/functions/submit-main', {
                 method: "POST",
-                mode: "no-cors",  // ✅ This works with Apps Script!
-                headers: {
-                    "Content-Type": "text/plain"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(leadData)
             });
-
-            // Wait to ensure request sent
-            await new Promise(resolve => setTimeout(resolve, 500));
 
             // 7. TRACK CONVERSIONS (assume success)
             if (window.fbq) fbq('track', 'Lead');
