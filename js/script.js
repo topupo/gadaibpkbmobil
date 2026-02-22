@@ -271,8 +271,8 @@ function initWhatsAppForm() {
         submitBtn.style.opacity = '0.7';
 
         try {
-            // 6. KIRIM KE NETLIFY FUNCTION (proxy aman — token ada di server)
-            await fetch('/.netlify/functions/submit-main', {
+            // 6. KIRIM KE VERCEL API (proxy aman — token ada di server)
+            await fetch('/api/submit-main', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(leadData)
