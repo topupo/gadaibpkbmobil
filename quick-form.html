@@ -258,7 +258,7 @@
     <div class="card-header">
         <img src="/assets/logo.webp" alt="GadaiBPKBmobil.com" class="logo" onerror="this.style.display='none'">
         <h1>Hitung Simulasi GRATIS<br>BPKB Mobil Anda 🚗</h1>
-        <p>Isi 4 data di bawah, tim kami langsung respon!</p>
+        <p>Isi form di bawah, tim kami langsung respon!</p>
         <div class="badge-row">
             <span class="badge">⚡ Cair 1x24 Jam</span>
             <span class="badge">🤏 Bunga 0.79%</span>
@@ -434,6 +434,7 @@
         if (!valid) return;
 
         // Loading state
+        const btn = document.getElementById('submitBtn');
         btn.disabled = true;
         btn.innerHTML = '⏳ Mengirim data...';
 
