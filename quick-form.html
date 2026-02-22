@@ -438,16 +438,15 @@
         const leadData = {
             nama:         namaEl.value.trim(),
             whatsapp:     waClean,
-            kendaraan:    kendaraanEl.value.trim(),
             nominal:      nominalEl.value,
-            // kosong tapi tetap dikirim agar kolom sheet tidak geser
+            // Map kendaraan ke kolom yang sudah ada di Google Sheet
+            tipe:         kendaraanEl.value.trim(),  // ← isi ke kolom "tipe" agar terbaca sheet
             nopol:        '',
             pengajuan:    'gadai bpkb',
             bpkb:         'mobil',
             atasnama:     '',
             statustinggal:'',
             merk:         '',
-            tipe:         '',
             tahun:        '',
             kecamatan:    '',
             form_source:  'quick-form',
@@ -475,13 +474,17 @@
         if (window.fbq) fbq('track', 'Lead');
         if (window.gtag) gtag('event', 'generate_lead');
 
-        // WA message
+        // WA message — encodeURIComponent supaya spasi & karakter spesial tidak rusak
+        const nama     = encodeURIComponent(namaEl.value.trim());
+        const kend     = encodeURIComponent(kendaraanEl.value.trim());
+        const nominal  = encodeURIComponent(nominalEl.value);
+
         const msg =
 `*PENGAJUAN FASILITAS DANA BPKB*%0A%0A` +
-`👤 *Nama:* ${namaEl.value.trim()}%0A` +
+`👤 *Nama:* ${nama}%0A` +
 `📱 *WhatsApp:* ${waClean}%0A` +
-`🚗 *Merk & Tahun Mobil:* ${kendaraanEl.value.trim()}%0A` +
-`💰 *Nominal Pengajuan:* ${nominalEl.value}%0A%0A` +
+`🚗 *Merk %26 Tahun Mobil:* ${kend}%0A` +
+`💰 *Nominal Pengajuan:* ${nominal}%0A%0A` +
 `_Mohon diproses. Terima kasih!_`;
 
         window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
