@@ -356,11 +356,10 @@
 <script>
 (function () {
     // =====================
-    // CONFIG (sama dengan index.html)
+    // CONFIG — token & URL sudah TIDAK ada di sini
+    // semua sensitif disimpan di Netlify Environment Variables
     // =====================
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLGlFofJu6MTDWuCThmbmNZKfYY1JD17-Lotab46kJ9Sa9iMWTJXsWrkP0FxyJxVDB/exec";
-    const SECRET_TOKEN    = "X7mK29aPqL8zR4vBc9D2tY6wFh81JsQ";
-    const WA_NUMBER       = "6282299999036";
+    const WA_NUMBER = "6282299999036";
 
     // Capture click IDs
     const params = new URLSearchParams(window.location.search);
@@ -393,33 +392,29 @@
     document.getElementById('quickForm').addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        const namaEl    = document.getElementById('nama');
-        const waEl      = document.getElementById('whatsapp');
+        const namaEl      = document.getElementById('nama');
+        const waEl        = document.getElementById('whatsapp');
         const kendaraanEl = document.getElementById('kendaraan');
-        const nominalEl = document.getElementById('nominal');
-        const waRegex   = /^(\+62|62|0)8[1-9][0-9]{6,9}$/;
+        const nominalEl   = document.getElementById('nominal');
+        const waRegex     = /^(\+62|62|0)8[1-9][0-9]{6,9}$/;
 
         let valid = true;
 
-        // Validate nama
         const namaOk = namaEl.value.trim().length > 1;
         markField(namaEl, !namaOk);
         showError('err-nama', !namaOk);
         if (!namaOk) valid = false;
 
-        // Validate WA
         const waOk = waRegex.test(waEl.value.trim().replace(/\s+/g, ''));
         markField(waEl, !waOk);
         showError('err-wa', !waOk);
         if (!waOk) valid = false;
 
-        // Validate kendaraan
         const kendaraanOk = kendaraanEl.value.trim().length > 2;
         markField(kendaraanEl, !kendaraanOk);
         showError('err-kendaraan', !kendaraanOk);
         if (!kendaraanOk) valid = false;
 
-        // Validate nominal
         const nominalOk = nominalEl.value !== '';
         markField(nominalEl, !nominalOk);
         showError('err-nominal', !nominalOk);
@@ -432,15 +427,14 @@
         btn.disabled = true;
         btn.innerHTML = '<span>⏳</span> Mengirim data...';
 
-        const utmParams  = new URLSearchParams(window.location.search);
-        const waClean    = cleanWA(waEl.value.trim());
+        const utmParams = new URLSearchParams(window.location.search);
+        const waClean   = cleanWA(waEl.value.trim());
 
         const leadData = {
             nama:         namaEl.value.trim(),
             whatsapp:     waClean,
             nominal:      nominalEl.value,
-            // Map kendaraan ke kolom yang sudah ada di Google Sheet
-            tipe:         kendaraanEl.value.trim(),  // ← isi ke kolom "tipe" agar terbaca sheet
+            tipe:         kendaraanEl.value.trim(),
             nopol:        '',
             pengajuan:    'gadai bpkb',
             bpkb:         'mobil',
@@ -450,34 +444,35 @@
             tahun:        '',
             kecamatan:    '',
             form_source:  'quick-form',
-            utm_source:   utmParams.get('utm_source')   || '',
-            utm_campaign: utmParams.get('utm_campaign') || '',
-            utm_content:  utmParams.get('utm_content')  || '',
-            utm_term:     utmParams.get('utm_term')     || '',
+            utm_source:   utmParams.get('utm_source')    || '',
+            utm_campaign: utmParams.get('utm_campaign')  || '',
+            utm_content:  utmParams.get('utm_content')   || '',
+            utm_term:     utmParams.get('utm_term')      || '',
             fbclid:       localStorage.getItem('fbclid') || '',
-            gclid:        localStorage.getItem('gclid')  || '',
-            token:        SECRET_TOKEN
+            gclid:        localStorage.getItem('gclid')  || ''
+            // ⚠️ token TIDAK dikirim dari browser — ditambahkan di server (Netlify Function)
         };
 
-        // Send to Google Sheets
+        // Kirim ke Netlify Function (proxy) — bukan langsung ke Google Sheet
         try {
-            fetch(APPS_SCRIPT_URL, {
+            await fetch('/.netlify/functions/submit', {
                 method:  'POST',
-                mode:    'no-cors',
-                headers: { 'Content-Type': 'text/plain' },
+                headers: { 'Content-Type': 'application/json' },
                 body:    JSON.stringify(leadData)
             });
-            await new Promise(r => setTimeout(r, 500));
-        } catch (_) { /* silent — WA redirect tetap jalan */ }
+        } catch (err) {
+            console.error('Submit error:', err);
+            // Tetap lanjut ke WA meski gagal kirim ke sheet
+        }
 
         // Track conversions
         if (window.fbq) fbq('track', 'Lead');
         if (window.gtag) gtag('event', 'generate_lead');
 
-        // WA message — encodeURIComponent supaya spasi & karakter spesial tidak rusak
-        const nama     = encodeURIComponent(namaEl.value.trim());
-        const kend     = encodeURIComponent(kendaraanEl.value.trim());
-        const nominal  = encodeURIComponent(nominalEl.value);
+        // WA message
+        const nama    = encodeURIComponent(namaEl.value.trim());
+        const kend    = encodeURIComponent(kendaraanEl.value.trim());
+        const nominal = encodeURIComponent(nominalEl.value);
 
         const msg =
 `*PENGAJUAN FASILITAS DANA BPKB*%0A%0A` +
@@ -492,6 +487,9 @@
         // Show success
         document.getElementById('formBody').style.display  = 'none';
         document.getElementById('successScreen').style.display = 'block';
+
+        btn.disabled = false;
+        btn.innerHTML = '<span>🟢</span> Kirim via WhatsApp';
     });
 })();
 </script>
