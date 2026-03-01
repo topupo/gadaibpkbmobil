@@ -21,7 +21,7 @@
 // =====================
 // ⚠️ APPS_SCRIPT_URL & SECRET_TOKEN sudah dipindah ke Netlify Environment Variables
 // Tidak ada kredensial sensitif di sini
-const WA_NUMBER = "6282299999036";
+const WA_NUMBER = "6285283428701";
 
 // =====================
 // DATA MERK KENDARAAN
