@@ -20,11 +20,30 @@
     <link rel="dns-prefetch" href="//api.whatsapp.com">
     <link rel="dns-prefetch" href="//web.whatsapp.com">
     
-    <link rel="stylesheet" href="css/styles.css?v=1.8.1">
-    <link rel="preconnect" href="https://script.google.com">
-    <link rel="dns-prefetch" href="//script.google.com">
+    <link rel="stylesheet" href="css/styles.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="css/styles.min.css"></noscript>
+    <style>
+        /* CRITICAL CSS - above the fold only */
+        :root{--primary-blue:#1E3A8A;--dark-blue:#1e3a8a;--light-blue-bg:#F8FAFC;--green-acc:#16A34A;--text-dark:#111827;--text-grey:#6B7280;--border-radius:10px;--white:#FFFFFF}
+        *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+        body{background-color:#f0f0f0;display:flex;justify-content:center;padding-bottom:70px}
+        .mobile-container{width:100%;max-width:480px;background-color:#fff;box-shadow:0 0 20px rgba(0,0,0,0.1);position:relative}
+        header{padding:12px 15px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(0,0,0,0.05)}
+        .logo{height:45px;display:flex;align-items:center}
+        .logo img{height:100%;width:auto;max-width:120px;object-fit:contain}
+        .hero{background:linear-gradient(180deg,#1fa2ff 0%,#12d8fa 70%,rgba(18,216,250,0.8) 85%,rgba(255,255,255,0) 100%);color:#fff;text-align:center;padding:30px 20px 0;overflow:hidden;position:relative}
+        .hero h1{font-size:22px;line-height:1.3;font-weight:700;margin-bottom:15px}
+        .hero-stats{display:flex;justify-content:space-around;margin-bottom:20px;font-size:11px}
+        .btn-cta-hero{background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;padding:14px 32px;border-radius:10px;font-weight:700;border:none;width:100%;margin-bottom:20px;box-shadow:0 8px 20px rgba(249,115,22,0.35);cursor:pointer;transition:all 0.25s ease}
+        .hero-image{width:100%;max-width:420px;margin:30px auto 0;text-align:center}
+        .hero-image img{width:100%;height:auto;object-fit:contain}
+        .bottom-action-bar{position:fixed;bottom:0;left:0;width:100%;display:flex;background:#fff;box-shadow:0 -4px 12px rgba(0,0,0,0.08);z-index:9999;transition:transform 0.3s ease}
+        .btn-bottom{flex:1;text-align:center;padding:14px 10px;font-weight:700;font-size:15px;text-decoration:none;transition:0.3s ease}
+        .btn-simulasi{background:var(--primary-blue);color:#fff}
+        .btn-wa{background:var(--green-acc);color:#fff}
+    </style>
     <link rel="canonical" href="https://gadaibpkbmobil.com/">
-    <link rel="preload" href="assets/gbml.webp" as="image">
+    <link rel="preload" href="assets/header.webp" as="image" fetchpriority="high">
     <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
 
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
@@ -43,23 +62,7 @@
 }
 </script>
 
-   <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '4245537439028534');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+   <!-- Meta Pixel Code - moved to bottom for performance -->
 
 </head>
 <body>
@@ -68,7 +71,7 @@ src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
 
     <header>
         <div class="logo">
-            <img src="assets/logo.webp" alt="GadaiBPKBmobil.com Logo">
+            <img src="assets/logo.webp" alt="GadaiBPKBmobil.com Logo" width="120" height="45" fetchpriority="high">
         </div>
         <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
             <div class="social-proof">
@@ -102,7 +105,7 @@ src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
                 Simulasi cepat & proses lebih prioritas
             </div>
         </div>
-        <img src="/assets/ramadan.webp" alt="Ramadan" loading="lazy" class="default-image" />
+        <img src="/assets/ramadan.webp" alt="Ramadan" loading="lazy" width="80" height="80" class="default-image" />
     </div>
 </div>
 <!-- ============================ -->
@@ -130,7 +133,7 @@ src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
         <div class="cta-micro-text" id="seasonMicroText"></div>
 
         <div class="hero-image">
-            <img src="assets/header.webp" alt="Happy Family with Car" loading="lazy">
+            <img src="assets/header.webp" alt="Happy Family with Car" width="420" height="280" loading="eager" fetchpriority="high">
         </div>
     </section>
 
@@ -187,7 +190,7 @@ src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
                 <div class="slider-slide">
                     <div class="promo-slide">
                         <div class="promo-img">
-                            <img src="assets/kuliah.webp" alt="Pendidikan" loading="lazy">
+                            <img src="assets/kuliah.webp" alt="Pendidikan" loading="lazy" width="440" height="250">
                         </div>
                         <h3 style="font-size: 16px; margin-bottom: 10px;">Solusi Dana untuk<br><strong>Biaya Pendidikan</strong></h3>
                         <p style="font-size: 12px; color: #666; margin-bottom: 20px;">
@@ -217,7 +220,7 @@ src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
                 <div class="slider-slide">
                     <div class="promo-slide">
                         <div class="promo-img">
-                            <img src="assets/modal.webp" alt="Usaha" loading="lazy">
+                            <img src="assets/modal.webp" alt="Usaha" loading="lazy" width="440" height="250">
                         </div>
                         <h3 style="font-size: 16px; margin-bottom: 10px;">Solusi Dana untuk<br><strong>Modal Usaha</strong></h3>
                         <p style="font-size: 12px; color: #666; margin-bottom: 20px;">
@@ -247,7 +250,7 @@ src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
                 <div class="slider-slide">
                     <div class="promo-slide">
                         <div class="promo-img">
-                            <img src="assets/rumah.webp" alt="Rumah" loading="lazy">
+                            <img src="assets/rumah.webp" alt="Rumah" loading="lazy" width="440" height="250">
                         </div>
                         <h3 style="font-size: 16px; margin-bottom: 10px;">Solusi Dana untuk<br><strong>Renovasi Rumah</strong></h3>
                         <p style="font-size: 12px; color: #666; margin-bottom: 20px;">
@@ -277,7 +280,7 @@ src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
                 <div class="slider-slide">
                     <div class="promo-slide">
                         <div class="promo-img">
-                            <img src="assets/kesehatan.webp" alt="Kesehatan" loading="lazy">
+                            <img src="assets/kesehatan.webp" alt="Kesehatan" loading="lazy" width="440" height="250">
                         </div>
                         <h3 style="font-size: 16px; margin-bottom: 10px;">Solusi Dana untuk<br><strong>Biaya Kesehatan</strong></h3>
                         <p style="font-size: 12px; color: #666; margin-bottom: 20px;">
@@ -320,7 +323,7 @@ src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
                         <div class="ribbon-badge">Best Offer</div>
                         <div class="car-preview">
                             <div class="car-img">
-                                <img src="assets/avanza.webp" alt="Toyota Avanza" loading="lazy">
+                                <img src="assets/avanza.webp" alt="Toyota Avanza" loading="lazy" width="440" height="250">
                             </div>
                         </div>
                         <div class="sim-header">Toyota Avanza 2018</div>
@@ -366,7 +369,7 @@ src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
                         <div class="ribbon-badge">Best Offer</div>
                         <div class="car-preview">
                             <div class="car-img">
-                                <img src="assets/innova.webp" alt="Toyota Innova" loading="lazy">
+                                <img src="assets/innova.webp" alt="Toyota Innova" loading="lazy" width="440" height="250">
                             </div>
                         </div>
                         <div class="sim-header">Toyota Innova 2019</div>
@@ -412,7 +415,7 @@ src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
                         <div class="ribbon-badge">Best Offer</div>
                         <div class="car-preview">
                             <div class="car-img">
-                                <img src="assets/xpander.webp" alt="Mitsubishi Xpander" loading="lazy">
+                                <img src="assets/xpander.webp" alt="Mitsubishi Xpander" loading="lazy" width="440" height="250">
                             </div>
                         </div>
                         <div class="sim-header">Mitsubishi Xpander 2020</div>
@@ -458,7 +461,7 @@ src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
                         <div class="ribbon-badge">Best Offer</div>
                         <div class="car-preview">
                             <div class="car-img">
-                                <img src="assets/hrv.webp" alt="Honda HR-V" loading="lazy">
+                                <img src="assets/hrv.webp" alt="Honda HR-V" loading="lazy" width="440" height="250">
                             </div>
                         </div>
                         <div class="sim-header">Honda HR-V 2019</div>
@@ -851,13 +854,30 @@ src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
     🔢 Hitung Simulasi
   </a>
   <a href="https://wa.me/6285283428701" class="btn-bottom btn-wa wa-radar" target="_blank">
-    <img src="/assets/whatsapp.png" alt="WhatsApp" width="20" height="20" style="vertical-align:middle; margin-right:5px;">
+    <img src="/assets/whatsapp.webp" alt="WhatsApp" width="20" height="20" style="vertical-align:middle; margin-right:5px;">
     WhatsApp
   </a>
 </div>
 
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4245537439028534');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4245537439028534&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 
-<script src="js/script.js" defer></script>
+<script src="js/script.min.js" defer></script>
 
 </body>
 </html>
