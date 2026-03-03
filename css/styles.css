@@ -957,3 +957,7 @@ body {
     width: 18px;
     height: 18px;
 }
+
+#defaultBanner, #seasonBanner {
+    min-height: 60px; /* reserve space, cegah layout shift */
+}
